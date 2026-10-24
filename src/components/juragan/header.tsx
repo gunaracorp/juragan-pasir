@@ -31,22 +31,22 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50">
       {/* Bar utilitas atas: jam operasional & telepon — sinyal kepercayaan + local SEO */}
-      <div className="hidden bg-stone-950 text-stone-300 md:block">
+      <div className="hidden bg-violet-950 text-violet-200/80 md:block">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs">
           <p className="tracking-wide">Jam operasional: {SITE.hours}</p>
           <div className="flex items-center gap-5">
             <a
               href={SITE.phoneHref}
-              className="flex items-center gap-1.5 font-semibold text-amber-400 transition-colors hover:text-amber-300"
+              className="flex items-center gap-1.5 font-semibold text-violet-300 transition-colors hover:text-violet-200"
               aria-label={`Telepon ${SITE.name}`}
             >
               <Phone className="h-3 w-3" aria-hidden="true" />
               {SITE.phone}
             </a>
-            <span aria-hidden="true" className="text-stone-700">
+            <span aria-hidden="true" className="text-violet-800">
               |
             </span>
-            <span>Melayani 34 Provinsi Indonesia</span>
+            <span>Pasir Galunggung — Kirim ke 34 Provinsi</span>
           </div>
         </div>
       </div>
@@ -56,7 +56,7 @@ export function Header() {
         className={cn(
           "border-b transition-all duration-300",
           scrolled
-            ? "border-stone-200/80 bg-background/90 shadow-[0_8px_30px_rgba(28,25,23,0.08)] backdrop-blur-md"
+            ? "border-violet-100 bg-background/90 shadow-[0_8px_30px_rgba(46,16,101,0.10)] backdrop-blur-md"
             : "border-transparent bg-background"
         )}
       >
@@ -71,7 +71,7 @@ export function Header() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="rounded-md px-3 py-2 text-sm font-semibold text-stone-700 transition-colors hover:bg-secondary hover:text-stone-950"
+                    className="rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-secondary hover:text-violet-950"
                   >
                     {item.label}
                   </a>
@@ -83,13 +83,13 @@ export function Header() {
           <div className="flex items-center gap-2">
             <Button
               asChild
-              className="hidden bg-amber-600 font-bold text-white shadow-sm transition-all hover:bg-amber-700 hover:shadow-md sm:inline-flex"
+              className="hidden bg-violet-600 font-bold text-white shadow-sm transition-all hover:bg-violet-700 hover:shadow-md sm:inline-flex"
             >
               <a href="#penawaran">Minta Penawaran</a>
             </Button>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-stone-200 text-stone-800 transition-colors hover:bg-secondary lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-violet-200 text-slate-800 transition-colors hover:bg-secondary lg:hidden"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Tutup menu" : "Buka menu"}
@@ -108,7 +108,7 @@ export function Header() {
         <div
           id="menu-mobile"
           className={cn(
-            "overflow-hidden border-stone-200 transition-[max-height,opacity] duration-300 lg:hidden",
+            "overflow-hidden border-violet-100 transition-[max-height,opacity] duration-300 lg:hidden",
             open ? "max-h-96 border-t opacity-100" : "max-h-0 opacity-0"
           )}
         >
@@ -119,7 +119,7 @@ export function Header() {
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-base font-semibold text-stone-800 transition-colors hover:bg-secondary"
+                    className="block rounded-lg px-3 py-3 text-base font-semibold text-slate-800 transition-colors hover:bg-secondary"
                   >
                     {item.label}
                   </a>
@@ -128,7 +128,7 @@ export function Header() {
               <li className="mt-2">
                 <Button
                   asChild
-                  className="w-full bg-amber-600 font-bold text-white hover:bg-amber-700"
+                  className="w-full bg-violet-600 font-bold text-white hover:bg-violet-700"
                 >
                   <a href="#penawaran" onClick={() => setOpen(false)}>
                     Minta Penawaran Gratis
@@ -138,7 +138,7 @@ export function Header() {
               <li className="mt-2 text-center">
                 <a
                   href={SITE.phoneHref}
-                  className="text-sm font-bold text-amber-700"
+                  className="text-sm font-bold text-violet-700"
                   aria-label={`Telepon ${SITE.name} di ${SITE.phone}`}
                 >
                   Telepon / WhatsApp: {SITE.phone}

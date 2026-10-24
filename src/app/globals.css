@@ -44,44 +44,44 @@
 }
 
 /*
- * SISTEM WARNA "JURAGAN PASIR" — Omnibrand Color Architecture
- * Palet earth-tone: pasir (amber), tanah (stone), hutan (green), krem hangat.
- * Psikologi: amber = energi & aksi (CTA), stone = kekuatan & solid,
- * krem = kehangatan & keterbukaan (semua kalangan), hijau = kepercayaan & mutu.
+ * SISTEM WARNA "JURAGAN PASIR GALUNGGUNG" — Ungu & Putih
+ * Psikologi warna: ungu = premium, eksklusif, dan tepercaya (identitas
+ * "pasir terbaik di dunia"); putih = bersih, jujur, transparan.
+ * Kontras violet-600 di atas putih lolos WCAG AA untuk teks & CTA.
  */
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.982 0.008 85);
-  --foreground: oklch(0.25 0.014 55);
-  --card: oklch(0.995 0.004 85);
-  --card-foreground: oklch(0.25 0.014 55);
-  --popover: oklch(0.995 0.004 85);
-  --popover-foreground: oklch(0.25 0.014 55);
-  --primary: oklch(0.553 0.129 51);
-  --primary-foreground: oklch(0.99 0.01 85);
-  --secondary: oklch(0.945 0.018 80);
-  --secondary-foreground: oklch(0.34 0.03 55);
-  --muted: oklch(0.945 0.014 80);
-  --muted-foreground: oklch(0.475 0.02 60);
-  --accent: oklch(0.507 0.128 152);
-  --accent-foreground: oklch(0.985 0.01 150);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.3 0.05 293);
+  --card: oklch(0.995 0.004 295);
+  --card-foreground: oklch(0.3 0.05 293);
+  --popover: oklch(0.995 0.004 295);
+  --popover-foreground: oklch(0.3 0.05 293);
+  --primary: oklch(0.541 0.281 293.009);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.962 0.018 295);
+  --secondary-foreground: oklch(0.38 0.189 293.745);
+  --muted: oklch(0.966 0.012 295);
+  --muted-foreground: oklch(0.52 0.05 295);
+  --accent: oklch(0.491 0.27 292.581);
+  --accent-foreground: oklch(1 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.893 0.02 78);
-  --input: oklch(0.893 0.02 78);
-  --ring: oklch(0.62 0.13 55);
-  --chart-1: oklch(0.553 0.129 51);
-  --chart-2: oklch(0.507 0.128 152);
-  --chart-3: oklch(0.645 0.155 40);
-  --chart-4: oklch(0.37 0.03 60);
-  --chart-5: oklch(0.79 0.12 80);
-  --sidebar: oklch(0.26 0.015 60);
-  --sidebar-foreground: oklch(0.96 0.01 85);
-  --sidebar-primary: oklch(0.553 0.129 51);
-  --sidebar-primary-foreground: oklch(0.99 0.01 85);
-  --sidebar-accent: oklch(0.32 0.02 60);
-  --sidebar-accent-foreground: oklch(0.96 0.01 85);
-  --sidebar-border: oklch(0.36 0.02 60);
-  --sidebar-ring: oklch(0.62 0.13 55);
+  --border: oklch(0.918 0.03 295);
+  --input: oklch(0.918 0.03 295);
+  --ring: oklch(0.606 0.25 292.717);
+  --chart-1: oklch(0.541 0.281 293.009);
+  --chart-2: oklch(0.606 0.25 292.717);
+  --chart-3: oklch(0.702 0.183 293.541);
+  --chart-4: oklch(0.38 0.189 293.745);
+  --chart-5: oklch(0.869 0.122 291.071);
+  --sidebar: oklch(0.283 0.141 291.089);
+  --sidebar-foreground: oklch(0.97 0.014 295);
+  --sidebar-primary: oklch(0.541 0.281 293.009);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.38 0.189 293.745);
+  --sidebar-accent-foreground: oklch(0.97 0.014 295);
+  --sidebar-border: oklch(0.38 0.189 293.745);
+  --sidebar-ring: oklch(0.606 0.25 292.717);
 }
 
 @layer base {
@@ -96,7 +96,7 @@
     @apply bg-background text-foreground;
   }
   ::selection {
-    background: oklch(0.553 0.129 51 / 0.22);
+    background: oklch(0.541 0.281 293 / 0.2);
   }
 }
 
@@ -120,28 +120,28 @@
     z-index: 1;
   }
 
-  /* Pola titik pasir halus untuk section terang */
+  /* Pola titik halus untuk section terang */
   .sand-dots {
     background-image: radial-gradient(
-      oklch(0.553 0.129 51 / 0.09) 1.1px,
+      oklch(0.541 0.281 293 / 0.07) 1.1px,
       transparent 1.1px
     );
     background-size: 22px 22px;
   }
 
-  /* Pola garis kontur gurun (lengkungan) untuk hero */
+  /* Pola garis kontur lereng gunung (lengkungan) untuk hero */
   .dune-lines {
     background-image: repeating-radial-gradient(
       ellipse 120% 80% at 85% 115%,
       transparent 0px,
       transparent 54px,
-      oklch(0.553 0.129 51 / 0.13) 55px,
+      oklch(0.702 0.183 293.541 / 0.14) 55px,
       transparent 56px
     );
   }
 
-  .text-glow-amber {
-    text-shadow: 0 0 42px oklch(0.79 0.13 70 / 0.35);
+  .text-glow-violet {
+    text-shadow: 0 0 42px oklch(0.702 0.183 293.541 / 0.45);
   }
 
   /* Scrollbar kustom halus */
@@ -150,18 +150,18 @@
     height: 8px;
   }
   .nice-scroll::-webkit-scrollbar-track {
-    background: oklch(0.945 0.014 80);
+    background: oklch(0.966 0.012 295);
     border-radius: 8px;
   }
   .nice-scroll::-webkit-scrollbar-thumb {
-    background: oklch(0.72 0.08 65);
+    background: oklch(0.78 0.08 293);
     border-radius: 8px;
   }
   .nice-scroll::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.6 0.1 55);
+    background: oklch(0.65 0.12 293);
   }
 
-  /* Animasi butiran pasir melayang di hero */
+  /* Animasi butiran cahaya melayang di hero */
   @keyframes drift {
     0% {
       transform: translate3d(0, -8px, 0) rotate(0deg);
@@ -181,7 +181,8 @@
   .sand-particle {
     position: absolute;
     border-radius: 9999px;
-    background: oklch(0.82 0.11 78);
+    background: oklch(0.75 0.14 293 / 0.85);
+    box-shadow: 0 0 8px oklch(0.702 0.183 293.541 / 0.6);
     animation: drift linear infinite;
     will-change: transform, opacity;
   }

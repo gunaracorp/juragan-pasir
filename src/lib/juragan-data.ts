@@ -1,30 +1,35 @@
 /**
- * DATA TERPUSAT JURAGAN PASIR
+ * DATA TERPUSAT JURAGAN PASIR GALUNGGUNG
  * Single source of truth untuk konten website + structured data (JSON-LD).
  * Konsistensi data = kepercayaan mesin pencari (E-E-A-T).
  */
 
 export const SITE = {
-  name: "Juragan Pasir",
-  legalName: "PT Juragan Pasir Nusantara",
+  name: "Juragan Pasir Galunggung",
+  legalName: "CV Juragan Pasir Galunggung",
   domain: "https://juraganpasir.id",
-  tagline: "Pusat Pasir Terbaik Se-Indonesia",
+  tagline: "Pasir Galunggung — Pasir Terbaik di Dunia",
   description:
-    "Juragan Pasir adalah pusat supplier pasir terbaik se-Indonesia. Melayani perseorangan, kontraktor, perusahaan, hingga instansi pemerintah. Pasir cor, urug, pasang, halus, dan silika berkualitas dengan harga transparan serta pengiriman ke 34 provinsi.",
-  phone: "+62 812-2000-8000",
-  phoneHref: "tel:+6281220008000",
-  wa: "https://wa.me/6281220008000",
+    "Juragan Pasir Galunggung adalah pusat supplier pasir Galunggung asli dari Gunung Galunggung, Tasikmalaya — pasir vulkanik yang disebut terbaik di dunia untuk konstruksi. Melayani perseorangan, kontraktor, perusahaan, hingga instansi: pasir cor, urug, pasang, halus, dan silika vulkanik dengan harga transparan serta pengiriman ke 34 provinsi.",
+  phone: "+62 813-1651-6524",
+  phoneHref: "tel:+6281316516524",
+  waNumber: "6281316516524",
+  wa: "https://wa.me/6281316516524",
   email: "halo@juraganpasir.id",
   address: {
-    street: "Jl. Raya Logistik Material No. 88, Kawasan Industri Pulogadung",
-    city: "Jakarta Timur",
-    region: "DKI Jakarta",
-    postal: "13260",
+    street: "Jl. Raya Galunggung No. 88, Kec. Leuwisari — Lereng Gunung Galunggung",
+    city: "Tasikmalaya",
+    region: "Jawa Barat",
+    postal: "46414",
     country: "ID",
   },
   hours: "Senin–Sabtu, 07.00–18.00 WIB",
-  geo: { lat: -6.1911, lng: 106.9298 },
+  geo: { lat: -7.2569, lng: 108.059 },
 } as const;
+
+/** Teks pesan default untuk chat WhatsApp langsung */
+export const WA_DEFAULT_MESSAGE =
+  "Halo Juragan Pasir Galunggung! Saya ingin bertanya tentang pasir Galunggung.";
 
 /* ------------------------------- PRODUK ------------------------------- */
 
@@ -43,21 +48,21 @@ export type SandProduct = {
 
 export const PRODUCTS: SandProduct[] = [
   {
-    id: "pasir-cor",
-    name: "Pasir Cor / Beton",
-    alias: "Agregat halus struktur",
-    badge: "Terlaris",
+    id: "pasir-galunggung-cor",
+    name: "Pasir Galunggung Cor",
+    alias: "Agregat halus vulkanik",
+    badge: "Terbaik di Dunia",
     useCase:
-      "Tulang punggung konstruksi beton bertulang: pondasi, kolom, balok, dan plat lantai. Grade A dengan kadar lumpur di bawah ambang batas SNI.",
-    spec: ["Grade A tersaring", "Kadar lumpur < 3%", "Modulus kehalusan optimal"],
-    price: "Rp 320–380 ribu / m³",
+      "Flagship kami: pasir vulkanik asli lereng Gunung Galunggung, Tasikmalaya. Butirannya tajam dan bersudut sehingga saling mengunci dalam beton — pondasi, kolom, balok, dan plat lantai lebih kuat. Kadar lumpur di bawah ambang batas SNI.",
+    spec: ["Asli Gunung Galunggung", "Butir vulkanik bersudut", "Kadar lumpur < 3%"],
+    price: "Rp 330–390 ribu / m³",
     tone: "#C29B4C",
-    calcBase: 350,
+    calcBase: 360,
     calcUnit: "m3",
   },
   {
     id: "pasir-urug",
-    name: "Pasir Urug",
+    name: "Pasir Urug Gunung",
     alias: "Pengisi & penurunan lahan",
     useCase:
       "Mengurug tanah rendah, menaikkan elevasi lahan, dan mengisi pondasi mesin (pondasi batu kali). Cepat padat dan ekonomis untuk volume besar.",
@@ -69,7 +74,7 @@ export const PRODUCTS: SandProduct[] = [
   },
   {
     id: "pasir-pasang",
-    name: "Pasir Pasang",
+    name: "Pasir Galunggung Pasang",
     alias: "Mortar & pasangan bata",
     useCase:
       "Adukan pasangan bata merah/batako dan pemasangan keramik. Kekasaran sedang membuat adukan lebih kuat mengikat.",
@@ -81,7 +86,7 @@ export const PRODUCTS: SandProduct[] = [
   },
   {
     id: "pasir-halus",
-    name: "Pasir Halus / Bata",
+    name: "Pasir Halus Galunggung",
     alias: "Plester, acian & finishing",
     useCase:
       "Plesteran dinding, acian, dan screed lantai yang butuh permukaan rata. Teksturnya lembut sehingga hasil acian lebih mulus dan hemat semen.",
@@ -93,11 +98,11 @@ export const PRODUCTS: SandProduct[] = [
   },
   {
     id: "pasir-silika",
-    name: "Pasir Silika",
+    name: "Pasir Silika Vulkanik",
     alias: "Industri & filterasi",
     badge: "Premium",
     useCase:
-      "Kandungan SiO₂ tinggi (>98%) untuk filter air, sandblasting, bahan baku kaca, dan kebutuhan industri khusus. Tersedia berbagai mesh size.",
+      "Warisan vulkanik Gunung Galunggung: kandungan SiO₂ tinggi (>98%) untuk filter air, sandblasting, bahan baku kaca, dan kebutuhan industri khusus. Tersedia berbagai mesh size.",
     spec: ["SiO₂ > 98%", "Mesh 8–100 sesuai kebutuhan", "Dicuci & dikeringkan"],
     price: "Rp 900–1.500 ribu / ton",
     tone: "#EFE7D4",
@@ -175,6 +180,10 @@ export const SEGMENTS = [
 
 export const FAQS = [
   {
+    q: "Apa itu pasir Galunggung dan mengapa disebut yang terbaik?",
+    a: "Pasir Galunggung adalah pasir vulkanik yang diambil dari lereng Gunung Galunggung, Tasikmalaya, Jawa Barat. Warisan erupsi gunung api membuat butirannya tajam, bersudut, dan bersih sehingga saling mengunci dengan sempurna dalam campuran beton — hasilnya cor lebih kuat dan padat. Karena karakter inilah pasir Galunggung menjadi incaran proyek dan sering disebut sebagai pasir terbaik di dunia.",
+  },
+  {
     q: "Berapa minimal order untuk pembelian pertama?",
     a: "Untuk area Jabodetabek, minimal order hanya 1 rit pickup (±1,5 m³) — cocok untuk kebutuhan renovasi rumah tangga. Untuk kota lain, minimal order menyesuaikan jarak dan moda pengiriman. Kami sengaja merancang layanan ini agar perseorangan dan organisasi sama-sama terlayani.",
   },
@@ -196,7 +205,7 @@ export const FAQS = [
   },
   {
     q: "Bagaimana jaminan kualitas pasirnya?",
-    a: "Semua pasir melewati penyaringan, pencucian (untuk grade tertentu), dan quality control di titik muat. Kami menyertakan spesifikasi tertulis di setiap kontrak; apabila pasir datang tidak sesuai spesifikasi yang disepakati, kami ganti tanpa biaya tambahan. Itulah Garansi Mutu Juragan Pasir.",
+    a: "Semua pasir melewati penyaringan, pencucian (untuk grade tertentu), dan quality control di titik muat. Kami menyertakan spesifikasi tertulis di setiap kontrak; apabila pasir datang tidak sesuai spesifikasi yang disepakati, kami ganti tanpa biaya tambahan. Itulah Garansi Mutu Juragan Pasir Galunggung.",
   },
 ] as const;
 
@@ -209,7 +218,7 @@ export const REGIONS = [
   },
   {
     island: "Jawa",
-    cities: ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi", "Bandung", "Cirebon", "Semarang", "Solo", "Yogyakarta", "Surabaya", "Malang", "Serang"],
+    cities: ["Jakarta", "Bogor", "Depok", "Tangerang", "Bekasi", "Bandung", "Tasikmalaya", "Garut", "Ciamis", "Cirebon", "Semarang", "Solo", "Yogyakarta", "Surabaya", "Malang", "Serang"],
   },
   {
     island: "Kalimantan",
@@ -237,14 +246,14 @@ export const TESTIMONIALS = [
     role: "Perseorangan — Renovasi Rumah, Depok",
     initials: "BS",
     rating: 5,
-    text: "Renovasi rumah pertama dan saya benar-benar awam. Tim Juragan Pasir membantu hitung kebutuhan pasir cor dan urug sampai detail, datang tepat waktu, dan harganya persis seperti penawaran. Tidak ada biaya aneh-aneh.",
+    text: "Renovasi rumah pertama dan saya benar-benar awam. Tim Juragan Pasir Galunggung membantu hitung kebutuhan pasir cor dan urug sampai detail, datang tepat waktu, dan harganya persis seperti penawaran. Tidak ada biaya aneh-aneh.",
   },
   {
     name: "Ir. Hendra Wijaya",
     role: "Project Manager — CV Karya Beton",
     initials: "HW",
     rating: 5,
-    text: "Sudah tiga tahun memasok pasir cor untuk proyek kami. Yang paling berharga itu konsistensinya: mutu batch pertama dan batch ke-100 tetap sama, ritase tidak pernah bolong, dan BAST-nya tertib. Untuk kontraktor, ini pembanding utama.",
+    text: "Sudah tiga tahun memasok pasir Galunggung untuk proyek kami. Yang paling berharga itu konsistensinya: mutu batch pertama dan batch ke-100 tetap sama, ritase tidak pernah bolong, dan BAST-nya tertib. Untuk kontraktor, ini pembanding utama.",
   },
   {
     name: "Siti Rahmawati",
@@ -258,7 +267,7 @@ export const TESTIMONIALS = [
     role: "Procurement — PT Nusantara Karya",
     initials: "AP",
     rating: 5,
-    text: "Kebutuhan pasir silika pabrik kami spesifik: mesh tertentu dengan sertifikat uji. Juragan Pasir satu-satunya supplier yang dokumennya lengkap sejak penawaran pertama. Kontrak tahunan berjalan sangat mulus.",
+    text: "Kebutuhan pasir silika pabrik kami spesifik: mesh tertentu dengan sertifikat uji. Juragan Pasir Galunggung satu-satunya supplier yang dokumennya lengkap sejak penawaran pertama. Kontrak tahunan berjalan sangat mulus.",
   },
 ] as const;
 
@@ -326,7 +335,7 @@ export function buildSchema() {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
     "@id": `${SITE.domain}/#products`,
-    name: "Katalog Pasir Juragan Pasir",
+    name: "Katalog Pasir Galunggung — Juragan Pasir Galunggung",
     itemListElement: PRODUCTS.map((p) => ({
       "@type": "Offer",
       itemOffered: {
@@ -335,6 +344,7 @@ export function buildSchema() {
         alternateName: p.alias,
         description: p.useCase,
         category: "Material Konstruksi > Pasir",
+        brand: { "@type": "Brand", name: SITE.name },
       },
       priceSpecification: {
         "@type": "PriceSpecification",

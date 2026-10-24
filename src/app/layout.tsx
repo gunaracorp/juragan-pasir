@@ -20,11 +20,20 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE.domain),
   title: {
     default:
-      "Juragan Pasir — Pusat Pasir Terbaik Se-Indonesia | Supplier Pasir Cor, Urug & Silika",
-    template: "%s | Juragan Pasir",
+      "Juragan Pasir Galunggung — Pasir Terbaik di Dunia dari Gunung Galunggung, Tasikmalaya",
+    template: "%s | Juragan Pasir Galunggung",
   },
   description: SITE.description,
   keywords: [
+    "pasir galunggung",
+    "pasir gunung galunggung",
+    "jual pasir galunggung",
+    "harga pasir galunggung",
+    "pasir galunggung terbaik di dunia",
+    "pasir tasikmalaya",
+    "supplier pasir tasikmalaya",
+    "pasir vulkanik",
+    "pasir terbaik di dunia",
     "jual pasir",
     "supplier pasir",
     "pusat pasir indonesia",
@@ -35,9 +44,8 @@ export const metadata: Metadata = {
     "pasir pasang",
     "pasir halus",
     "pasir silika",
-    "pasir bangka",
     "distributor pasir",
-    "agen pasir jakarta",
+    "agen pasir galunggung",
     "pasir jabodetabek",
     "pengiriman pasir seluruh indonesia",
     "supplier pasir kontraktor",
@@ -57,15 +65,15 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: SITE.domain,
     siteName: SITE.name,
-    title: "Juragan Pasir — Pusat Pasir Terbaik Se-Indonesia",
+    title: "Juragan Pasir Galunggung — Pasir Terbaik di Dunia dari Gunung Galunggung, Tasikmalaya",
     description:
-      "Dari perseorangan hingga instansi: pasir cor, urug, pasang, halus & silika berkualitas, harga transparan, kirim ke 34 provinsi. Minta penawaran gratis hari ini.",
+      "Pasir vulkanik asli lereng Gunung Galunggung, Tasikmalaya. Dari perseorangan hingga instansi: pasir cor, urug, pasang, halus & silika, harga transparan, kirim ke 34 provinsi. Minta penawaran via WhatsApp hari ini.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Juragan Pasir — Pusat Pasir Terbaik Se-Indonesia",
+    title: "Juragan Pasir Galunggung — Pasir Terbaik di Dunia",
     description:
-      "Supplier pasir semua kalangan: perseorangan sampai organisasi. Harga transparan, mutu terjamin, kirim ke 34 provinsi.",
+      "Pasir vulkanik asli Gunung Galunggung, Tasikmalaya. Semua kalangan kami layani: perseorangan sampai organisasi. Harga transparan, kirim ke 34 provinsi.",
   },
   robots: {
     index: true,
@@ -86,7 +94,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1c1917",
+  themeColor: "#2e1065",
   width: "device-width",
   initialScale: 1,
 };
