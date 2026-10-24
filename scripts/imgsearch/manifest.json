@@ -1,0 +1,233 @@
+[
+ {
+  "file": "pasir-vulkanik-1.jpg",
+  "w": 1600,
+  "h": 1064,
+  "kb": 261,
+  "cat": "pasir-vulkanik"
+ },
+ {
+  "file": "pasir-vulkanik-2.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "pasir-vulkanik"
+ },
+ {
+  "file": "pasir-vulkanik-3.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "pasir-vulkanik"
+ },
+ {
+  "file": "truk-1.jpg",
+  "w": 1600,
+  "h": 1156,
+  "kb": 299,
+  "cat": "truk"
+ },
+ {
+  "file": "truk-2.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "truk"
+ },
+ {
+  "file": "truk-3.jpg",
+  "w": 1152,
+  "h": 768,
+  "kb": 171,
+  "cat": "truk"
+ },
+ {
+  "file": "eksavator-1.jpg",
+  "w": 1600,
+  "h": 900,
+  "kb": 286,
+  "cat": "eksavator"
+ },
+ {
+  "file": "eksavator-2.jpg",
+  "w": 1590,
+  "h": 890,
+  "kb": 240,
+  "cat": "eksavator"
+ },
+ {
+  "file": "eksavator-3.jpg",
+  "w": 1280,
+  "h": 720,
+  "kb": 226,
+  "cat": "eksavator"
+ },
+ {
+  "file": "stokpasir-1.jpg",
+  "w": 1600,
+  "h": 1200,
+  "kb": 481,
+  "cat": "stokpasir"
+ },
+ {
+  "file": "stokpasir-2.jpg",
+  "w": 1600,
+  "h": 1290,
+  "kb": 294,
+  "cat": "stokpasir"
+ },
+ {
+  "file": "stokpasir-3.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "stokpasir"
+ },
+ {
+  "file": "galunggung-1.jpg",
+  "w": 1600,
+  "h": 900,
+  "kb": 138,
+  "cat": "galunggung"
+ },
+ {
+  "file": "galunggung-2.jpg",
+  "w": 1440,
+  "h": 960,
+  "kb": 205,
+  "cat": "galunggung"
+ },
+ {
+  "file": "galunggung-3.jpg",
+  "w": 1200,
+  "h": 800,
+  "kb": 115,
+  "cat": "galunggung"
+ },
+ {
+  "file": "filter-1.jpg",
+  "w": 1600,
+  "h": 1200,
+  "kb": 305,
+  "cat": "filter"
+ },
+ {
+  "file": "filter-2.jpg",
+  "w": 1600,
+  "h": 900,
+  "kb": 301,
+  "cat": "filter"
+ },
+ {
+  "file": "filter-3.jpg",
+  "w": 1280,
+  "h": 948,
+  "kb": 94,
+  "cat": "filter"
+ },
+ {
+  "file": "cor-1.jpg",
+  "w": 1350,
+  "h": 900,
+  "kb": 342,
+  "cat": "cor"
+ },
+ {
+  "file": "cor-2.jpg",
+  "w": 1300,
+  "h": 1026,
+  "kb": 232,
+  "cat": "cor"
+ },
+ {
+  "file": "cor-3.jpg",
+  "w": 1280,
+  "h": 720,
+  "kb": 364,
+  "cat": "cor"
+ },
+ {
+  "file": "silika-1.jpg",
+  "w": 1600,
+  "h": 1066,
+  "kb": 553,
+  "cat": "silika"
+ },
+ {
+  "file": "silika-2.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "silika"
+ },
+ {
+  "file": "silika-3.jpg",
+  "w": 1000,
+  "h": 1000,
+  "kb": 181,
+  "cat": "silika"
+ },
+ {
+  "file": "toko-1.jpg",
+  "w": 1600,
+  "h": 1039,
+  "kb": 302,
+  "cat": "toko"
+ },
+ {
+  "file": "toko-2.jpg",
+  "w": 1600,
+  "h": 1600,
+  "kb": 751,
+  "cat": "toko"
+ },
+ {
+  "file": "toko-3.jpg",
+  "w": 1000,
+  "h": 1000,
+  "kb": 275,
+  "cat": "toko"
+ },
+ {
+  "file": "pengolahan-1.jpg",
+  "w": 1600,
+  "h": 1200,
+  "kb": 382,
+  "cat": "pengolahan"
+ },
+ {
+  "file": "pengolahan-2.jpg",
+  "w": 1500,
+  "h": 1000,
+  "kb": 110,
+  "cat": "pengolahan"
+ },
+ {
+  "file": "pengolahan-3.jpg",
+  "w": 1280,
+  "h": 768,
+  "kb": 169,
+  "cat": "pengolahan"
+ },
+ {
+  "file": "genggam-1.jpg",
+  "w": 1600,
+  "h": 1600,
+  "kb": 70,
+  "cat": "genggam"
+ },
+ {
+  "file": "genggam-2.jpg",
+  "w": 1600,
+  "h": 1600,
+  "kb": 340,
+  "cat": "genggam"
+ },
+ {
+  "file": "genggam-3.jpg",
+  "w": 1280,
+  "h": 720,
+  "kb": 74,
+  "cat": "genggam"
+ }
+]

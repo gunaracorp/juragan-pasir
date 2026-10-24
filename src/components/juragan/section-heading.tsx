@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import { Reveal } from "./reveal";
 
 /**
- * Kepala section yang konsisten: label eyebrow amber + judul tebal + deskripsi.
- * Menciptakan ritme visual dan hierarki informasi yang mudah dipindai
- * (prinsip composition & visual hierarchy).
+ * Kepala section konsisten — bahasa visual kelas dunia:
+ * lencana pill ber-dot emas → judul serif dengan penekanan italic emas →
+ * garis pembatas emas → deskripsi tenang.
  */
 export function SectionHeading({
   eyebrow,
@@ -24,41 +24,47 @@ export function SectionHeading({
   return (
     <Reveal
       className={cn(
-        "mb-12 max-w-3xl",
+        "mb-14 max-w-3xl",
         align === "center" ? "mx-auto text-center" : "text-left"
       )}
     >
       <p
         className={cn(
-          "mb-3 text-xs font-bold uppercase tracking-[0.22em]",
-          "text-amber-600",
-          dark && "text-amber-500"
+          "inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em]",
+          dark
+            ? "border-gold-500/35 bg-gold-500/10 text-gold-300"
+            : "border-gold-600/25 bg-gold-500/10 text-gold-700",
+          align === "center" ? "" : ""
         )}
       >
+        <span
+          aria-hidden="true"
+          className={cn("h-1.5 w-1.5 rounded-full", dark ? "bg-gold-400" : "bg-gold-500")}
+        />
         {eyebrow}
       </p>
       <h2
         className={cn(
-          "text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl",
-          dark ? "text-white" : "text-stone-900"
+          "mt-5 font-display text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl lg:text-[2.75rem]",
+          dark ? "text-white" : "text-ink-900"
         )}
       >
         {title}{" "}
         {highlight && (
-          <span className="relative inline-block">
-            <span className="relative z-10">{highlight}</span>
-            <span
-              aria-hidden="true"
-              className="absolute inset-x-0 bottom-1 z-0 h-3 rounded-sm bg-amber-400/40"
-            />
-          </span>
+          <em className={cn("font-bold italic", dark ? "text-gold-bright" : "text-gold-deep")}>
+            {highlight}
+          </em>
         )}
       </h2>
+      <div
+        aria-hidden="true"
+        className={cn("gold-divider mt-6 w-24", align === "center" && "mx-auto")}
+      />
       {description && (
         <p
           className={cn(
-            "mt-4 text-base leading-relaxed sm:text-lg",
-            dark ? "text-stone-300" : "text-stone-600"
+            "mt-6 text-base leading-relaxed sm:text-lg",
+            dark ? "text-white/60" : "text-ink-500"
           )}
         >
           {description}

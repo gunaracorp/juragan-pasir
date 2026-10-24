@@ -10,7 +10,7 @@ export function Testimonials() {
     <section
       id="testimoni"
       aria-labelledby="judul-testimoni"
-      className="scroll-mt-24 bg-secondary/60 py-24"
+      className="scroll-mt-24 bg-cream-100 py-24"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
@@ -23,39 +23,41 @@ export function Testimonials() {
         <div className="grid gap-6 md:grid-cols-2">
           {TESTIMONIALS.map((t, i) => (
             <Reveal key={t.name} delay={(i % 2) * 0.08}>
-              <figure className="flex h-full flex-col rounded-2xl border border-stone-200/80 bg-card p-7 shadow-sm transition-shadow hover:shadow-lg sm:p-8">
-                <Quote
-                  aria-hidden="true"
-                  className="h-7 w-7 text-amber-500/70"
-                  strokeWidth={1.5}
-                />
-                <div
-                  className="mt-3 flex items-center gap-0.5"
-                  aria-label={`Penilaian ${t.rating} dari 5 bintang`}
-                >
-                  {Array.from({ length: t.rating }).map((_, s) => (
-                    <Star
-                      key={s}
-                      aria-hidden="true"
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
+              <figure className="flex h-full flex-col rounded-2xl border border-line bg-card p-7 shadow-soft transition-shadow hover:shadow-lift sm:p-8">
+                <div className="flex items-center justify-between">
+                  <Quote
+                    aria-hidden="true"
+                    className="h-7 w-7 text-gold-500/80"
+                    strokeWidth={1.5}
+                  />
+                  <div
+                    className="flex items-center gap-0.5"
+                    aria-label={`Penilaian ${t.rating} dari 5 bintang`}
+                  >
+                    {Array.from({ length: t.rating }).map((_, s) => (
+                      <Star
+                        key={s}
+                        aria-hidden="true"
+                        className="h-4 w-4 fill-gold-500 text-gold-500"
+                      />
+                    ))}
+                  </div>
                 </div>
-                <blockquote className="mt-3 flex-1 text-sm leading-relaxed text-stone-700">
+                <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ink-700">
                   &ldquo;{t.text}&rdquo;
                 </blockquote>
-                <figcaption className="mt-6 flex items-center gap-3 border-t border-stone-100 pt-5">
+                <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-5">
                   <span
                     aria-hidden="true"
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-stone-900 text-sm font-extrabold text-amber-400"
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-night-800 text-sm font-extrabold text-gold-300"
                   >
                     {t.initials}
                   </span>
                   <span>
-                    <span className="block text-sm font-extrabold text-stone-900">
+                    <span className="block font-display text-[15px] font-bold text-ink-900">
                       {t.name}
                     </span>
-                    <span className="block text-xs font-medium text-stone-500">{t.role}</span>
+                    <span className="block text-xs font-medium text-ink-500">{t.role}</span>
                   </span>
                 </figcaption>
               </figure>

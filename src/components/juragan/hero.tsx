@@ -2,10 +2,9 @@
 
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, BadgeCheck, Calculator, ShieldCheck, Truck } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, BadgeCheck, Calculator, Medal, ShieldCheck, Truck } from "lucide-react";
 
-/* Butiran pasir melayang — deterministik (tanpa Math.random) agar bebas hydration mismatch */
+/* Partikel emas melayang — deterministik (tanpa Math.random) agar bebas hydration mismatch */
 const PARTICLES = [
   { left: "6%", size: 5, dur: 14, delay: 0, drift: 26 },
   { left: "14%", size: 3, dur: 18, delay: 2.2, drift: -18 },
@@ -20,8 +19,8 @@ const PARTICLES = [
 ];
 
 const TRUST_CHIPS = [
-  { icon: BadgeCheck, label: "Standar SNI & tersaring" },
-  { icon: ShieldCheck, label: "Garansi mutu: ganti jika tak sesuai" },
+  { icon: BadgeCheck, label: "Standar SNI & teruji lab" },
+  { icon: ShieldCheck, label: "Garansi mutu tertulis" },
   { icon: Truck, label: "Kirim ke 34 provinsi" },
 ];
 
@@ -34,7 +33,7 @@ export function Hero() {
         <span
           key={i}
           aria-hidden="true"
-          className="sand-particle"
+          className="gold-particle"
           style={{
             left: p.left,
             top: "-12px",
@@ -52,107 +51,162 @@ export function Hero() {
   return (
     <section
       aria-labelledby="judul-hero"
-      className="grain-texture relative overflow-hidden bg-stone-950"
+      className="grain-texture relative overflow-hidden bg-night-900"
     >
-      {/* Lapisan dekoratif: pendar amber + garis kontur gundukan */}
+      {/* Lapisan dekoratif: pendar zamrud kanan-atas + garis diagonal + cincin */}
       <div
         aria-hidden="true"
-        className="absolute -right-40 -top-40 h-[540px] w-[540px] rounded-full bg-amber-600/25 blur-[120px]"
+        className="absolute -right-32 -top-44 h-[620px] w-[620px] rounded-full bg-[#2e472a] opacity-70 blur-[130px]"
       />
       <div
         aria-hidden="true"
-        className="absolute -bottom-56 -left-40 h-[480px] w-[480px] rounded-full bg-amber-500/10 blur-[110px]"
+        className="absolute -bottom-56 -left-40 h-[480px] w-[480px] rounded-full bg-night-600/40 blur-[120px]"
       />
-      <div aria-hidden="true" className="dune-lines absolute inset-0 opacity-70" />
+      <div aria-hidden="true" className="diagonal-lines absolute inset-0" />
+      {/* Cincin lingkaran dekoratif */}
+      <div
+        aria-hidden="true"
+        className="absolute -right-24 top-1/3 hidden h-[420px] w-[420px] rounded-full border border-gold-500/15 lg:block"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute -right-10 top-[42%] hidden h-[640px] w-[640px] rounded-full border border-gold-500/10 lg:block"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute right-[8%] bottom-16 hidden h-2 w-2 rounded-full bg-gold-500/70 lg:block"
+      />
+      <span
+        aria-hidden="true"
+        className="absolute left-[46%] top-24 hidden h-1.5 w-1.5 rounded-full bg-gold-400/50 lg:block"
+      />
       {!reduce && <div className="absolute inset-0 overflow-hidden">{particles}</div>}
 
-      <div className="relative mx-auto max-w-7xl px-4 pb-28 pt-16 sm:px-6 sm:pt-20 lg:pb-36 lg:pt-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="mb-6 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.16em] text-amber-400"
-          >
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-70" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            Stok tersedia — siap kirim hari ini
-          </motion.div>
-
-          <motion.h1
-            id="judul-hero"
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
-            className="text-4xl font-extrabold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-6xl"
-          >
-            Pusat Pasir Terbaik
-            <br />
-            <span className="text-glow-amber bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 bg-clip-text text-transparent">
-              Se-Indonesia
-            </span>
-          </motion.h1>
-
-          <motion.p
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.16, ease: "easeOut" }}
-            className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-stone-300 sm:text-lg"
-          >
-            Dari renovasi rumah pribadi sampai proyek nasional skala besar —{" "}
-            <strong className="font-semibold text-white">semua kalangan kami layani</strong>.
-            Pasir berkualitas tersaring, harga transparan tanpa biaya tersembunyi,
-            dan pengiriman tepat waktu ke seluruh nusantara.
-          </motion.p>
-
-          <motion.div
-            initial={reduce ? false : { opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.24, ease: "easeOut" }}
-            className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row"
-          >
-            <Button
-              asChild
-              size="lg"
-              className="h-13 w-full bg-amber-600 px-8 text-base font-bold text-white shadow-lg shadow-amber-600/25 transition-all hover:-translate-y-0.5 hover:bg-amber-500 hover:shadow-xl hover:shadow-amber-600/30 sm:w-auto"
+      <div className="relative mx-auto max-w-7xl px-4 pb-24 pt-14 sm:px-6 sm:pt-20 lg:pb-32 lg:pt-24">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.08fr_0.92fr]">
+          {/* Kolom narasi — rata kiri seperti standar situs kelas dunia */}
+          <div>
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-gold-500/35 bg-gold-500/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-300"
             >
-              <a href="#penawaran">
-                Minta Penawaran Gratis
-                <ArrowRight className="ml-1.5 h-4 w-4" aria-hidden="true" />
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-13 w-full border-stone-700 bg-stone-900/60 px-8 text-base font-bold text-stone-100 backdrop-blur transition-all hover:border-amber-500/60 hover:bg-stone-800 hover:text-amber-300 sm:w-auto"
-            >
-              <a href="#kalkulator">
-                <Calculator className="mr-1.5 h-4 w-4" aria-hidden="true" />
-                Hitung Kebutuhan Pasir
-              </a>
-            </Button>
-          </motion.div>
+              <span
+                aria-hidden="true"
+                className="h-1.5 w-1.5 rounded-full bg-gold-400"
+              />
+              Asli Lereng Gunung Galunggung — Tasikmalaya
+            </motion.div>
 
-          <motion.ul
-            initial={reduce ? false : { opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
-            aria-label="Jaminan layanan"
-          >
-            {TRUST_CHIPS.map((chip) => (
-              <li
-                key={chip.label}
-                className="flex items-center gap-2 text-sm font-medium text-stone-400"
+            <motion.h1
+              id="judul-hero"
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
+              className="font-display text-[2.6rem] font-bold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-[4.2rem]"
+            >
+              Pasir Galunggung,
+              <br />
+              <em className="text-gold-bright font-bold italic">
+                Terbaik di Dunia
+              </em>
+            </motion.h1>
+
+            <motion.p
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.16, ease: "easeOut" }}
+              className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg"
+            >
+              Juragan Pasir Galunggung adalah pusat supplier pasir vulkanik asli
+              lereng Gunung Galunggung, Tasikmalaya — dipercaya{" "}
+              <strong className="font-semibold text-white">
+                perseorangan, kontraktor, perusahaan, hingga instansi
+              </strong>
+              . Disaring, teruji, dan dikirim tepat waktu ke 34 provinsi.
+            </motion.p>
+
+            <motion.div
+              initial={reduce ? false : { opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.24, ease: "easeOut" }}
+              className="mt-9 flex flex-col gap-3.5 sm:flex-row sm:items-center"
+            >
+              <a
+                href="#penawaran"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 px-8 text-base font-bold text-night-950 shadow-[0_10px_30px_rgba(189,151,38,0.35)] ring-1 ring-gold-300/60 transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(189,151,38,0.5)]"
               >
-                <chip.icon className="h-4 w-4 text-emerald-400" aria-hidden="true" />
-                {chip.label}
-              </li>
-            ))}
-          </motion.ul>
+                Minta Penawaran Gratis
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </a>
+              <a
+                href="#produk"
+                className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-8 text-base font-bold text-white backdrop-blur transition-all hover:border-gold-500/50 hover:text-gold-300"
+              >
+                <Calculator className="h-4 w-4" aria-hidden="true" />
+                Lihat 6 Jenis Pasir
+              </a>
+            </motion.div>
+
+            <motion.ul
+              initial={reduce ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3"
+              aria-label="Jaminan layanan"
+            >
+              {TRUST_CHIPS.map((chip) => (
+                <li
+                  key={chip.label}
+                  className="flex items-center gap-2 text-sm font-medium text-white/55"
+                >
+                  <chip.icon className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                  {chip.label}
+                </li>
+              ))}
+            </motion.ul>
+          </div>
+
+          {/* Kartu kaca "Garansi Mutu" — pengakuan standar mutu, seperti lencana sertifikasi */}
+          <motion.div
+            initial={reduce ? false : { opacity: 0, y: 32, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="relative mx-auto w-full max-w-md lg:max-w-none"
+          >
+            <div className="glass-card relative rounded-3xl px-8 py-10 text-center">
+              <span
+                aria-hidden="true"
+                className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border border-gold-400/50 bg-gold-500/15"
+              >
+                <Medal className="h-8 w-8 text-gold-300" strokeWidth={1.6} />
+              </span>
+              <h2 className="font-display text-2xl font-bold leading-snug text-white sm:text-[1.7rem]">
+                Garansi Mutu
+                <br />
+                Juragan Pasir
+              </h2>
+              <div className="gold-divider mx-auto mt-5 w-28" aria-hidden="true" />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-gold-300">
+                Disaring • Teruji • Tersertifikasi
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/55">
+                Tidak sesuai spesifikasi yang disepakati? Kami ganti — tanpa
+                biaya tambahan, tanpa drama.
+              </p>
+            </div>
+
+            {/* Kartu mini mengambang: kepercayaan klien */}
+            <div className="absolute -bottom-7 -left-4 rounded-2xl border border-white/10 bg-night-950/95 px-5 py-4 shadow-2xl backdrop-blur sm:-left-8">
+              <p className="font-display text-2xl font-bold text-gold-300 tabular">
+                12.480+
+              </p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
+                Klien Terlayani
+              </p>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>

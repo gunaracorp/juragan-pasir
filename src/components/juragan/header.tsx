@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, Phone, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { Logo } from "./logo";
-import { SITE } from "@/lib/juragan-data";
+import { SITE, WA_DEFAULT_MESSAGE } from "@/lib/juragan-data";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -13,9 +12,12 @@ const NAV = [
   { href: "#kalkulator", label: "Kalkulator" },
   { href: "#segmen", label: "Segmen Klien" },
   { href: "#keunggulan", label: "Keunggulan" },
+  { href: "#proses", label: "Proses" },
   { href: "#jangkauan", label: "Jangkauan" },
   { href: "#faq", label: "FAQ" },
 ];
+
+const WA_LINK = `${SITE.wa}?text=${encodeURIComponent(WA_DEFAULT_MESSAGE)}`;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -30,39 +32,21 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Bar utilitas atas: jam operasional & telepon — sinyal kepercayaan + local SEO */}
-      <div className="hidden bg-violet-950 text-violet-200/80 md:block">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-1.5 text-xs">
-          <p className="tracking-wide">Jam operasional: {SITE.hours}</p>
-          <div className="flex items-center gap-5">
-            <a
-              href={SITE.phoneHref}
-              className="flex items-center gap-1.5 font-semibold text-violet-300 transition-colors hover:text-violet-200"
-              aria-label={`Telepon ${SITE.name}`}
-            >
-              <Phone className="h-3 w-3" aria-hidden="true" />
-              {SITE.phone}
-            </a>
-            <span aria-hidden="true" className="text-violet-800">
-              |
-            </span>
-            <span>Pasir Galunggung — Kirim ke 34 Provinsi</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Bar navigasi utama */}
       <div
         className={cn(
           "border-b transition-all duration-300",
           scrolled
-            ? "border-violet-100 bg-background/90 shadow-[0_8px_30px_rgba(46,16,101,0.10)] backdrop-blur-md"
-            : "border-transparent bg-background"
+            ? "border-white/10 bg-night-950/90 shadow-[0_10px_40px_rgba(2,23,16,0.45)] backdrop-blur-xl"
+            : "border-transparent bg-night-950"
         )}
       >
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
-          <Link href="/" aria-label={`${SITE.name} — Beranda`} className="shrink-0">
-            <Logo />
+        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6">
+          <Link
+            href="/"
+            aria-label={`${SITE.name} — Beranda`}
+            className="shrink-0"
+          >
+            <Logo inverted />
           </Link>
 
           <nav aria-label="Navigasi utama" className="hidden lg:block">
@@ -71,7 +55,7 @@ export function Header() {
                 <li key={item.href}>
                   <a
                     href={item.href}
-                    className="rounded-md px-3 py-2 text-sm font-semibold text-slate-700 transition-colors hover:bg-secondary hover:text-violet-950"
+                    className="rounded-full px-3.5 py-2 text-sm font-semibold text-white/75 transition-colors hover:bg-white/5 hover:text-gold-300"
                   >
                     {item.label}
                   </a>
@@ -80,16 +64,19 @@ export function Header() {
             </ul>
           </nav>
 
-          <div className="flex items-center gap-2">
-            <Button
-              asChild
-              className="hidden bg-violet-600 font-bold text-white shadow-sm transition-all hover:bg-violet-700 hover:shadow-md sm:inline-flex"
+          <div className="flex items-center gap-2.5">
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 px-5 py-2.5 text-sm font-bold text-night-950 shadow-[0_6px_20px_rgba(189,151,38,0.35)] ring-1 ring-gold-300/60 transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(189,151,38,0.45)] sm:inline-flex"
             >
-              <a href="#penawaran">Minta Penawaran</a>
-            </Button>
+              <Phone className="h-3.5 w-3.5" aria-hidden="true" />
+              Konsultasi Gratis
+            </a>
             <button
               type="button"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-md border border-violet-200 text-slate-800 transition-colors hover:bg-secondary lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-gold-500/50 hover:text-gold-300 lg:hidden"
               aria-expanded={open}
               aria-controls="menu-mobile"
               aria-label={open ? "Tutup menu" : "Buka menu"}
@@ -108,40 +95,45 @@ export function Header() {
         <div
           id="menu-mobile"
           className={cn(
-            "overflow-hidden border-violet-100 transition-[max-height,opacity] duration-300 lg:hidden",
-            open ? "max-h-96 border-t opacity-100" : "max-h-0 opacity-0"
+            "overflow-hidden border-white/10 transition-[max-height,opacity] duration-300 lg:hidden",
+            open ? "max-h-[30rem] border-t opacity-100" : "max-h-0 opacity-0"
           )}
         >
-          <nav aria-label="Navigasi seluler" className="bg-background px-4 pb-5 pt-2">
+          <nav
+            aria-label="Navigasi seluler"
+            className="bg-night-950 px-4 pb-6 pt-3"
+          >
             <ul className="flex flex-col">
               {NAV.map((item) => (
                 <li key={item.href}>
                   <a
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-base font-semibold text-slate-800 transition-colors hover:bg-secondary"
+                    className="block rounded-xl px-3 py-3 text-base font-semibold text-white/80 transition-colors hover:bg-white/5 hover:text-gold-300"
                   >
                     {item.label}
                   </a>
                 </li>
               ))}
-              <li className="mt-2">
-                <Button
-                  asChild
-                  className="w-full bg-violet-600 font-bold text-white hover:bg-violet-700"
+              <li className="mt-3">
+                <a
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setOpen(false)}
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 px-5 py-3.5 text-base font-bold text-night-950 shadow-lg"
                 >
-                  <a href="#penawaran" onClick={() => setOpen(false)}>
-                    Minta Penawaran Gratis
-                  </a>
-                </Button>
+                  <Phone className="h-4 w-4" aria-hidden="true" />
+                  Konsultasi Gratis via WhatsApp
+                </a>
               </li>
-              <li className="mt-2 text-center">
+              <li className="mt-3 text-center">
                 <a
                   href={SITE.phoneHref}
-                  className="text-sm font-bold text-violet-700"
+                  className="text-sm font-bold text-gold-300"
                   aria-label={`Telepon ${SITE.name} di ${SITE.phone}`}
                 >
-                  Telepon / WhatsApp: {SITE.phone}
+                  Telepon: {SITE.phone}
                 </a>
               </li>
             </ul>

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView } from "framer-motion";
+import { Gem, Landmark, Truck, Users } from "lucide-react";
 
 /* Format angka gaya Indonesia: 2.500.000 — deterministik, aman dari hydration mismatch */
 function formatID(n: number, decimals = 0) {
@@ -49,23 +50,38 @@ function CountUp({
 }
 
 const STATS = [
-  { target: 2.5, decimals: 1, suffix: " jt+", unit: "Ton pasir terkirim" },
-  { target: 12480, decimals: 0, suffix: "+", unit: "Klien terlayani" },
-  { target: 34, decimals: 0, suffix: "", unit: "Provinsi terjangkau" },
-  { target: 98.6, decimals: 1, suffix: "%", unit: "Pengiriman tepat waktu" },
+  { icon: Gem, target: 2.5, decimals: 1, suffix: " jt+", label: "Ton pasir terkirim" },
+  { icon: Users, target: 12480, decimals: 0, suffix: "+", label: "Klien terlayani" },
+  { icon: Landmark, target: 34, decimals: 0, suffix: "", label: "Provinsi terjangkau" },
+  { icon: Truck, target: 98.6, decimals: 1, suffix: "%", label: "Kirim tepat waktu" },
 ] as const;
 
 export function Stats() {
   return (
-    <section aria-label="Capaian Juragan Pasir" className="relative z-10 -mt-14 px-4 sm:px-6">
-      <div className="mx-auto max-w-6xl">
-        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-stone-200/70 bg-stone-200/70 shadow-xl shadow-stone-900/10 lg:grid-cols-4">
+    <section
+      aria-label="Capaian Juragan Pasir"
+      className="grain-texture relative bg-night-900 pb-20"
+    >
+      <div aria-hidden="true" className="diagonal-lines absolute inset-0" />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
+        <dl className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
           {STATS.map((s) => (
-            <div key={s.unit} className="bg-card px-6 py-7 text-center">
-              <dd className="text-3xl font-extrabold tracking-tight text-amber-700 sm:text-4xl">
+            <div
+              key={s.label}
+              className="rounded-2xl border border-white/10 bg-white/[0.04] px-6 py-8 text-center transition-colors duration-300 hover:border-gold-500/35"
+            >
+              <span
+                aria-hidden="true"
+                className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-xl border border-gold-500/30 bg-gold-500/10"
+              >
+                <s.icon className="h-5 w-5 text-gold-400" strokeWidth={1.8} />
+              </span>
+              <dd className="font-display text-4xl font-bold tracking-tight text-gold-bright lg:text-[2.6rem]">
                 <CountUp target={s.target} decimals={s.decimals} suffix={s.suffix} />
               </dd>
-              <dt className="mt-1.5 text-sm font-medium text-stone-500">{s.unit}</dt>
+              <dt className="mt-2 text-[11px] font-bold uppercase tracking-[0.18em] text-white/50">
+                {s.label}
+              </dt>
             </div>
           ))}
         </dl>

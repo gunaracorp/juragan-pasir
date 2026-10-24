@@ -12,7 +12,7 @@ import { SectionHeading } from "./section-heading";
  */
 export function Coverage() {
   return (
-    <section id="jangkauan" aria-labelledby="judul-jangkauan" className="sand-dots scroll-mt-24 py-24">
+    <section id="jangkauan" aria-labelledby="judul-jangkauan" className="sand-dots scroll-mt-24 bg-cream-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Jangkauan Pengiriman"
@@ -24,16 +24,21 @@ export function Coverage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {REGIONS.map((r, i) => (
             <Reveal key={r.island} delay={(i % 3) * 0.07}>
-              <article className="h-full rounded-2xl border border-stone-200/80 bg-card p-6 shadow-sm transition-all duration-300 hover:border-amber-500/40 hover:shadow-lg">
-                <h3 className="flex items-center gap-2 text-lg font-extrabold tracking-tight text-stone-900">
-                  <MapPin className="h-5 w-5 text-amber-600" aria-hidden="true" />
+              <article className="h-full rounded-2xl border border-line bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-lift">
+                <h3 className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-ink-900">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-night-800"
+                  >
+                    <MapPin className="h-4 w-4 text-gold-400" />
+                  </span>
                   {r.island}
                 </h3>
                 <ul className="mt-4 flex flex-wrap gap-2" aria-label={`Kota di ${r.island}`}>
                   {r.cities.map((c) => (
                     <li
                       key={c}
-                      className="rounded-full border border-stone-200 bg-secondary px-3 py-1 text-xs font-semibold text-stone-700"
+                      className="rounded-full border border-line bg-cream-50 px-3 py-1 text-xs font-semibold text-ink-700"
                     >
                       {c}
                     </li>
@@ -45,11 +50,11 @@ export function Coverage() {
         </div>
 
         <Reveal delay={0.12}>
-          <p className="mt-10 text-center text-sm font-medium text-stone-600">
+          <p className="mt-10 text-center text-sm font-medium text-ink-500">
             Kota Anda belum tercantum?{" "}
             <a
               href="#penawaran"
-              className="font-bold text-amber-700 underline decoration-amber-400 decoration-2 underline-offset-4 transition-colors hover:text-amber-600"
+              className="font-bold text-gold-700 underline decoration-gold-500 decoration-2 underline-offset-4 transition-colors hover:text-gold-600"
             >
               Tanyakan kemampuan kirimnya
             </a>{" "}

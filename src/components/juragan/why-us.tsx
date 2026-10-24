@@ -51,7 +51,7 @@ const VALUES: {
 
 export function WhyUs() {
   return (
-    <section id="keunggulan" aria-labelledby="judul-keunggulan" className="scroll-mt-24 py-24">
+    <section id="keunggulan" aria-labelledby="judul-keunggulan" className="scroll-mt-24 bg-cream-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Kenapa Juragan Pasir"
@@ -63,17 +63,17 @@ export function WhyUs() {
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {VALUES.map((v, i) => (
             <Reveal key={v.title} delay={(i % 3) * 0.08}>
-              <article className="group h-full rounded-2xl border border-stone-200/80 bg-card p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-amber-500/40 hover:shadow-lg hover:shadow-amber-900/10">
+              <article className="group h-full rounded-2xl border border-line bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/50 hover:shadow-lift">
                 <span
                   aria-hidden="true"
-                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-stone-900 text-amber-400 transition-colors duration-300 group-hover:bg-amber-600 group-hover:text-white"
+                  className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-night-800 shadow-[0_8px_20px_rgba(3,35,27,0.35)] transition-transform duration-300 group-hover:-translate-y-1"
                 >
-                  <v.icon className="h-6 w-6" />
+                  <v.icon className="h-5.5 w-5.5 text-gold-400" strokeWidth={1.8} />
                 </span>
-                <h3 className="text-lg font-extrabold tracking-tight text-stone-900">
+                <h3 className="font-display text-xl font-bold tracking-tight text-ink-900">
                   {v.title}
                 </h3>
-                <p className="mt-2.5 text-sm leading-relaxed text-stone-600">{v.body}</p>
+                <p className="mt-2.5 text-sm leading-relaxed text-ink-500">{v.body}</p>
               </article>
             </Reveal>
           ))}

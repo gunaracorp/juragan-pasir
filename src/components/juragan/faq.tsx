@@ -12,7 +12,7 @@ import { SectionHeading } from "./section-heading";
 
 export function Faq() {
   return (
-    <section id="faq" aria-labelledby="judul-faq" className="scroll-mt-24 py-24">
+    <section id="faq" aria-labelledby="judul-faq" className="scroll-mt-24 bg-cream-50 py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6">
         <SectionHeading
           eyebrow="Tanya Jawab"
@@ -22,22 +22,24 @@ export function Faq() {
         />
 
         <Reveal>
-          <Accordion type="single" collapsible className="w-full">
-            {FAQS.map((f, i) => (
-              <AccordionItem
-                key={f.q}
-                value={`faq-${i}`}
-                className="border-stone-200 data-[state=open]:border-amber-500/40"
-              >
-                <AccordionTrigger className="px-5 text-left text-base font-bold text-stone-900 hover:text-amber-700 hover:no-underline [&[data-state=open]>svg]:text-amber-600">
-                  {f.q}
-                </AccordionTrigger>
-                <AccordionContent className="px-5 pb-5 text-sm leading-relaxed text-stone-600">
-                  {f.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <div className="rounded-2xl border border-line bg-card p-3 shadow-soft">
+            <Accordion type="single" collapsible className="w-full">
+              {FAQS.map((f, i) => (
+                <AccordionItem
+                  key={f.q}
+                  value={`faq-${i}`}
+                  className="border-line data-[state=open]:border-gold-500/50"
+                >
+                  <AccordionTrigger className="px-5 text-left font-display text-[1.05rem] font-bold text-ink-900 hover:text-gold-700 hover:no-underline [&[data-state=open]>svg]:text-gold-600">
+                    {f.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-5 pb-5 text-sm leading-relaxed text-ink-500">
+                    {f.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
         </Reveal>
       </div>
     </section>
