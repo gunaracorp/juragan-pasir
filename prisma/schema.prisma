@@ -1,0 +1,242 @@
+// ============================================================
+// JURAGAN PASIR CMS — Database Schema
+// Transformasi dari hardcoded data → WordPress-like CMS
+// Frontend + Backend + Integration dalam satu platform
+// ============================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------- PENGATURAN SITUS ----------------------
+// Single-row settings: identitas brand, kontak, hero, SEO, footer
+model SiteSettings {
+  id           String   @id @default("main")
+
+  // Identitas
+  siteName     String   @default("Juragan Pasir Galunggung")
+  legalName    String   @default("CV Juragan Pasir Galunggung")
+  domain       String   @default("https://juraganpasir.id")
+  tagline      String   @default("Pasir Galunggung — Pasir Terbaik di Dunia")
+  description  String   @default("")
+
+  // Kontak
+  phone        String   @default("+62 813-1651-6524")
+  phoneHref    String   @default("tel:+6281316516524")
+  waNumber     String   @default("6281316516524")
+  email        String   @default("halo@juraganpasir.id")
+  hours        String   @default("Senin–Sabtu, 07.00–18.00 WIB")
+  waMessage    String   @default("Halo Juragan Pasir Galunggung! Saya ingin bertanya tentang pasir Galunggung.")
+
+  // Alamat
+  street       String   @default("Jl. Raya Galunggung No. 88, Kec. Leuwisari — Lereng Gunung Galunggung")
+  city         String   @default("Tasikmalaya")
+  region       String   @default("Jawa Barat")
+  postal       String   @default("46414")
+  country      String   @default("ID")
+  lat          Float    @default(-7.2569)
+  lng          Float    @default(108.059)
+
+  // Hero section
+  heroBadge     String  @default("Asli Lereng Gunung Galunggung — Tasikmalaya")
+  heroTitle1    String  @default("Pasir Galunggung,")
+  heroTitle2    String  @default("Terbaik di Dunia")
+  heroDesc      String  @default("")
+  heroCta1      String  @default("Minta Penawaran Gratis")
+  heroCta2      String  @default("Lihat 6 Jenis Pasir")
+  heroCardTitle String  @default("Garansi Mutu\nJuragan Pasir")
+  heroCardBadge String  @default("Disaring • Teruji • Tersertifikasi")
+  heroCardText  String  @default("Tidak sesuai spesifikasi yang disepakati? Kami ganti — tanpa biaya tambahan, tanpa drama.")
+  heroStatNum   String  @default("12.480+")
+  heroStatLabel String  @default("Klien Terlayani")
+  heroChipsJson String  @default("[\"Standar SNI & teruji lab\",\"Garansi mutu tertulis\",\"Kirim ke 34 provinsi\"]")
+
+  // SEO
+  seoTitle       String @default("Juragan Pasir Galunggung — Pasir Terbaik di Dunia dari Gunung Galunggung, Tasikmalaya")
+  seoDescription String @default("")
+  seoKeywords    String @default("pasir galunggung,pasir gunung galunggung,jual pasir galunggung,harga pasir galunggung,supplier pasir tasikmalaya")
+
+  // Footer
+  footerAbout    String @default("Pusat supplier pasir vulkanik asli lereng Gunung Galunggung — melayani perseorangan hingga instansi di 34 provinsi Indonesia.")
+  footerCopyright String @default("© 2026 CV Juragan Pasir Galunggung. Seluruh hak cipta dilindungi.")
+
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------------------- KATALOG PRODUK ----------------------
+model Product {
+  id        String   @id @default(cuid())
+  name      String
+  alias     String   @default("")
+  badge     String?
+  useCase   String   @default("")
+  specJson  String   @default("[]") // array string spesifikasi
+  price     String   @default("")
+  tone      String   @default("#C29B4C")
+  calcBase  Float    @default(300)
+  calcUnit  String   @default("m3") // m3 | ton
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- SEGMEN KLIEN ----------------------
+model Segment {
+  id          String   @id @default(cuid())
+  icon        String   @default("Home")
+  title       String
+  subtitle    String   @default("")
+  pointsJson  String   @default("[]")
+  order       Int      @default(0)
+  visible     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------- FAQ ----------------------
+model Faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- WILAYAH JANGKAUAN ----------------------
+model Region {
+  id         String   @id @default(cuid())
+  island     String
+  citiesJson String   @default("[]")
+  order      Int      @default(0)
+  visible    Boolean  @default(true)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// ---------------------- TESTIMONI ----------------------
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  role      String   @default("")
+  initials  String   @default("")
+  rating    Int      @default(5)
+  text      String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- STATISTIK ----------------------
+model Stat {
+  id        String   @id @default(cuid())
+  icon      String   @default("Gem")
+  target    Float    @default(0)
+  decimals  Int      @default(0)
+  suffix    String   @default("")
+  label     String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- ALUR PEMESANAN ----------------------
+model ProcessStep {
+  id        String   @id @default(cuid())
+  icon      String   @default("MessagesSquare")
+  title     String
+  body      String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- KEUNGGULAN (WHY US) ----------------------
+model WhyUsItem {
+  id        String   @id @default(cuid())
+  icon      String   @default("FlaskConical")
+  title     String
+  body      String
+  order     Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ---------------------- REGISTRY SECTION ----------------------
+// Jantung arsitektur "berkembang bebas": setiap section frontend
+// terdaftar di sini — bisa diurut ulang, disembunyikan, atau
+// ditambah (plugin-style) tanpa menyentuh kode inti.
+model Section {
+  id          String   @id @default(cuid())
+  key         String   @unique // hero, stats, products, calculator, segments, whyus, process, coverage, testimonials, faq, quote
+  title       String
+  order       Int      @default(0)
+  visible     Boolean  @default(true)
+  eyebrow     String   @default("")
+  heading     String   @default("")
+  highlight   String   @default("")
+  description String   @default("")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+// ---------------------- LEADS / PENAWARAN ----------------------
+model QuoteRequest {
+  id         String   @id @default(cuid())
+  ref        String   @unique
+  name       String
+  phone      String
+  clientType String
+  sandType   String
+  volume     String
+  city       String
+  message    String?
+  status     String   @default("BARU") // BARU | DIHUBUNGI | PENAWARAN | DEAL | BATAL
+  notes      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+// ---------------------- PENGGUNA ADMIN ----------------------
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         String   @default("admin") // admin | editor
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// ---------------------- REVISI KONTEN ----------------------
+// Seperti WordPress Revisions: setiap perubahan tersimpan, bisa rollback
+model ContentRevision {
+  id         String   @id @default(cuid())
+  entityType String // settings | product | segment | faq | region | testimonial | stat | process | whyus | section
+  entityId   String
+  label      String   @default("")
+  dataJson   String
+  createdAt  DateTime @default(now())
+}
+
+// ---------------------- LOG AKTIVITAS ----------------------
+model ActivityLog {
+  id         String   @id @default(cuid())
+  adminEmail String
+  action     String // create | update | delete | login | export | revert
+  entityType String
+  entityId   String   @default("")
+  detail     String   @default("")
+  createdAt  DateTime @default(now())
+}

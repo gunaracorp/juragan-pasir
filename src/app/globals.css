@@ -1,0 +1,277 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-jakarta);
+  --font-display: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/*
+ * SISTEM VISUAL "JURAGAN PASIR GALUNGGUNG" — Kelas Dunia
+ * Bahasa desain mengacu pada identitas premium keluarga brand:
+ *   • Malam zamrud pekat  : #03231B → #0A3627  (section gelap, kemewahan)
+ *   • Emas vulkanik       : #BD9726 → #F0D070  (aksen, angka, CTA)
+ *   • Krem gading         : #FBF9F2 → #F4EFE2  (section terang, kebersihan)
+ * Kontras lolos WCAG AA: teks putih/emas di atas zamrud gelap,
+ * tinta gelap di atas krem.
+ */
+@theme {
+  /* Malam zamrud (dark emerald scale) */
+  --color-night-950: #021710;
+  --color-night-900: #03231b;
+  --color-night-850: #042a20;
+  --color-night-800: #0a3627;
+  --color-night-700: #114736;
+  --color-night-600: #1a5a44;
+  --color-night-500: #205b3e;
+
+  /* Emas vulkanik (gold accent scale) */
+  --color-gold-200: #f7e7b0;
+  --color-gold-300: #f0d070;
+  --color-gold-400: #e3be55;
+  --color-gold-500: #d4ae36;
+  --color-gold-600: #bd9726;
+  --color-gold-700: #96771d;
+
+  /* Krem gading (ivory light scale) */
+  --color-cream-50: #fbf9f2;
+  --color-cream-100: #f4efe2;
+  --color-cream-200: #ece5d2;
+
+  /* Tinta hijau (ink for light sections) */
+  --color-ink-900: #0b1a13;
+  --color-ink-700: #31443a;
+  --color-ink-500: #5c6b62;
+  --color-ink-400: #87948b;
+
+  /* Garis & kanal */
+  --color-line: #e7e1cf;
+  --color-wa: #1fb857;
+}
+
+:root {
+  --radius: 0.75rem;
+  --background: #fbf9f2;
+  --foreground: #0b1a13;
+  --card: #ffffff;
+  --card-foreground: #0b1a13;
+  --popover: #ffffff;
+  --popover-foreground: #0b1a13;
+  --primary: #bd9726;
+  --primary-foreground: #021710;
+  --secondary: #f4efe2;
+  --secondary-foreground: #0b1a13;
+  --muted: #f4efe2;
+  --muted-foreground: #5c6b62;
+  --accent: #ece5d2;
+  --accent-foreground: #0b1a13;
+  --destructive: #b3261e;
+  --border: #e7e1cf;
+  --input: #ddd5bf;
+  --ring: #d4ae36;
+  --chart-1: #bd9726;
+  --chart-2: #205b3e;
+  --chart-3: #d4ae36;
+  --chart-4: #96771d;
+  --chart-5: #0a3627;
+  --sidebar: #03231b;
+  --sidebar-foreground: #fbf9f2;
+  --sidebar-primary: #bd9726;
+  --sidebar-primary-foreground: #021710;
+  --sidebar-accent: #0a3627;
+  --sidebar-accent-foreground: #fbf9f2;
+  --sidebar-border: #114736;
+  --sidebar-ring: #d4ae36;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  ::selection {
+    background: rgba(212, 174, 54, 0.28);
+  }
+}
+
+@layer utilities {
+  /* ── Tipografi display ─────────────────────────────────────────── */
+  .font-display {
+    font-family: var(--font-playfair), Georgia, "Times New Roman", serif;
+  }
+  .text-gold-bright {
+    background: linear-gradient(100deg, #e3be55 0%, #f7e7b0 45%, #e3be55 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .text-gold-deep {
+    background: linear-gradient(100deg, #96771d 0%, #bd9726 45%, #96771d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* ── Dekorasi section gelap ────────────────────────────────────── */
+  .grain-texture {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain-texture::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* Naikkan konten di atas lapisan ::before — TANPA memaksa position,
+     agar utilitas .absolute Tailwind pada anak-anaknya tetap bekerja. */
+  .grain-texture > * {
+    z-index: 1;
+  }
+
+  /* Garis diagonal halus — tekstur khas section gelap */
+  .diagonal-lines {
+    background-image: repeating-linear-gradient(
+      115deg,
+      transparent 0px,
+      transparent 52px,
+      rgba(255, 255, 255, 0.04) 52px,
+      rgba(255, 255, 255, 0.04) 53px,
+      transparent 53px,
+      transparent 104px
+    );
+  }
+
+  /* Pola titik emas untuk section terang */
+  .sand-dots {
+    background-image: radial-gradient(
+      rgba(189, 151, 38, 0.09) 1.1px,
+      transparent 1.1px
+    );
+    background-size: 22px 22px;
+  }
+
+  /* Garis pembatas emas di bawah judul section */
+  .gold-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4ae36 30%, #f0d070 50%, #d4ae36 70%, transparent);
+  }
+
+  /* ── Partikel emas melayang (hero) ─────────────────────────────── */
+  @keyframes drift {
+    0% {
+      transform: translate3d(0, -8px, 0) rotate(0deg);
+      opacity: 0;
+    }
+    12% {
+      opacity: 0.9;
+    }
+    85% {
+      opacity: 0.55;
+    }
+    100% {
+      transform: translate3d(var(--drift-x, 24px), 108vh, 0) rotate(320deg);
+      opacity: 0;
+    }
+  }
+  .gold-particle {
+    position: absolute;
+    border-radius: 9999px;
+    background: rgba(227, 190, 85, 0.85);
+    box-shadow: 0 0 8px rgba(212, 174, 54, 0.6);
+    animation: drift linear infinite;
+    will-change: transform, opacity;
+  }
+
+  /* ── Kartu kaca (glass) di atas section gelap ──────────────────── */
+  .glass-card {
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(212, 174, 54, 0.35);
+    box-shadow:
+      0 24px 60px rgba(2, 23, 16, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  /* ── Bayangan kartu terang yang lembut ─────────────────────────── */
+  .shadow-soft {
+    box-shadow:
+      0 1px 2px rgba(11, 26, 19, 0.04),
+      0 8px 28px rgba(11, 26, 19, 0.07);
+  }
+  .shadow-lift {
+    box-shadow:
+      0 2px 4px rgba(11, 26, 19, 0.05),
+      0 18px 44px rgba(11, 26, 19, 0.12);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* Scrollbar kustom halus */
+  .nice-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .nice-scroll::-webkit-scrollbar-track {
+    background: #f4efe2;
+    border-radius: 8px;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb {
+    background: #d8cfb4;
+    border-radius: 8px;
+  }
+  .nice-scroll::-webkit-scrollbar-thumb:hover {
+    background: #c4b88f;
+  }
+}
