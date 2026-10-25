@@ -45,3 +45,26 @@ Stage Summary:
 - Deliverable: /home/z/my-project/download/core_cms-v1.zip — CMS multi-tenant pure PHP siap upload cPanel + README deploy 15 menit.
 - Kredensial uji: admin / juragan2026 (dibuat via installer saat deploy nyata).
 - Status vs Masterplan: CMS v1 (Hari 5-7 jadwal) TUNTAS lebih awal; langkah berikutnya user: deploy ke akun A (Hari 3-4), pilot juragan-pasir (Hari 8-10), static export Tier C (11-12), cutover DNS (13-14).
+
+---
+Task ID: 3
+Agent: Z.ai (Master Polymath — main agent)
+Task: Upgrade CMS ke v.2 sesuai permintaan user: (1) buat CMS Home dengan Keunggulan, (2) full-redesign halaman CMS Login, (3) upgrade branding & pengalaman menjadi CMS v.2.
+
+Work Log:
+- Audit state: frontend sudah punya section Keunggulan (WhyUs); desain system malam-zamrud + emas + Playfair/Jakarta dipertahankan sebagai fondasi.
+- Buat src/lib/cms-version.ts — sumber tunggal versi (CMS v.2.0 "God Tier Edition"), changelog v.1→v.2, data 9 keunggulan CMS, stats & tech list.
+- Tambah sistem animasi v.2 di globals.css: cms-fade-up/fade-in/float/orb/shine/shake/marquee/pulse-glow/spin-slow/dash, .reveal (scroll), .btn-shine, .marquee-track, .text-gold-v2 (gradient bergerak), .tech-grid + fallback prefers-reduced-motion.
+- BARU — CMS Home /cms (public, tidak diguard proxy): landing platform penuh — header glass sticky, hero dengan badge v.2 + headline gradient emas + chip melayang, strip statistik (14 model · 13 halaman · 11 API · 100% SSR), GRID 9 KEUNGGULAN (kartu glass ber-nomor + ikon + hover glow), alur 3 langkah dengan garis konektor animasi, marquee teknologi, CTA final, footer berbranding. Komponen Reveal (IntersectionObserver) untuk animasi scroll.
+- LOGIN v.2 FULL REDESIGN: split-screen premium — panel kiri peraga brand (logo + badge v.2, headline "Satu Pintu. Kendali Penuh Website.", 3 kartu fitur, lingkaran dashed berputar), panel kanan form glass dengan show/hide password, focus ring emas, error shake animation (key-based retrigger), tombol kilau, hint kredensial, link ke /cms. Metadata khusus via layout.tsx (title "Masuk — CMS v.2.0", noindex).
+- DASHBOARD v.2: hero sambutan gradient (badge JURAGAN CORE v.2.0 · God Tier Edition, greeting pagi/siang/sore/malam + nama admin, tanggal id-ID, 4 pintasan cepat, Export HTML), kartu changelog "Baru di CMS v.2" dengan CTA ke /cms. API dashboard kini mengirim admin{name,email}.
+- Branding v.2 global: sidebar (chip v.2 di brand, link emas "Tentang CMS v.2", footer JURAGAN CORE CMS v.2.0), topbar mobile berchip v.2.
+- Perbaikan UX baru: proxy.ts kini me-redirect /admin/login → /admin jika session masih valid (mencegah login page terbungkus AdminShell).
+- Debug: lint react-hooks/set-state-in-effect pada Reveal → bungkus fallback via requestAnimationFrame; chip melayang hero menimpa headline → reposisi (top-[25rem]/top-[31rem], ukuran xs, hanya xl).
+- Verifikasi browser (1440px + 390px): hero/chips/keunggulan/alur/marquee/CTA/footer CMS home, login desktop+mobile, error state, alur login→dashboard (kredensial admin@juraganpasir.id), redirect sudah-login, logout, frontend utama tanpa regresi (200). Screenshot: download/screenshots/v2-*.png (10 file).
+- eslint 9 file bersih; tsc src/ bersih (error sisa hanya di examples/ & skills/ bawaan).
+
+Stage Summary:
+- CMS resmi naik ke v.2.0 "God Tier Edition": CMS Home /cms (landing + 9 keunggulan), login split-screen premium, dashboard sambutan dinamis + changelog, branding v.2 di seluruh panel, redirect UX.
+- File baru/ubah: src/lib/cms-version.ts, src/app/cms/page.tsx, src/components/cms/reveal.tsx, src/app/admin/login/{page,layout}.tsx, src/app/admin/page.tsx, src/components/admin/admin-shell.tsx, src/app/globals.css, src/app/api/admin/dashboard/route.ts, src/proxy.ts.
+- Versi berikutnya cukup edit cms-version.ts (single source of truth).

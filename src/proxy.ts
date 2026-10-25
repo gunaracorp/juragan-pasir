@@ -11,6 +11,14 @@ export async function proxy(request: NextRequest) {
 
   // Izinkan halaman login & endpoint login
   if (pathname === "/admin/login" || pathname === "/api/admin/login" || pathname === "/api/admin/logout") {
+    // Sudah login namun membuka /admin/login? Langsung ke dashboard (v.2 UX)
+    if (pathname === "/admin/login") {
+      const tok = request.cookies.get(SESSION_COOKIE)?.value;
+      const sess = tok ? await verifySessionToken(tok) : null;
+      if (sess) {
+        return NextResponse.redirect(new URL("/admin", request.url));
+      }
+    }
     return NextResponse.next();
   }
 

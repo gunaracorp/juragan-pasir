@@ -41,6 +41,7 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     ok: true,
+    admin: { name: session.name, email: session.email },
     stats: {
       totalLeads,
       newLeads,

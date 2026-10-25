@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogoMark } from "@/components/juragan/logo";
+import { CMS_NAME, CMS_VERSION } from "@/lib/cms-version";
 import { cn } from "@/lib/utils";
 import {
   Activity,
@@ -17,6 +18,7 @@ import {
   Menu,
   Package,
   Settings,
+  Sparkles,
   Star,
   Warehouse,
   X,
@@ -70,8 +72,11 @@ export function AdminShell({
           <p className="text-sm font-extrabold tracking-tight text-white">
             Juragan Pasir <span className="text-gold-400">CMS</span>
           </p>
-          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">
+          <p className="mt-0.5 flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.18em] text-white/35">
             Panel Kendali Konten
+            <span className="rounded-full border border-gold-500/40 bg-gold-500/10 px-1.5 py-px text-[8px] tracking-[0.14em] text-gold-300">
+              v.{CMS_VERSION}
+            </span>
           </p>
         </div>
       </div>
@@ -96,9 +101,20 @@ export function AdminShell({
             </Link>
           );
         })}
+        <Link
+          href="/cms"
+          onClick={() => setOpen(false)}
+          className="mt-2 flex items-center gap-3 rounded-xl border border-gold-500/25 bg-gold-500/[0.06] px-3.5 py-2.5 text-sm font-semibold text-gold-300/90 transition-colors hover:bg-gold-500/15"
+        >
+          <Sparkles className="h-4 w-4 shrink-0" aria-hidden="true" />
+          Tentang CMS v.{CMS_VERSION}
+        </Link>
       </nav>
 
       <div className="border-t border-white/10 p-4">
+        <p className="mb-3 text-center text-[10px] font-bold uppercase tracking-[0.18em] text-white/25">
+          {CMS_NAME} CMS v.{CMS_VERSION}
+        </p>
         <div className="mb-3 flex items-center gap-3 px-1">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-500/20 text-xs font-extrabold text-gold-300">
             {(name || "A").slice(0, 2).toUpperCase()}
@@ -173,6 +189,9 @@ export function AdminShell({
           <p className="flex items-center gap-2 text-sm font-extrabold text-white">
             <Activity className="h-4 w-4 text-gold-400" aria-hidden="true" />
             Juragan Pasir CMS
+            <span className="rounded-full border border-gold-500/40 bg-gold-500/10 px-1.5 py-px text-[8px] font-bold uppercase tracking-[0.14em] text-gold-300">
+              v.{CMS_VERSION}
+            </span>
           </p>
           <span className="w-10" aria-hidden="true" />
         </div>
