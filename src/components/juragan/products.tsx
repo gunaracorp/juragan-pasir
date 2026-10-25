@@ -1,6 +1,7 @@
 "use client";
 
 import { Check, Package } from "lucide-react";
+<<<<<<< HEAD
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 import type { CmsProduct, CmsSection } from "@/lib/cms-types";
@@ -16,10 +17,24 @@ export function Products({
   products: CmsProduct[];
   section?: CmsSection;
 }) {
+=======
+import { PRODUCTS } from "@/lib/juragan-data";
+import { Reveal } from "./reveal";
+import { SectionHeading } from "./section-heading";
+
+/**
+ * KATALOG PRODUK
+ * Swatch warna per jenis pasir = pengkodean visual material (prinsip
+ * perceptual grouping): mata langsung membedakan pasir silika vs merah
+ * tanpa membaca. Badge emas menandai posisi premium.
+ */
+export function Products() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <section id="produk" aria-labelledby="judul-produk" className="sand-dots scroll-mt-24 bg-cream-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+<<<<<<< HEAD
           eyebrow={section?.eyebrow || "Produk Pasir"}
           title={section?.heading || "Enam Jenis Pasir,"}
           highlight={section?.highlight || "Satu Standar Mutu"}
@@ -28,6 +43,16 @@ export function Products({
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((p, i) => (
+=======
+          eyebrow="Produk Pasir"
+          title="Enam Jenis Pasir,"
+          highlight="Satu Standar Mutu"
+          description="Setiap jenis pasir punya karakter dan kegunaan teknisnya masing-masing. Semua dikurasi di titik muat: disaring, dibersihkan, dan disertai spesifikasi tertulis."
+        />
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {PRODUCTS.map((p, i) => (
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             <Reveal key={p.id} delay={(i % 3) * 0.08}>
               <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/50 hover:shadow-lift">
                 {/* Header visual swatch */}
@@ -45,11 +70,19 @@ export function Products({
                       {p.alias}
                     </span>
                   </div>
+<<<<<<< HEAD
                   {p.badge ? (
                     <span className="absolute right-4 top-4 rounded-full bg-night-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gold-300 ring-1 ring-gold-500/40 backdrop-blur">
                       {p.badge}
                     </span>
                   ) : null}
+=======
+                  {p.badge && (
+                    <span className="absolute right-4 top-4 rounded-full bg-night-950/85 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-gold-300 ring-1 ring-gold-500/40 backdrop-blur">
+                      {p.badge}
+                    </span>
+                  )}
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
                 </div>
 
                 <div className="flex flex-1 flex-col p-7">

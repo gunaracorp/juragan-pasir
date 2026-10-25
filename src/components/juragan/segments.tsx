@@ -1,5 +1,6 @@
 "use client";
 
+<<<<<<< HEAD
 import { Check, type LucideIcon } from "lucide-react";
 import { getIcon } from "./icon-map";
 import { Reveal } from "./reveal";
@@ -16,6 +17,22 @@ export function Segments({
   segments: CmsSegment[];
   section?: CmsSection;
 }) {
+=======
+import { Check, Factory, HardHat, Home, Landmark, type LucideIcon } from "lucide-react";
+import { SEGMENTS } from "@/lib/juragan-data";
+import { Reveal } from "./reveal";
+import { SectionHeading } from "./section-heading";
+
+const ICONS: Record<string, LucideIcon> = { Home, HardHat, Factory, Landmark };
+
+/**
+ * SEGMENTASI KLIEN
+ * Diferensiasi spektrum klien: dari individu sampai organisasi besar.
+ * Ikon dalam kotak zamrud + glyph emas = bahasa visual brand. Setiap kartu
+ * menjawab satu pertanyaan psikologis pembeli: "apa untungnya untuk saya?"
+ */
+export function Segments() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <section
       id="segmen"
@@ -24,6 +41,7 @@ export function Segments({
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+<<<<<<< HEAD
           eyebrow={section?.eyebrow || "Siapa yang Kami Layani"}
           title={section?.heading || "Semua Kalangan,"}
           highlight={section?.highlight || "Tanpa Kecuali"}
@@ -33,6 +51,17 @@ export function Segments({
         <div className="grid gap-6 md:grid-cols-2">
           {segments.map((s, i) => {
             const Icon = getIcon(s.icon) as LucideIcon;
+=======
+          eyebrow="Siapa yang Kami Layani"
+          title="Semua Kalangan,"
+          highlight="Tanpa Kecuali"
+          description="Tidak ada order yang terlalu kecil dan tidak ada kontrak yang terlalu besar. Empat segmen, satu standar pelayanan juragan."
+        />
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {SEGMENTS.map((s, i) => {
+            const Icon = ICONS[s.icon] ?? Home;
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             return (
               <Reveal key={s.id} delay={(i % 2) * 0.08}>
                 <article className="flex h-full flex-col rounded-2xl border border-line bg-card p-7 shadow-soft transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-500/50 hover:shadow-lift sm:p-8">

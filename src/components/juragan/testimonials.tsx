@@ -1,6 +1,7 @@
 "use client";
 
 import { Quote, Star } from "lucide-react";
+<<<<<<< HEAD
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 import type { CmsSection, CmsTestimonial } from "@/lib/cms-types";
@@ -15,6 +16,13 @@ export function Testimonials({
   testimonials: CmsTestimonial[];
   section?: CmsSection;
 }) {
+=======
+import { TESTIMONIALS } from "@/lib/juragan-data";
+import { Reveal } from "./reveal";
+import { SectionHeading } from "./section-heading";
+
+export function Testimonials() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <section
       id="testimoni"
@@ -23,6 +31,7 @@ export function Testimonials({
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+<<<<<<< HEAD
           eyebrow={section?.eyebrow || "Kata Mereka"}
           title={section?.heading || "Kepercayaan yang Terbangun"}
           highlight={section?.highlight || "Ritase demi Ritase"}
@@ -32,6 +41,17 @@ export function Testimonials({
         <div className="grid gap-6 md:grid-cols-2">
           {testimonials.map((t, i) => (
             <Reveal key={t.id} delay={(i % 2) * 0.08}>
+=======
+          eyebrow="Kata Mereka"
+          title="Kepercayaan yang Terbangun"
+          highlight="Ritase demi Ritase"
+          description="Rating 4,9/5 dari 1.248 ulasan terverifikasi. Berikut suara asli dari tiap segmen klien kami."
+        />
+
+        <div className="grid gap-6 md:grid-cols-2">
+          {TESTIMONIALS.map((t, i) => (
+            <Reveal key={t.name} delay={(i % 2) * 0.08}>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               <figure className="flex h-full flex-col rounded-2xl border border-line bg-card p-7 shadow-soft transition-shadow hover:shadow-lift sm:p-8">
                 <div className="flex items-center justify-between">
                   <Quote

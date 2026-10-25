@@ -43,6 +43,7 @@ export function LogoMark({ className }: { className?: string }) {
 export function Logo({
   className,
   inverted = false,
+<<<<<<< HEAD
   name = "JURAGAN PASIR",
   tagline = "Pasir Terbaik di Dunia",
 }: {
@@ -54,6 +55,12 @@ export function Logo({
 }) {
   const words = name.trim().split(/\s+/);
   const last = words.length > 1 ? words.pop()! : "";
+=======
+}: {
+  className?: string;
+  inverted?: boolean;
+}) {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <span className={cn("flex items-center gap-3", className)}>
       <LogoMark />
@@ -64,7 +71,11 @@ export function Logo({
             inverted ? "text-white" : "text-ink-900"
           )}
         >
+<<<<<<< HEAD
           {words.join(" ")} <span className="text-gold-500">{last}</span>
+=======
+          JURAGAN <span className="text-gold-500">PASIR</span>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
         </span>
         <span
           className={cn(
@@ -72,7 +83,11 @@ export function Logo({
             inverted ? "text-gold-400" : "text-gold-600"
           )}
         >
+<<<<<<< HEAD
           {tagline}
+=======
+          Pasir Terbaik di Dunia
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
         </span>
       </span>
     </span>

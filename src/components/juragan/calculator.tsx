@@ -13,7 +13,10 @@ import {
 } from "@/components/ui/select";
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
+<<<<<<< HEAD
 import type { CmsSection } from "@/lib/cms-types";
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 
 /* Format angka gaya Indonesia (deterministik, bebas hydration mismatch) */
 function formatID(n: number, decimals = 0) {
@@ -83,11 +86,17 @@ function recommendFleet(volume: number) {
   return { name: `${trips}× rit Truk Fuso`, cap: "±15 m³ / rit", trips };
 }
 
+<<<<<<< HEAD
 /**
  * KALKULATOR PASIR — judul dari CMS; model perhitungan teknis tetap di kode
  * (faktor pemadatan & tarif area adalah logika bisnis, bukan konten).
  */
 export function Calculator({ section }: { section?: CmsSection }) {
+=======
+/* ------------------------------ KOMPONEN ------------------------------ */
+
+export function Calculator() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   const [length, setLength] = useState("6");
   const [width, setWidth] = useState("4");
   const [thickness, setThickness] = useState("10");
@@ -160,10 +169,17 @@ export function Calculator({ section }: { section?: CmsSection }) {
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
           dark
+<<<<<<< HEAD
           eyebrow={section?.eyebrow || "Alat Gratis"}
           title={section?.heading || "Kalkulator Pasir:"}
           highlight={section?.highlight || "Hitung Sebelum Beli"}
           description={section?.description}
+=======
+          eyebrow="Alat Gratis"
+          title="Kalkulator Pasir:"
+          highlight="Hitung Sebelum Beli"
+          description="Tiga dimensi, dua klik — tahu persis volume pasir, armada yang pas, dan estimasi biayanya. Tidak perlu ahli untuk mulai bijak berhitung."
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
         />
 
         <Reveal>

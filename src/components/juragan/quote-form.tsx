@@ -1,7 +1,11 @@
 "use client";
 
 import { useState } from "react";
+<<<<<<< HEAD
 import { CheckCircle2, MessageCircle, Send } from "lucide-react";
+=======
+import { MessageCircle, Send } from "lucide-react";
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -12,8 +16,13 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+<<<<<<< HEAD
 import { Reveal } from "./reveal";
 import type { CmsProduct, CmsSection, CmsSettings } from "@/lib/cms-types";
+=======
+import { SITE } from "@/lib/juragan-data";
+import { Reveal } from "./reveal";
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 
 const CLIENT_TYPES = [
   { value: "Perseorangan / Rumah Tangga", label: "Perseorangan / Rumah Tangga" },
@@ -31,6 +40,7 @@ const VOLUMES = [
 ] as const;
 
 /**
+<<<<<<< HEAD
  * FORMULIR PENAWARAN → INTEGRASI GANDA (dual-delivery)
  * 1. Tersimpan ke database CMS (Leads Inbox admin) — tak ada lead yang hilang
  * 2. Otomatis membuka WhatsApp dengan pesan tersusun rapi + nomor referensi
@@ -45,14 +55,27 @@ export function QuoteForm({
   products: CmsProduct[];
   section?: CmsSection;
 }) {
+=======
+ * FORMULIR PENAWARAN → LANGSUNG WHATSAPP
+ * Saat dikirim, seluruh isian tersusun otomatis menjadi pesan rapi lalu
+ * dibuka di WhatsApp +62 813-1651-6524 — tanpa server, tanpa jeda,
+ * percakapan langsung tersambung ke juragan.
+ */
+export function QuoteForm() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   const [clientType, setClientType] = useState<string>("");
   const [sandType, setSandType] = useState<string>("");
   const [volume, setVolume] = useState<string>("");
   const [error, setError] = useState<string>("");
+<<<<<<< HEAD
   const [sending, setSending] = useState(false);
   const [success, setSuccess] = useState<{ ref: string } | null>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+=======
+
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
 
@@ -66,6 +89,7 @@ export function QuoteForm({
       return;
     }
     setError("");
+<<<<<<< HEAD
     setSending(true);
 
     let ref = "";
@@ -88,12 +112,20 @@ export function QuoteForm({
       "Saya ingin meminta penawaran pasir:",
       "",
       ref ? `• No. Referensi: ${ref}` : "",
+=======
+
+    const lines = [
+      "Halo *Juragan Pasir Galunggung*!",
+      "Saya ingin meminta penawaran pasir:",
+      "",
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
       `• Nama: ${name}`,
       `• No. WhatsApp: ${phone}`,
       `• Saya adalah: ${clientType}`,
       `• Jenis pasir: ${sandType}`,
       `• Perkiraan volume: ${volume}`,
       `• Kota pengiriman: ${city}`,
+<<<<<<< HEAD
     ].filter(Boolean);
     if (message) lines.push(`• Catatan: ${message}`);
     lines.push("", "Mohon dibantu penawaran resminya ya. Terima kasih!");
@@ -103,6 +135,14 @@ export function QuoteForm({
 
     setSending(false);
     setSuccess({ ref: ref || "WA" });
+=======
+    ];
+    if (message) lines.push(`• Catatan: ${message}`);
+    lines.push("", "Mohon dibantu penawaran resminya ya. Terima kasih!");
+
+    const url = `${SITE.wa}?text=${encodeURIComponent(lines.join("\n"))}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   }
 
   const field =
@@ -125,16 +165,25 @@ export function QuoteForm({
           <Reveal>
             <p className="inline-flex items-center gap-2.5 rounded-full border border-gold-500/35 bg-gold-500/10 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.18em] text-gold-300">
               <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-gold-400" />
+<<<<<<< HEAD
               {section?.eyebrow || "Minta Penawaran"}
+=======
+              Minta Penawaran
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             </p>
             <h2
               id="judul-penawaran"
               className="mt-5 font-display text-3xl font-bold leading-[1.15] tracking-tight text-white sm:text-4xl lg:text-[2.75rem]"
             >
+<<<<<<< HEAD
               {section?.heading || "Ceritakan Proyek Anda,"}{" "}
               <em className="text-gold-bright font-bold italic">
                 {section?.highlight || "Kami Kirim Harganya"}
               </em>
+=======
+              Ceritakan Proyek Anda,{" "}
+              <em className="text-gold-bright font-bold italic">Kami Kirim Harganya</em>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             </h2>
             <div className="gold-divider mt-6 w-24" aria-hidden="true" />
             <p className="mt-6 max-w-lg text-base leading-relaxed text-white/60">
@@ -167,6 +216,7 @@ export function QuoteForm({
                 Lebih suka bicara langsung?
               </p>
               <a
+<<<<<<< HEAD
                 href={settings.phoneHref}
                 className="mt-2 block font-display text-2xl font-bold tracking-tight text-gold-300 transition-colors hover:text-gold-200"
                 aria-label={`Telepon atau WhatsApp ${settings.phone}`}
@@ -175,12 +225,23 @@ export function QuoteForm({
               </a>
               <p className="mt-1 text-sm text-white/45">
                 Telepon / WhatsApp · {settings.hours}
+=======
+                href={SITE.phoneHref}
+                className="mt-2 block font-display text-2xl font-bold tracking-tight text-gold-300 transition-colors hover:text-gold-200"
+                aria-label={`Telepon atau WhatsApp ${SITE.phone}`}
+              >
+                {SITE.phone}
+              </a>
+              <p className="mt-1 text-sm text-white/45">
+                Telepon / WhatsApp · {SITE.hours}
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               </p>
             </div>
           </Reveal>
 
           {/* Formulir */}
           <Reveal delay={0.12}>
+<<<<<<< HEAD
             {success ? (
               <div
                 className="rounded-3xl border border-gold-500/30 bg-card p-8 text-center shadow-[0_30px_80px_rgba(2,23,16,0.55)]"
@@ -205,6 +266,8 @@ export function QuoteForm({
                 </button>
               </div>
             ) : (
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             <form
               onSubmit={handleSubmit}
               className="rounded-3xl border border-white/10 bg-card p-6 shadow-[0_30px_80px_rgba(2,23,16,0.55)] sm:p-8"
@@ -220,7 +283,11 @@ export function QuoteForm({
                 </span>
                 <p className="text-xs leading-relaxed text-ink-700">
                   <strong className="font-bold text-ink-900">
+<<<<<<< HEAD
                     Terhubung langsung ke WhatsApp {settings.phone}
+=======
+                    Terhubung langsung ke WhatsApp {SITE.phone}
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
                   </strong>{" "}
                   — saat Anda menekan kirim, pesan penawaran tersusun otomatis.
                 </p>
@@ -296,11 +363,20 @@ export function QuoteForm({
                       <SelectValue placeholder="Pilih / tanya rekomendasi" />
                     </SelectTrigger>
                     <SelectContent>
+<<<<<<< HEAD
                       {products.map((p) => (
                         <SelectItem key={p.id} value={p.name}>
                           {p.name}
                         </SelectItem>
                       ))}
+=======
+                      <SelectItem value="Pasir Galunggung Cor">Pasir Galunggung Cor</SelectItem>
+                      <SelectItem value="Pasir Urug Gunung">Pasir Urug Gunung</SelectItem>
+                      <SelectItem value="Pasir Galunggung Pasang">Pasir Galunggung Pasang</SelectItem>
+                      <SelectItem value="Pasir Halus Galunggung">Pasir Halus Galunggung</SelectItem>
+                      <SelectItem value="Pasir Silika Vulkanik">Pasir Silika Vulkanik</SelectItem>
+                      <SelectItem value="Pasir Merah / Bangka">Pasir Merah / Bangka</SelectItem>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
                       <SelectItem value="Belum tahu - minta saran">Belum tahu — minta saran</SelectItem>
                     </SelectContent>
                   </Select>
@@ -370,10 +446,16 @@ export function QuoteForm({
 
               <button
                 type="submit"
+<<<<<<< HEAD
                 disabled={sending}
                 className="mt-6 flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 text-base font-bold text-night-950 shadow-[0_10px_30px_rgba(189,151,38,0.35)] ring-1 ring-gold-300/60 transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(189,151,38,0.5)] disabled:cursor-not-allowed disabled:opacity-70"
               >
                 {sending ? "Mengirim…" : "Kirim via WhatsApp"}
+=======
+                className="mt-6 flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 text-base font-bold text-night-950 shadow-[0_10px_30px_rgba(189,151,38,0.35)] ring-1 ring-gold-300/60 transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(189,151,38,0.5)]"
+              >
+                Kirim via WhatsApp
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
                 <Send className="h-4 w-4" aria-hidden="true" />
               </button>
               <p className="mt-3.5 text-center text-xs leading-relaxed text-ink-400">
@@ -382,7 +464,10 @@ export function QuoteForm({
                 pihak ketiga.
               </p>
             </form>
+<<<<<<< HEAD
             )}
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
           </Reveal>
         </div>
       </div>

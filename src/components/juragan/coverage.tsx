@@ -1,6 +1,7 @@
 "use client";
 
 import { MapPin } from "lucide-react";
+<<<<<<< HEAD
 import { Reveal } from "./reveal";
 import { SectionHeading } from "./section-heading";
 import type { CmsRegion, CmsSection } from "@/lib/cms-types";
@@ -15,10 +16,23 @@ export function Coverage({
   regions: CmsRegion[];
   section?: CmsSection;
 }) {
+=======
+import { REGIONS } from "@/lib/juragan-data";
+import { Reveal } from "./reveal";
+import { SectionHeading } from "./section-heading";
+
+/**
+ * JANGKAUAN WILAYAH
+ * Peta liputan berbasis daftar kota = sinyal SEO lokal yang kuat
+ * (local SEO entity coverage) sekaligus bukti kapabilitas nasional.
+ */
+export function Coverage() {
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <section id="jangkauan" aria-labelledby="judul-jangkauan" className="sand-dots scroll-mt-24 bg-cream-50 py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <SectionHeading
+<<<<<<< HEAD
           eyebrow={section?.eyebrow || "Jangkauan Pengiriman"}
           title={section?.heading || "34 Provinsi,"}
           highlight={section?.highlight || "Satu Rantai Pasok"}
@@ -28,6 +42,17 @@ export function Coverage({
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {regions.map((r, i) => (
             <Reveal key={r.id} delay={(i % 3) * 0.07}>
+=======
+          eyebrow="Jangkauan Pengiriman"
+          title="34 Provinsi,"
+          highlight="Satu Rantai Pasok"
+          description="Dari Jabodetabek sampai Papua: armada darat, kereta angkut, dan kapal laut kami kombinasikan agar pasir sampai ke mana pun proyek Anda berdiri."
+        />
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {REGIONS.map((r, i) => (
+            <Reveal key={r.island} delay={(i % 3) * 0.07}>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               <article className="h-full rounded-2xl border border-line bg-card p-6 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-gold-500/50 hover:shadow-lift">
                 <h3 className="flex items-center gap-2.5 font-display text-lg font-bold tracking-tight text-ink-900">
                   <span

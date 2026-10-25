@@ -3,7 +3,10 @@
 import { useMemo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, BadgeCheck, Calculator, Medal, ShieldCheck, Truck } from "lucide-react";
+<<<<<<< HEAD
 import type { CmsSection, CmsSettings } from "@/lib/cms-types";
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 
 /* Partikel emas melayang — deterministik (tanpa Math.random) agar bebas hydration mismatch */
 const PARTICLES = [
@@ -19,6 +22,7 @@ const PARTICLES = [
   { left: "95%", size: 3, dur: 15, delay: 9.1, drift: -16 },
 ];
 
+<<<<<<< HEAD
 const CHIP_ICONS = [BadgeCheck, ShieldCheck, Truck];
 
 /**
@@ -34,6 +38,16 @@ export function Hero({
 }) {
   const reduce = useReducedMotion();
   const hero = settings.hero;
+=======
+const TRUST_CHIPS = [
+  { icon: BadgeCheck, label: "Standar SNI & teruji lab" },
+  { icon: ShieldCheck, label: "Garansi mutu tertulis" },
+  { icon: Truck, label: "Kirim ke 34 provinsi" },
+];
+
+export function Hero() {
+  const reduce = useReducedMotion();
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 
   const particles = useMemo(
     () =>
@@ -56,8 +70,11 @@ export function Hero({
     []
   );
 
+<<<<<<< HEAD
   const chipCount = Math.min(hero.chips.length, CHIP_ICONS.length);
 
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
   return (
     <section
       aria-labelledby="judul-hero"
@@ -106,7 +123,11 @@ export function Hero({
                 aria-hidden="true"
                 className="h-1.5 w-1.5 rounded-full bg-gold-400"
               />
+<<<<<<< HEAD
               {hero.badge}
+=======
+              Asli Lereng Gunung Galunggung — Tasikmalaya
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             </motion.div>
 
             <motion.h1
@@ -116,10 +137,17 @@ export function Hero({
               transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
               className="font-display text-[2.6rem] font-bold leading-[1.08] tracking-tight text-white sm:text-6xl lg:text-[4.2rem]"
             >
+<<<<<<< HEAD
               {hero.title1}
               <br />
               <em className="text-gold-bright font-bold italic">
                 {hero.title2}
+=======
+              Pasir Galunggung,
+              <br />
+              <em className="text-gold-bright font-bold italic">
+                Terbaik di Dunia
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               </em>
             </motion.h1>
 
@@ -129,7 +157,16 @@ export function Hero({
               transition={{ duration: 0.6, delay: 0.16, ease: "easeOut" }}
               className="mt-6 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg"
             >
+<<<<<<< HEAD
               {hero.desc}
+=======
+              Juragan Pasir Galunggung adalah pusat supplier pasir vulkanik asli
+              lereng Gunung Galunggung, Tasikmalaya — dipercaya{" "}
+              <strong className="font-semibold text-white">
+                perseorangan, kontraktor, perusahaan, hingga instansi
+              </strong>
+              . Disaring, teruji, dan dikirim tepat waktu ke 34 provinsi.
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             </motion.p>
 
             <motion.div
@@ -142,7 +179,11 @@ export function Hero({
                 href="#penawaran"
                 className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full bg-gradient-to-b from-gold-400 to-gold-600 px-8 text-base font-bold text-night-950 shadow-[0_10px_30px_rgba(189,151,38,0.35)] ring-1 ring-gold-300/60 transition-all hover:-translate-y-0.5 hover:shadow-[0_14px_38px_rgba(189,151,38,0.5)]"
               >
+<<<<<<< HEAD
                 {hero.cta1}
+=======
+                Minta Penawaran Gratis
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
@@ -150,7 +191,11 @@ export function Hero({
                 className="inline-flex h-[52px] items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-8 text-base font-bold text-white backdrop-blur transition-all hover:border-gold-500/50 hover:text-gold-300"
               >
                 <Calculator className="h-4 w-4" aria-hidden="true" />
+<<<<<<< HEAD
                 {hero.cta2}
+=======
+                Lihat 6 Jenis Pasir
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               </a>
             </motion.div>
 
@@ -161,6 +206,7 @@ export function Hero({
               className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3"
               aria-label="Jaminan layanan"
             >
+<<<<<<< HEAD
               {hero.chips.slice(0, chipCount).map((chip, i) => {
                 const Icon = CHIP_ICONS[i] ?? BadgeCheck;
                 return (
@@ -173,6 +219,17 @@ export function Hero({
                   </li>
                 );
               })}
+=======
+              {TRUST_CHIPS.map((chip) => (
+                <li
+                  key={chip.label}
+                  className="flex items-center gap-2 text-sm font-medium text-white/55"
+                >
+                  <chip.icon className="h-4 w-4 text-gold-400" aria-hidden="true" />
+                  {chip.label}
+                </li>
+              ))}
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
             </motion.ul>
           </div>
 
@@ -190,6 +247,7 @@ export function Hero({
               >
                 <Medal className="h-8 w-8 text-gold-300" strokeWidth={1.6} />
               </span>
+<<<<<<< HEAD
               {hero.cardTitle.split("\n").map((line, i) => (
                 <span key={i} className="block font-display text-2xl font-bold leading-snug text-white sm:text-[1.7rem]">
                   {line}
@@ -201,16 +259,37 @@ export function Hero({
               </p>
               <p className="mt-2 text-sm leading-relaxed text-white/55">
                 {hero.cardText}
+=======
+              <h2 className="font-display text-2xl font-bold leading-snug text-white sm:text-[1.7rem]">
+                Garansi Mutu
+                <br />
+                Juragan Pasir
+              </h2>
+              <div className="gold-divider mx-auto mt-5 w-28" aria-hidden="true" />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.22em] text-gold-300">
+                Disaring • Teruji • Tersertifikasi
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-white/55">
+                Tidak sesuai spesifikasi yang disepakati? Kami ganti — tanpa
+                biaya tambahan, tanpa drama.
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               </p>
             </div>
 
             {/* Kartu mini mengambang: kepercayaan klien */}
             <div className="absolute -bottom-7 -left-4 rounded-2xl border border-white/10 bg-night-950/95 px-5 py-4 shadow-2xl backdrop-blur sm:-left-8">
               <p className="font-display text-2xl font-bold text-gold-300 tabular">
+<<<<<<< HEAD
                 {hero.statNum}
               </p>
               <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
                 {hero.statLabel}
+=======
+                12.480+
+              </p>
+              <p className="mt-0.5 text-[10px] font-bold uppercase tracking-[0.16em] text-white/50">
+                Klien Terlayani
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
               </p>
             </div>
           </motion.div>

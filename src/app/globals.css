@@ -275,6 +275,7 @@
     background: #c4b88f;
   }
 }
+<<<<<<< HEAD
 
 /* ═══════════════════════════════════════════════════════════════════
    CMS v.2 ANIMATION SYSTEM — utilitas gerak untuk landing /cms,
@@ -397,3 +398,5 @@
   }
   .reveal { opacity: 1; transform: none; transition: none; }
 }
+=======
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f

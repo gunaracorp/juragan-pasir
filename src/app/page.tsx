@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import type { Metadata } from "next";
 import { Header, type NavLink } from "@/components/juragan/header";
+=======
+import { Header } from "@/components/juragan/header";
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 import { Hero } from "@/components/juragan/hero";
 import { Stats } from "@/components/juragan/stats";
 import { Products } from "@/components/juragan/products";
@@ -13,6 +17,7 @@ import { Faq } from "@/components/juragan/faq";
 import { QuoteForm } from "@/components/juragan/quote-form";
 import { Footer } from "@/components/juragan/footer";
 import { WhatsAppFloat } from "@/components/juragan/whatsapp-float";
+<<<<<<< HEAD
 import { getCmsContent, buildSchemaFromDb } from "@/lib/cms-content";
 import { getSection } from "@/lib/cms-types";
 
@@ -142,6 +147,33 @@ export default async function Home() {
       </main>
       <Footer settings={settings} products={content.products} />
       <WhatsAppFloat settings={settings} />
+=======
+
+/**
+ * JURAGAN PASIR — Pusat Pasir Terbaik Se-Indonesia
+ * Halaman utama satu-halaman: narasi merek dari atas (hero) ke bawah
+ * (konversi), dengan struktur semantik penuh untuk mesin pencari.
+ */
+export default function Home() {
+  return (
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <main id="konten-utama" className="flex-1">
+        <Hero />
+        <Stats />
+        <Products />
+        <Calculator />
+        <Segments />
+        <WhyUs />
+        <Process />
+        <Coverage />
+        <Testimonials />
+        <Faq />
+        <QuoteForm />
+      </main>
+      <Footer />
+      <WhatsAppFloat />
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
     </div>
   );
 }

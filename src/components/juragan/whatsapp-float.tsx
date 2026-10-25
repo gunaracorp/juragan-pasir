@@ -1,4 +1,5 @@
 import { MessageCircle } from "lucide-react";
+<<<<<<< HEAD
 import type { CmsSettings } from "@/lib/cms-types";
 
 /**
@@ -7,6 +8,16 @@ import type { CmsSettings } from "@/lib/cms-types";
  */
 export function WhatsAppFloat({ settings }: { settings: CmsSettings }) {
   const waLink = `${settings.wa}?text=${encodeURIComponent(settings.waMessage)}`;
+=======
+import { SITE, WA_DEFAULT_MESSAGE } from "@/lib/juragan-data";
+
+/**
+ * Tombol WhatsApp mengambang — kanal konversi utama pasar Indonesia.
+ * Gaya kartu label putih + lingkaran hijau khas, selalu terjangkau ibu jari.
+ */
+export function WhatsAppFloat() {
+  const waLink = `${SITE.wa}?text=${encodeURIComponent(WA_DEFAULT_MESSAGE)}`;
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
 
   return (
     <div className="fixed bottom-5 right-5 z-40 flex items-center gap-3">
@@ -25,7 +36,11 @@ export function WhatsAppFloat({ settings }: { settings: CmsSettings }) {
         </span>
         <span className="leading-tight">
           <span className="block text-[13px] font-extrabold text-ink-900">Chat WhatsApp</span>
+<<<<<<< HEAD
           <span className="block text-[11px] font-medium text-ink-400">{settings.phone}</span>
+=======
+          <span className="block text-[11px] font-medium text-ink-400">{SITE.phone}</span>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
         </span>
       </a>
 
@@ -38,7 +53,11 @@ export function WhatsAppFloat({ settings }: { settings: CmsSettings }) {
         className="flex h-15 w-15 items-center justify-center rounded-full bg-wa text-white shadow-[0_10px_30px_rgba(31,184,87,0.45)] ring-4 ring-wa/20 transition-all hover:-translate-y-1 hover:bg-[#22c963]"
       >
         <MessageCircle className="h-7 w-7" aria-hidden="true" />
+<<<<<<< HEAD
         <span className="sr-only">Hubungi kami via WhatsApp: {settings.phone}</span>
+=======
+        <span className="sr-only">Hubungi kami via WhatsApp: {SITE.phone}</span>
+>>>>>>> 452733ccbfbe95fbead2cb9e2abc022d0594cb5f
       </a>
     </div>
   );
