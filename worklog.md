@@ -90,3 +90,23 @@ Stage Summary:
 - CMS resmi v.3.0 "Digiman Edition" — upgrade final: kredit tema PT Digital Bisnis Manajemen (digiman.id) terpasang di 5 titik platform (footer publik, CMS Home + seksi award, login 2 panel, sidebar admin, export HTML banner).
 - Arsitektur kredit: satu konstanta THEME_CREDIT di cms-version.ts + satu komponen ThemeCredit 3 varian → ubah sekali, semua titik ikut.
 - Semua fitur v.1 (CMS 3-lapis) & v.2 (CMS Home, login premium, dashboard dinamis) tetap utuh; tidak ada regresi.
+
+---
+Task ID: 5
+Agent: Z.ai (Master Polymath — main agent)
+Task: Membuat "full tutorial lengkap dari hulu ke hilir untuk orang awam" — panduan deploy cPanel (permintaan: "bisa buatkan full tutorial lengkap dari hulu ke hilir untuk orang awam buat deploy di cpanel"). Deliverable: PDF + HTML source.
+
+Work Log:
+- Muat skill PDF; routing: guide/handbook → briefs/creative-flow.md (Playwright + Paged.js); baca lengkap fonts.md, overflow.md, palette.md, typography.md, pagination.md, cover.md.
+- Audit CMS PHP aktual untuk akurasi 100%: README-ID.md (5 langkah deploy), views/admin/install.php (9 field form installer, 2 mode), docs/kit-domain/{index.php,htaccess-template.txt} (JRCMS_CORE, __CORE_PATH__), admin menu (Dashboard/Halaman/Artikel/Media/Pengaturan), blok Pengaturan (Identitas/Kontak WA/Alamat/SEO/Tambahan).
+- Outline 14 seksi diset (Outline tool): cover, peta perjalanan, tahap 1-9 (hulu→hilir), bonus multi-tenant, troubleshooting A-Z + kamus, ending.
+- Tulis HTML flow 720x1020px: palet hijau-zamrud editorial + aksen emas (satu keluarga, ≤5 warna), Playfair Display (judul) + Inter (isi) + DejaVu mono (kode); komponen: step bernomor, tip/warn/note, kartu kredensial isian, tabel data, checklist go-live 10 item, kartu troubleshooting 7 kasus, kamus 12 istilah, roadmap grid 9 tahap.
+- Debug loop yang diperbaiki: (1) 16+ false-positive COVER_TEXT_OVERLAP dari .divider body → diganti border-bottom chapter-header + garis emas via background-image; (2) 2 garis kredit cover/ending <40px dari teks → dihapus/direposisi; (3) inline <code> vs <strong> overlap → span berkelas; (4) html2pdf melepas overflow:hidden cover karena dekorasi negatif-offset meluber → desain ulang dekorasi jadi radial-gradient background + SVG ring dalam batas (nol overflow); (5) pagedjs belum ada → npm install; (6) font Google tidak embed deterministik → self-host woff2 (11 file statis Inter 400-900+italic & Playfair 600-900) di panduan-fonts/, pasang juga sebagai font sistem utk memastikan; hasil: Inter-Italic embed named, body via Chromium T3 (vektor, QA lulus, teks terekstrak 4.674 kata — nama Unnamed-T3 kosmetik); (7) em-dash awal baris → 102× " — " diikat nbsp; (8) kredit cover jatuh di luar box (absolute dalam flex child yang di-center) → pindah jadi anak langsung .cover (terverifikasi tampil).
+- Postprocess: nomor halaman via pypdf+reportlab (cover & ending tanpa nomor, body 1-17 bottom-center); metadata lengkap (Title/Author Z.ai/Subject kredit Digiman/Creator).
+- QA akhir pdf_qa --no-tables --skip-cover: 9 passed, 2 warning (author = sudah diperbaiki di final; line-start dash p5 = false positive terbukti via koordinat y identik — baris terfragmentasi span). Scan korupsi teks: CLEAN. Verifikasi visual 8 halaman (cover/peta/steps/kode/checklist/ending): Playfair & Inter render otentik, layout rapi, kredit Digiman ada di cover + ending.
+- Deliverables: download/panduan-deploy-cpanel/{Panduan-Deploy-cPanel-JURAGAN-CORE.pdf (19 hal, 2.2MB), panduan-deploy-cpanel.html (sumber), panduan-fonts/ (11 woff2)}.
+
+Stage Summary:
+- PDF tutorial 19 halaman bahasa Indonesia untuk pemula total: 9 tahap hulu→hilir (belanja domain/hosting → cPanel → upload ZIP → MySQL → kit domain → installer → konten → HTTPS+Google → perawatan), bonus multi-tenant, 7 kartu troubleshooting, kamus 12 istilah, kartu kredensial isian, checklist go-live.
+- Semua langkah akurat sesuai mesin CMS v1 nyata (field installer, kit domain, menu admin) — bukan tutorial generik.
+- Kredit tema "PT Digital Bisnis Manajemen — digiman.id" tampil di cover & ending.

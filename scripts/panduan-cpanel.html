@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panduan Lengkap Deploy cPanel — JURAGAN CORE CMS</title>
+<style>
+/* Font self-hosted (statis per bobot, latin) — embed TrueType bersih tanpa race network */
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-400-normal.woff2') format('woff2'); font-weight:400; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-400-italic.woff2') format('woff2'); font-weight:400; font-style:italic; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-500-normal.woff2') format('woff2'); font-weight:500; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-600-normal.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-700-normal.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-800-normal.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:block; }
+@font-face { font-family:'Inter'; src:url('panduan-fonts/inter-900-normal.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:block; }
+@font-face { font-family:'Playfair Display'; src:url('panduan-fonts/playfair-600-normal.woff2') format('woff2'); font-weight:600; font-style:normal; font-display:block; }
+@font-face { font-family:'Playfair Display'; src:url('panduan-fonts/playfair-700-normal.woff2') format('woff2'); font-weight:700; font-style:normal; font-display:block; }
+@font-face { font-family:'Playfair Display'; src:url('panduan-fonts/playfair-800-normal.woff2') format('woff2'); font-weight:800; font-style:normal; font-display:block; }
+@font-face { font-family:'Playfair Display'; src:url('panduan-fonts/playfair-900-normal.woff2') format('woff2'); font-weight:900; font-style:normal; font-display:block; }
+</style>
+<style>
+/* ═══════════════ PANDUAN DEPLOY CPANEL — CREATIVE FLOW ═══════════════
+   Palet: hijau-zamrud editorial + aksen emas (satu keluarga warna)
+   Tipografi: Playfair Display (judul) + Inter (isi) + mono (kode)      */
+
+@page {
+  size: 720px 1020px;
+  margin: 0;
+}
+
+:root {
+  --ink:        #16301F;   /* teks utama — hijau sangat gelap */
+  --green:      #2D6B4A;   /* struktur — hijau zamrud sedang  */
+  --green-soft: #E9F0E9;   /* kartu / latar lembut            */
+  --green-line: #C9DACC;   /* garis & border                  */
+  --gold:       #A8842B;   /* aksen emas (XS, <1% area)       */
+  --muted:      #5A6B5E;   /* teks sekunder abu kehijauan     */
+  --paper:      #FAF8F2;   /* latar kertas hangat             */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 720px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+  font-size: 14.5px;
+  line-height: 1.62;
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+@media screen {
+  html {
+    height: auto;
+    display: flex;
+    justify-content: center;
+    background: #23231F;
+  }
+  body {
+    transform-origin: top center;
+    margin: 20px auto;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+  }
+}
+
+p, td, li { line-break: strict; text-align: justify; }
+p, td, li { overflow-wrap: break-word; }
+
+/* ── KOMPONEN UMUM ─────────────────────────────────────────────── */
+
+.main-content {
+  padding: 56px 62px 44px 62px;
+  /* tanpa height, tanpa overflow: konten mengalir */
+}
+
+.chapter-header {
+  break-after: avoid;
+  break-inside: avoid;
+  margin-top: 26px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--green-line);
+  margin-bottom: 16px;
+  background-image: linear-gradient(90deg, var(--green) 0 64px, transparent 64px);
+  background-repeat: no-repeat;
+  background-size: 64px 3px;
+  background-position: left bottom;
+}
+.chapter-header:first-child { margin-top: 0; }
+
+.stage-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.stage-tag::before {
+  content: "";
+  width: 26px; height: 2px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.14;
+  margin: 10px 0 0 0;
+  color: var(--ink);
+}
+
+.lead {
+  font-size: 14.5px;
+  color: var(--muted);
+  margin: 0 0 14px 0;
+}
+
+.body-text { margin: 0 0 12px 0; }
+
+h3.sub {
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  font-weight: 700;
+  margin: 20px 0 8px 0;
+  break-after: avoid;
+  color: var(--ink);
+}
+
+strong { font-weight: 700; color: var(--ink); }
+
+.kw { color: var(--green); font-weight: 700; }
+.gd { color: var(--gold); font-weight: 700; }
+
+/* Langkah bernomor */
+.step {
+  display: flex;
+  gap: 14px;
+  break-inside: avoid;
+  margin-bottom: 12px;
+}
+.step-num {
+  flex: 0 0 auto;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.step-body { flex: 1 1 auto; min-width: 0; }
+.step-body .s-title {
+  font-weight: 800;
+  font-size: 14px;
+  margin-bottom: 2px;
+  text-align: left;
+}
+.step-body p { margin: 0; font-size: 13.5px; color: #33443A; }
+
+/* Kotak nasihat */
+.tip, .warn, .note {
+  break-inside: avoid;
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 12px 0 14px 0;
+  font-size: 13px;
+}
+.tip  { background: var(--green-soft); border-left: 4px solid var(--green); }
+.warn { background: #F6EFE2; border-left: 4px solid var(--gold); }
+.note { background: #F1F2EF; border-left: 4px solid var(--green-line); }
+.tip .t-label, .warn .t-label, .note .t-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+  text-align: left;
+}
+.tip .t-label  { color: var(--green); }
+.warn .t-label { color: var(--gold); }
+.note .t-label { color: var(--muted); }
+.tip p, .warn p, .note p { margin: 0; text-align: left; }
+
+/* Chip path / kode */
+code, .path {
+  font-family: 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+  font-size: 11.5px;
+  background: #EFEDE4;
+  border: 1px solid var(--green-line);
+  border-radius: 5px;
+  padding: 1px 6px;
+  color: #1F3A2A;
+  white-space: nowrap;
+}
+.codeblock {
+  font-family: 'DejaVu Sans Mono', 'Liberation Mono', monospace;
+  font-size: 11px;
+  line-height: 1.55;
+  background: #14261B;
+  color: #D8E6D8;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 10px 0 14px 0;
+  white-space: pre;
+  overflow: hidden;
+  break-inside: avoid;
+  text-align: left;
+}
+.codeblock .c  { color: #7FA98A; }
+.codeblock .hl { color: #E4C568; }
+
+/* Tabel */
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0 14px 0;
+  font-size: 12.5px;
+  break-inside: auto;
+}
+table.data thead { display: table-header-group; }
+table.data tr { break-inside: avoid; }
+table.data th {
+  background: #27573D;
+  color: #fff;
+  text-align: left;
+  font-weight: 700;
+  font-size: 11.5px;
+  letter-spacing: .04em;
+  padding: 8px 12px;
+}
+table.data td {
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--green-line);
+  vertical-align: top;
+  text-align: left;
+}
+table.data tbody tr:nth-child(odd) td { background: #F2F5F0; }
+table.data tbody tr:nth-child(even) td { background: #fff; }
+
+/* Kartu grid */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+.gcard {
+  break-inside: avoid;
+  background: #fff;
+  border: 1px solid var(--green-line);
+  border-radius: 12px;
+  padding: 13px 15px;
+}
+.gcard .g-icon {
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  background: var(--green-soft);
+  border: 1px solid var(--green-line);
+  color: var(--green);
+  font-weight: 900;
+  font-size: 13px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+}
+.gcard .g-title { font-weight: 800; font-size: 13px; margin-bottom: 3px; text-align: left; }
+.gcard p { margin: 0; font-size: 12px; color: var(--muted); }
+
+/* Kartu kredensial (form isian) */
+.cred-card {
+  break-inside: avoid;
+  border: 2px dashed var(--gold);
+  border-radius: 14px;
+  background: #FDFBF4;
+  padding: 16px 20px;
+  margin: 14px 0;
+}
+.cred-card .cc-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  text-align: left;
+}
+.cred-card p { font-size: 12px; color: var(--muted); margin: 0 0 10px 0; }
+.cred-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--green-line);
+}
+.cred-row .cr-label {
+  flex: 0 0 150px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green);
+  text-align: left;
+}
+.cred-row .cr-fill {
+  flex: 1 1 auto;
+  border-bottom: 1px solid #B8C4B8;
+  min-height: 18px;
+  font-size: 11px;
+  color: #B0B8B0;
+  padding: 0 4px 2px 4px;
+}
+
+/* Checklist */
+.checklist { margin: 10px 0 14px 0; padding: 0; list-style: none; }
+.checklist li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  break-inside: avoid;
+  padding: 5px 0;
+  font-size: 13px;
+  text-align: left;
+}
+.checklist .box {
+  flex: 0 0 auto;
+  width: 15px; height: 15px;
+  border: 2px solid var(--green);
+  border-radius: 4px;
+  margin-top: 2px;
+}
+
+/* Troubleshooting kartu */
+.trouble {
+  break-inside: avoid;
+  background: #fff;
+  border: 1px solid var(--green-line);
+  border-radius: 12px;
+  padding: 13px 16px;
+  margin-bottom: 10px;
+}
+.trouble .tr-name {
+  font-weight: 800;
+  font-size: 13.5px;
+  color: var(--green);
+  text-align: left;
+  margin-bottom: 3px;
+}
+.trouble .tr-sym {
+  font-size: 12px;
+  color: var(--gold);
+  font-weight: 700;
+  text-align: left;
+  margin-bottom: 5px;
+}
+.trouble p { margin: 0; font-size: 12.5px; color: #33443A; }
+
+/* Kamus */
+.glossary { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 14px; margin: 12px 0; }
+.gl {
+  break-inside: avoid;
+  background: #fff;
+  border: 1px solid var(--green-line);
+  border-radius: 10px;
+  padding: 10px 13px;
+}
+.gl .gl-term { font-weight: 800; font-size: 12.5px; color: var(--green); text-align: left; }
+.gl p { margin: 2px 0 0 0; font-size: 11.5px; color: var(--muted); }
+
+/* Peta perjalanan */
+.roadmap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin: 12px 0 14px 0;
+}
+.rm {
+  break-inside: avoid;
+  background: #fff;
+  border: 1px solid var(--green-line);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.rm .rm-n {
+  font-family: 'Playfair Display', serif;
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.rm .rm-t { font-weight: 800; font-size: 11.5px; margin-top: 4px; text-align: left; line-height: 1.3; }
+.rm p { margin: 3px 0 0 0; font-size: 10.5px; color: var(--muted); line-height: 1.45; }
+
+</style>
+</head>
+<body>
+<!-- ═══════════════ COVER ═══════════════ -->
+<div class="cover" style="width:720px;height:1020px;box-sizing:border-box;break-after:page;position:relative;background-color:#123122;background-image:radial-gradient(circle at 620px 60px, rgba(212,174,54,0) 148px, rgba(212,174,54,.26) 150px, rgba(212,174,54,.26) 152px, rgba(212,174,54,0) 154px),radial-gradient(circle at 620px 60px, rgba(212,174,54,0) 96px, rgba(212,174,54,.20) 98px, rgba(212,174,54,.20) 99px, rgba(212,174,54,0) 101px),radial-gradient(circle at 40px 1060px, rgba(77,138,101,.22) 0%, rgba(77,138,101,.10) 130px, rgba(77,138,101,0) 230px),linear-gradient(160deg,#0F2417 0%,#16301F 55%,#1E4230 100%);display:flex;flex-direction:column;justify-content:center;padding:0 68px;">
+  <!-- Layer 1: garis aksen (semua di dalam batas halaman) -->
+  <div style="position:absolute;inset:0;z-index:1;" aria-hidden="true">
+    <svg width="230" height="230" style="position:absolute;top:44px;right:44px;opacity:.9;" viewBox="0 0 230 230" fill="none">
+      <circle cx="115" cy="115" r="112" stroke="rgba(212,174,54,.20)" stroke-width="1" stroke-dasharray="6 7"/>
+    </svg>
+    <div style="position:absolute;bottom:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#A8842B,#4D8A65,#A8842B);opacity:.55;"></div>
+  </div>
+
+  <!-- Layer 3: konten -->
+  <div style="position:relative;z-index:3;">
+    <div style="display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(212,174,54,.45);background:rgba(212,174,54,.10);border-radius:999px;padding:7px 18px;">
+      <span style="font-size:10.5px;font-weight:800;letter-spacing:.26em;color:#E4C568;text-transform:uppercase;">Panduan Lengkap · Untuk Pemula</span>
+    </div>
+
+    <h1 style="font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1.12;color:#F4F1E8;margin:34px 0 0 0;text-align:left;">
+      Dari Nol<br>ke Website<br><span style="color:#E4C568;">Online.</span>
+    </h1>
+
+    <p style="font-size:16px;line-height:1.65;color:rgba(244,241,232,.82);max-width:420px;margin:26px 0 0 0;text-align:left;">
+      Tutorial deploy <strong style="color:#F4F1E8;">cPanel dari hulu ke hilir</strong> — dari membeli
+      domain &amp; hosting, mengunggah CMS, sampai website hidup, aman, dan terawat.
+      Ditulis untuk orang awam: setiap klik dijelaskan.
+    </p>
+
+    <div style="margin-top:30px;display:flex;gap:34px;">
+      <div>
+        <p style="margin:0;font-size:10px;font-weight:800;letter-spacing:.2em;color:rgba(244,241,232,.5);text-transform:uppercase;">Platform</p>
+        <p style="margin:4px 0 0 0;font-size:14px;font-weight:700;color:#F4F1E8;text-align:left;">JURAGAN CORE CMS</p>
+      </div>
+      <div>
+        <p style="margin:0;font-size:10px;font-weight:800;letter-spacing:.2em;color:rgba(244,241,232,.5);text-transform:uppercase;">Estimasi Waktu</p>
+        <p style="margin:4px 0 0 0;font-size:14px;font-weight:700;color:#F4F1E8;text-align:left;">60–90 Menit</p>
+      </div>
+      <div>
+        <p style="margin:0;font-size:10px;font-weight:800;letter-spacing:.2em;color:rgba(244,241,232,.5);text-transform:uppercase;">Tingkat</p>
+        <p style="margin:4px 0 0 0;font-size:14px;font-weight:700;color:#F4F1E8;text-align:left;">Pemula Total</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div style="position:absolute;top:890px;left:68px;right:68px;z-index:3;">
+    <p style="margin:0;font-size:11.5px;color:rgba(244,241,232,.55);text-align:left;">Edisi 2026 — Tema oleh <strong style="color:#E4C568;">PT Digital Bisnis Manajemen</strong> · digiman.id</p>
+  </div>
+</div>
+
+<!-- ═══════════════ ISI UTAMA ═══════════════ -->
+<div class="main-content">
+
+<!-- ── PETA PERJALANAN ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Peta Perjalanan</span>
+  <h2 class="section-title">Peta Perjalanan Anda: dari Hulu ke Hilir</h2>
+
+</div>
+
+<p class="lead">Selamat datang! Panduan ini akan mengantarkan Anda — walau belum pernah
+membuat website seumur hidup — sampai ke titik website bisnis Anda <strong>online, aman, dan bisa
+Anda kelola sendiri</strong>. Tidak perlu bisa koding, tidak perlu istilah teknis di kepala; cukup ikuti
+langkahnya satu per satu, dan setiap istilah asing akan kami jelaskan saat ia muncul.</p>
+
+<p class="body-text">Sepanjang panduan ini, kami memakai satu analogi sederhana yang membuat semuanya masuk akal:
+<strong>membangun website itu seperti menempati rumah</strong>. <span class="kw">Domain</span> adalah
+<em>alamat rumah</em> Anda (misalnya <code>juraganpasir.id</code>) — alamat inilah yang diketik orang ke browser.
+<span class="kw">Hosting</span> adalah <em>tanahnya</em> — komputer yang selalu menyala di pusat data tempat
+file website Anda tinggal. <span class="kw">cPanel</span> adalah <em>panel kontrol rumahnya</em> — layar
+dengan banyak tombol untuk mengatur listrik, air, dan pintu tanpa harus jadi tukang listrik. Dan
+<span class="kw">CMS</span> (Content Management System) adalah <em>isi dan perabot rumahnya</em> —
+aplikasi yang membuat Anda bisa mengganti tulisan, foto produk, dan harga hanya lewat form,
+tanpa menyentuh kode.</p>
+
+<p class="body-text">Perjalanan kita dibagi menjadi <strong>9 tahap</strong> yang berurutan. Tahap 1–2 adalah
+<em>hulu</em> (persiapan dan bahan), tahap 3–8 adalah <em>proses pembangunan</em>, dan tahap 9 adalah
+<em>hilir</em> (perawatan agar website hidup lama). Setiap tahap hanya memakai fitur cPanel yang benar-benar
+dibutuhkan — jadi Anda tidak akan dilempar ke 80 ikon membingungkan sekaligus.</p>
+
+<div class="roadmap">
+  <div class="rm"><div class="rm-n">1</div><div class="rm-t">Belanja Domain &amp; Hosting</div><p>Membeli alamat dan tanah rumah Anda.</p></div>
+  <div class="rm"><div class="rm-n">2</div><div class="rm-t">Mengenal cPanel</div><p>Login pertama dan 5 tombol yang penting.</p></div>
+  <div class="rm"><div class="rm-n">3</div><div class="rm-t">Unggah &amp; Ekstrak CMS</div><p>Memasang mesin website di tanah Anda.</p></div>
+  <div class="rm"><div class="rm-n">4</div><div class="rm-t">Buat Database MySQL</div><p>Gudang penyimpanan seluruh konten.</p></div>
+  <div class="rm"><div class="rm-n">5</div><div class="rm-t">Sambungkan Domain</div><p>Memasang pintu: alamat menuju rumah.</p></div>
+  <div class="rm"><div class="rm-n">6</div><div class="rm-t">Installer Web</div><p>5 menit klik form, CMS terpasang sendiri.</p></div>
+  <div class="rm"><div class="rm-n">7</div><div class="rm-t">Isi Konten</div><p>Ganti sandi, isi produk, foto, dan WhatsApp.</p></div>
+  <div class="rm"><div class="rm-n">8</div><div class="rm-t">HTTPS &amp; Go-Live</div><p>Gembok hijau, Google, dan checklist final.</p></div>
+  <div class="rm"><div class="rm-n">9</div><div class="rm-t">Perawatan Rutin</div><p>Backup dan kebiasaan sehat jangka panjang.</p></div>
+</div>
+
+<h3 class="sub">Yang Perlu Anda Siapkan (Sebelum Mulai)</h3>
+<p class="body-text">Kabar baiknya: persiapannya sangat ringan. Pertama, sejumlah <strong>anggaran
+Rp 200–500 ribu per tahun</strong> untuk sewa hosting + satu domain <span class="gd">.com</span> atau <span class="gd">.id</span>
+(harga berbeda tipis antar penyedia; detail di Tahap 1). Kedua, <strong>komputer atau laptop</strong> dengan
+browser biasa — Chrome, Edge, atau Firefox semuanya boleh; tidak perlu instal software apa pun. Ketiga,
+<strong>email aktif</strong> milik Anda, karena semua tanda bukti belanja dan notifikasi akan dikirim ke sana.
+Keempat — yang paling sering dilupakan — <strong>file <code>core_cms-v1.zip</code></strong>, paket CMS yang
+sudah tersedia dari tim Anda; pastikan sudah tersimpan di komputer sebelum memulai Tahap 3.</p>
+
+<div class="tip"><span class="t-label">Tips Pemula</span>
+<p>Simpan panduan ini di samping layar (buka dua tab browser). Setiap kali menemukan istilah asing — misalnya
+"database" atau ".htaccess" — teruskan dulu membaca; istilah itu pasti dijelaskan di tempatnya muncul, dan
+semua istilah penting dikumpulkan lagi di Kamus Istilah di halaman akhir.</p></div>
+
+<!-- ── TAHAP 1 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 1 · Hulu</span>
+  <h2 class="section-title">Belanja Domain &amp; Hosting</h2>
+
+</div>
+
+<p class="lead">Ini titik nol semuanya: membeli <strong>alamat</strong> (domain) dan <strong>tanah</strong>
+(hosting) untuk rumah digital Anda. Keduanya disewa per tahun, bukan dibeli permanent — seperti sewa kios
+pasar, Anda bayar tiap tahun agar tetap jadi milik Anda. Paket hosting yang kita butuhkan sangat standar:
+<strong>hosting Linux dengan cPanel</strong>, yang dijual hampir semua penyedia hosting di Indonesia.</p>
+
+<h3 class="sub">Memilih Penyedia Hosting</h3>
+<p class="body-text">Di Indonesia pilihannya banyak — Niagahoster, Hostinger, Rumahweb, Domainesia, IDCloudHost,
+dan lain-lain — dan semuanya melayani paket cPanel. Untuk satu website CMS ini, <strong>paket entry-level
+(Common / Starter / Bayi)</strong> sudah sangat cukup: biasanya berisi 1–3 GB disk, cukup untuk puluhan ribu
+foto terkompresi. Yang wajib Anda pastikan hanya empat hal: paket memakai <strong>Linux</strong>,
+<strong>PHP 8.1 atau lebih baru</strong>, <strong>MySQL</strong>, dan panelnya <strong>cPanel</strong>.
+Hampir semua paket awal memenuhi ini, tetapi jangan beli paket "khusus WordPress" berbayar mahal —
+tidak diperlukan.</p>
+
+<div class="warn"><span class="t-label">Awas Jebakan</span>
+<p>Saat checkout, penyedia hosting sering mencentang otomatis add-on mahal yang tidak perlu: <em>SiteLock</em>,
+<em>daily backup premium</em>, <em>email bisnis berbayar</em>. Untuk pemula, <strong>lepas semua centang
+tambahan</strong> — cukup beli hosting + domain. Keamanan dan backup sudah ditangani CMS + panduan Tahap 9 ini,
+gratis.</p></div>
+
+<h3 class="sub">Langkah Pembelian</h3>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Pilih paket hosting (entry-level sudah cukup)</p>
+  <p>Buka situs penyedia hosting, menuju halaman <em>Hosting / Web Hosting</em>, dan pilih paket termurah
+  di atas paket "gratis". Klik <strong>Beli Sekarang</strong>. Durasi 12 bulan biasanya jauh lebih murah
+  per bulannya dibanding 1 bulan.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Pilih domain Anda</p>
+  <p>Ketik nama yang Anda inginkan, misalnya <code>juraganpasir.id</code> atau <code>tokopasirku.com</code>.
+  Ekstensi <code>.com</code> paling universal (±Rp 150–200rb/tahun), <code>.id</code> terasa lebih nasional
+  (±Rp 150–450rb/tahun tergantung jenis). Ambil yang tersedia, lalu lanjut bayar via transfer bank,
+  e-wallet, atau QRIS.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Cek email: 3 surat penting akan tiba</p>
+  <p>Dalam 5–30 menit, kotak masuk Anda akan berisi: <strong>(a)</strong> Invoice/bukti bayar,
+  <strong>(b)</strong> <em>Aktivasi akun hosting</em> berisi <strong>URL cPanel</strong>, username, dan sandi —
+  <span class="gd">surat paling penting, jangan dihapus!</span> — dan <strong>(c)</strong> verifikasi domain.
+  Simpan ketiganya di satu folder email bernama "Hosting".</p>
+</div></div>
+
+<table class="data">
+  <thead><tr><th style="width:32%">Butuh</th><th>Kisaran Harga / Ketentuan</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Hosting cPanel</strong> (paket entry)</td><td>Rp 15–40 ribu / bulan, atau Rp 200–400 ribu / tahun (sering ada promo tahunan)</td></tr>
+    <tr><td><strong>Domain .com</strong></td><td>±Rp 150–200 ribu / tahun</td></tr>
+    <tr><td><strong>Domain .id</strong></td><td>±Rp 150–450 ribu / tahun (tergantung jenis: .id, .co.id, .my.id, dst.)</td></tr>
+    <tr><td><strong>SSL (gembok hijau)</strong></td><td><strong>Gratis</strong> — AutoSSL/Let's Encrypt sudah termasuk di cPanel (Tahap 8)</td></tr>
+    <tr><td><strong>CMS JURAGAN CORE</strong></td><td><strong>Gratis</strong> — Anda sudah memilikinya (<code>core_cms-v1.zip</code>)</td></tr>
+  </tbody>
+</table>
+
+<div class="tip"><span class="t-label">Tips</span>
+<p>Belanja jam kerja (bukan tengah malam)? Ada satu alasan: aktivasi akun hosting baru biasanya butuh
+5 menit–2 jam; kalau ada kendala verifikasi pembayaran, tim support masih on-duty dan bisa di-chat.
+Simpan juga username &amp; sandi <em>area member</em> penyedia hosting — beda dengan login cPanel, dan
+nanti dipakai untuk perpanjangan tahunan.</p></div>
+
+<!-- ── TAHAP 2 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 2 · Hulu</span>
+  <h2 class="section-title">Mengenal cPanel (Hanya 5 Tombolnya)</h2>
+
+</div>
+
+<p class="lead">Membuka cPanel pertama kali bisa menegangkan: puluhan ikon bertumpuk dalam sekelompok kartu
+bernama aneh — <em>Database</em>, <em>Cron Jobs</em>, <em>Git Version Control</em>, macam-macam. Tarik napas:
+<strong>kita hanya butuh 5 ikon</strong> untuk seluruh proyek ini. Ikon-ikon lain boleh diperlakukan sebagai
+perabot yang dilapisi terpal — tidak perlu disentuh, dan tidak akan menggigit.</p>
+
+<h3 class="sub">Cara Masuk ke cPanel</h3>
+<p class="body-text">Buka email aktivasi yang tiba di Tahap 1, lalu klik tautan bertuliskan
+<strong>cPanel</strong> atau <strong>Control Panel</strong> — bentuknya biasanya
+<code>https://namadomain.com/cpanel</code> atau <code>https://cpanel.namadomain.com</code>. Masukkan
+<strong>username</strong> dan <strong>sandi</strong> yang tertera pada email yang sama (bukan sandi email pribadi
+Anda). Jika diminta, centang "Trust this device" agar tidak diminta login ulang setiap saat. Kalau sandi
+terlupakan, buka area member penyedia hosting → menu <em>Services / Layanan</em> → tombol
+<strong>Reset cPanel Password</strong>.</p>
+
+<h3 class="sub">Lima Ikon yang Akan Kita Pakai</h3>
+
+<div class="grid-2">
+  <div class="gcard">
+    <div class="g-icon">1</div>
+    <p class="g-title">File Manager</p>
+    <p>"Windows Explorer"-nya hosting. Tempat mengunggah file ZIP CMS, mengekstraknya, dan menyunting
+    file konfigurasi. Dipakai di Tahap 3 dan 5.</p>
+  </div>
+  <div class="gcard">
+    <div class="g-icon">2</div>
+    <p class="g-title">MySQL Databases</p>
+    <p>Pabrik pembuat gudang data: di sini kita membuat database dan user-nya. Dipakai sekali di
+    Tahap 4, selesai.</p>
+  </div>
+  <div class="gcard">
+    <div class="g-icon">3</div>
+    <p class="g-title">Domains / Addon Domains</p>
+    <p>Papan alamat rumah: menambahkan domain dan menentukan folder mana yang jadi "pintu depan"
+    website. Dipakai di Tahap 5.</p>
+  </div>
+  <div class="gcard">
+    <div class="g-icon">4</div>
+    <p class="g-title">SSL/TLS Status</p>
+    <p>Pemasang gembok gratis (HTTPS) untuk semua domain Anda. Dipakai di Tahap 8 — menit terakhir
+    sebelum go-live.</p>
+  </div>
+  <div class="gcard" style="grid-column:1 / -1;">
+    <div class="g-icon">5</div>
+    <p class="g-title">Backup (atau Backup Wizard)</p>
+    <p>Mesin fotokopi seluruh isi hosting — file + database — jadi satu arsip unduhan. Ini "asuransi
+    jiwa" website Anda; akan kita jadwalkan rutin di Tahap 9.</p>
+  </div>
+</div>
+
+<div class="warn"><span class="t-label">Awas · Jangan Disentuh Dulu</span>
+<p>Tiga area yang sebaiknya dibiarkan oleh pemula: <strong>Select PHP Version</strong> (biarkan default;
+CMS ini hanya butuh PHP 8.1+ yang biasanya sudah aktif), <strong>Cron Jobs</strong> (tidak dibutuhkan
+CMS ini), dan <strong>Terminal / SSH</strong> (semua langkah panduan ini memakai klik saja, tanpa perintah
+teks). Salah klik di area tersebut tidak merusak, tetapi bisa membuat bingung — jadi hemat energi Anda untuk
+tahap yang penting.</p></div>
+
+<!-- ── TAHAP 3 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 3 · Pembangunan</span>
+  <h2 class="section-title">Unggah &amp; Ekstrak CMS</h2>
+
+</div>
+
+<p class="lead">Sekarang mesinnya kita tanam. File <code>core_cms-v1.zip</code> adalah <strong>seluruh
+aplikasi CMS dalam satu arsip</strong> — ukurannya hanya ±74 KB, lebih ringan dari satu foto. Satu prinsip
+keamanan yang membuat arsitektur CMS ini istimewa: <strong>mesin dipasang di luar folder publik</strong>,
+sehingga orang luar tidak bisa menyentuh file mesinnya sama sekali. Yang terekspos ke internet nanti hanya
+"pintu" setipis dua file.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Buka File Manager ke folder rumah akun</p>
+  <p>Dari cPanel, klik <strong>File Manager</strong>. Saat terbuka, Anda berada di <code>public_html</code>.
+  Naik satu tingkat ke <strong>folder rumah akun</strong>: di kolom kiri klik <code>/home/USERNAME</code>
+  (atau klik ikon folder di atas, ganti path jadi <code>/home/USERNAME</code>). Di sinilah kita akan
+  meletakkan mesin — <em>di samping</em> <code>public_html</code>, bukan di dalamnya.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Unggah file ZIP</p>
+  <p>Klik tombol <strong>Upload</strong> di bar atas → di halaman baru, seret
+  <code>core_cms-v1.zip</code> dari komputer ke area unggah. Tunggu persentase di pojok kanan bawah
+  mencapai 100% dan bar hijau "Complete" muncul. Kembali ke File Manager — file ZIP kini terlihat di
+  <code>/home/USERNAME/</code>.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Ekstrak, lalu hapus ZIP-nya</p>
+  <p>Klik kanan file <code>core_cms-v1.zip</code> → <strong>Extract</strong> → pada dialog path, pastikan
+  tujuannya <code>/home/USERNAME</code> → klik <strong>Extract File(s)</strong>. Muncul folder baru bernama
+  <code>core_cms</code>. Setelah beres, klik kanan ZIP-nya lagi → <strong>Delete</strong> agar hosting
+  tetap rapi.</p>
+</div></div>
+
+<div class="codeblock"><span class="c"># Struktur yang benar setelah Tahap 3:</span>
+/home/USERNAME/
+├── core_cms/              <span class="c">← MESIN (hasil ekstrak) — aman di sini</span>
+│   ├── index.php
+│   ├── core/              <span class="c">← mesin utama CMS</span>
+│   ├── controllers/  views/  themes/
+│   ├── config/
+│   ├── storage/           <span class="c">← cache, unggahan, log</span>
+│   └── docs/kit-domain/   <span class="c">← akan dipakai di Tahap 5</span>
+└── public_html/           <span class="c">← pintu publik (dibahas Tahap 5)</span></div>
+
+<div class="note"><span class="t-label">Catatan</span>
+<p>Kenapa mesin di luar <code>public_html</code>? Folder <code>public_html</code> adalah satu-satunya tempat
+yang bisa dibuka orang dari browser. Dengan meletakkan mesin di luar, tak ada satu pun file mesin yang bisa
+diunduh orang — CMS bahkan menambahkan pengunci <em>deny-all</em> sebagai lapis kedua. Website tetap berfungsi
+normal karena pintu (<code>index.php</code> kecil) yang memanggil mesin dari balik tembok.</p></div>
+
+<!-- ── TAHAP 4 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 4 · Pembangunan</span>
+  <h2 class="section-title">Membuat Database MySQL</h2>
+
+</div>
+
+<p class="lead"><strong>Database</strong> adalah gudang berkas digital tempat seluruh konten website Anda
+disimpan — nama produk, harga, testimoni, teks halaman, semuanya. Kita akan membuat gudangnya (database),
+membuatkan kunci pintunya (user + sandi), lalu mencatat pasangan kunci itu di <strong>Kartu Kredensial</strong>
+di bawah — karena installer di Tahap 6 akan menanyakannya.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Buka MySQL Databases</p>
+  <p>Dari beranda cPanel, cari kotak pencarian (biasanya di kanan atas), ketik <code>mysql</code>, lalu klik
+  <strong>MySQL Databases</strong>. Semua pekerjaan tahap ini ada di satu halaman itu.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Buat database</p>
+  <p>Di bagian <em>Create New Database</em>, isi nama pendek, misalnya <code>cms</code> → klik
+  <strong>Create Database</strong>. cPanel otomatis menambahkan prefiks username Anda, jadi nama jadinya
+  misalnya <code>jrgn_cms</code> — <span class="gd">catat nama lengkap dengan prefiksnya</span>, itulah
+  yang nanti dipakai.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Buat user database + sandi kuat</p>
+  <p>Turun ke bagian <em>MySQL Users → Add New User</em>. Isi username, misalnya <code>cmsuser</code>
+  (jadinya <code>jrgn_cmsuser</code>), lalu sandi kuat — gunakan tombol <strong>Password Generator</strong>
+  agar tak perlu berpikir, dan <span class="gd">salin sandinya ke notepad sekarang juga</span> (sandi
+  generator tidak ditampilkan ulang setelah halaman berganti). Klik <strong>Create User</strong>.</p>
+</div></div>
+
+<div class="step"><div class="step-num">4</div><div class="step-body">
+  <p class="s-title">Satukan user dengan database (ALL PRIVILEGES)</p>
+  <p>Di bagian <em>Add User To Database</em>, pilih user yang baru dibuat + database yang baru dibuat →
+  klik <strong>Add</strong>. Di halaman hak akses, centang <strong>ALL PRIVILEGES</strong> → klik
+  <strong>Make Changes</strong>. Selesai — kunci sudah cocok dengan gudangnya.</p>
+</div></div>
+
+<div class="cred-card">
+  <p class="cc-title">Kartu Kredensial — Isi Sekarang</p>
+  <p>Tulis nilai ini di notepad/kuotes Anda. Installer Tahap 6 meminta tepat nilai-nilai ini, dan troubleshooting
+  sering butuh mengintipnya kembali. Simpan seperti Anda menyimpan dompet.</p>
+  <div class="cred-row"><span class="cr-label">Nama database lengkap</span><span class="cr-fill">contoh: jrgn_cms</span></div>
+  <div class="cred-row"><span class="cr-label">User database lengkap</span><span class="cr-fill">contoh: jrgn_cmsuser</span></div>
+  <div class="cred-row"><span class="cr-label">Sandi database</span><span class="cr-fill">&nbsp;</span></div>
+  <div class="cred-row"><span class="cr-label">Host database</span><span class="cr-fill">localhost (hampir selalu seperti ini)</span></div>
+  <div class="cred-row"><span class="cr-label">Username admin CMS (pilih sendiri)</span><span class="cr-fill">&nbsp;</span></div>
+  <div class="cred-row"><span class="cr-label">Sandi admin CMS (min. 8 karakter)</span><span class="cr-fill">&nbsp;</span></div>
+</div>
+
+<div class="tip"><span class="t-label">Tips</span>
+<p>Buat sandi admin CMS berbeda dari sandi database Anda. Prinsipnya satu: kalau satu kunci bocor,
+yang lain tetap aman. Simpan keduanya di pengelola sandi (Bitwarden gratis) atau minimal di file
+notepad yang tidak pernah Anda kirim ke siapa pun — termasuk via WhatsApp.</p></div>
+
+<!-- ── TAHAP 5 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 5 · Pembangunan</span>
+  <h2 class="section-title">Menyambungkan Domain (Kit Domain)</h2>
+
+</div>
+
+<p class="lead">Mesin sudah berdiri; sekarang kita pasang <strong>pintunya</strong> — folder kecil di dalam
+<code>public_html</code> yang menjadi satu-satunya bagian terekspos internet, diikat ke nama domain Anda.
+CMS menyediakan "kit pintu" berisi dua file siap-salin di <code>core_cms/docs/kit-domain/</code>. Tugas kita
+hanya memasangnya dan menuliskan alamat rumah (path) di tempat yang disediakan.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Siapkan folder pintu</p>
+  <p>Jika domain Anda sudah terpasang di hosting, cari foldernya di
+  <code>public_html/namadomain.com</code> — kalau belum, buka <strong>Domains → Create A New Domain</strong>
+  (atau <em>Addon Domains</em> di cPanel lama), isi nama domain, dan biarkan cPanel membuat folder
+  <code>public_html/namadomain.com</code> sebagai document root. Itulah folder pintu kita.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Salin dua file dari kit domain</p>
+  <p>Di File Manager, masuk ke <code>/home/USERNAME/core_cms/docs/kit-domain/</code>. Salin
+  (<strong>Copy</strong>, bukan Move) dua file — <code>index.php</code> dan
+  <code>htaccess-template.txt</code> — lalu tempelkan ke <code>public_html/namadomain.com</code>.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Edit index.php: tulis alamat mesin</p>
+  <p>Klik kanan <code>index.php</code> di folder pintu → <strong>Edit</strong> → <strong>Edit</strong>
+  (konfirmasi). Ganti baris <code>JRCMS_CORE</code> menjadi path akun Anda — persis seperti contoh
+  di bawah, hanya mengganti <code>USERNAME</code>. Simpan dengan tombol
+  <strong>Save Changes</strong> di pojok kanan atas.</p>
+</div></div>
+
+<div class="codeblock"><span class="c"># Isi file public_html/namadomain.com/index.php</span>
+&lt;?php
+<span class="c">/** KIT DOMAIN — ganti path sesuai lokasi core_cms di akun Anda */</span>
+<span class="hl">define('JRCMS_CORE', '/home/USERNAME/core_cms');</span>
+require JRCMS_CORE . '/index.php';</div>
+
+<div class="step"><div class="step-num">4</div><div class="step-body">
+  <p class="s-title">Rename htaccess-template.txt menjadi .htaccess</p>
+  <p>Klik kanan <code>htaccess-template.txt</code> → <strong>Rename</strong> → ketik
+  <code>.htaccess</code> (diawali titik, tanpa ekstensi) → <strong>Rename File</strong>. Lalu klik kanan
+  file itu → <strong>Edit</strong>, dan ganti <strong>semua</strong> tulisan
+  <code>__CORE_PATH__</code> menjadi <code>/home/USERNAME/core_cms</code> — mudahnya pakai tombol
+  <em>Replace</em> milik editor (ctrl+H) supaya tidak ada yang terlewat. Simpan.</p>
+</div></div>
+
+<div class="warn"><span class="t-label">Awas · File Tersembunyi</span>
+<p>File yang namanya diawali titik (seperti <code>.htaccess</code>) dianggap <em>tersembunyi</em> — kadang
+langsung "menghilang" dari File Manager begitu di-rename. Tenang, tidak hilang! Klik tombol
+<strong>Settings</strong> di pojok kanan atas File Manager → centang <strong>Show Hidden Files
+(dotfiles)</strong> → <strong>Save</strong>. File itu akan muncul kembali.</p></div>
+
+<div class="note"><span class="t-label">Apa Itu .htaccess?</span>
+<p>Ia adalah buku aturan pintu: siapa yang diizinkan masuk, alamat mana diteruskan ke mesin, dan penghematan
+apa yang boleh dilakukan. Kit domain sudah menulis aturan terbaik untuk Anda — termasuk aturan <em>Turbo</em>
+yang menyajikan beranda dari cache tanpa mengeksekusi PHP sedetik pun. Anda tidak perlu memahami isinya;
+cukup ganti path-nya persis seperti langkah 4.</p></div>
+
+<!-- ── TAHAP 6 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 6 · Pembangunan</span>
+  <h2 class="section-title">Installer Web: 5 Menit Terakhir</h2>
+
+</div>
+
+<p class="lead">Inilah momen paling ajaib bagi pemula: CMS <strong>memasang dirinya sendiri</strong>. Anda
+cukup membuka satu alamat dan mengisi satu form. Installer akan membuat semua tabel di database, menanam
+konten starter Juragan Pasir (supaya website tidak lahir kosong), menulis file konfigurasi, dan mengunci
+dirinya agar tidak bisa dipanggil orang asing lagi.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Buka alamat installer</p>
+  <p>Ketik di browser: <code>https://namadomain.com/install</code>. Bila domain masih dalam proses
+  aktivasi (lihat troubleshooting), gunakan sementara alamat uji dari penyedia hosting, lalu ulangi
+  pembukaan lewat domain asli setelah aktif. Halaman berjudul <strong>Core CMS — Installer</strong>
+  akan menyambut Anda.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Isi form dengan Kartu Kredensial Anda</p>
+  <p>Bagian <strong>Langkah 1 · Instalasi Awal</strong> menanyakan sembilan hal. Isinya persis seperti
+  tabel di bawah — semua berasal dari Tahap 4, tidak ada yang perlu diimprovisasi.</p>
+</div></div>
+
+<table class="data">
+  <thead><tr><th style="width:30%">Field di Form</th><th>Isi Dengan</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Driver database</strong></td><td>Pilih <code>MySQL (cPanel produksi)</code> — SQLite hanya untuk uji lokal</td></tr>
+    <tr><td><strong>Host MySQL</strong></td><td><code>localhost</code> (sudah terisi; biarkan)</td></tr>
+    <tr><td><strong>Nama database</strong></td><td>Nama lengkap dari Kartu Kredensial, mis. <code>jrgn_cms</code></td></tr>
+    <tr><td><strong>User MySQL</strong></td><td>User lengkap dari Kartu Kredensial, mis. <code>jrgn_cmsuser</code></td></tr>
+    <tr><td><strong>Sandi MySQL</strong></td><td>Sandi database dari Kartu Kredensial</td></tr>
+    <tr><td><strong>Nama situs (tenant)</strong></td><td>Nama bisnis Anda, mis. <code>Juragan Pasir Galunggung</code></td></tr>
+    <tr><td><strong>Prefiks tabel</strong></td><td><code>t1_</code> (default; biarkan — berguna jika kelak menambah situs lain)</td></tr>
+    <tr><td><strong>Username admin</strong></td><td>Nama akun admin pilihan Anda, mis. <code>juragan</code></td></tr>
+    <tr><td><strong>Sandi admin (min. 8)</strong></td><td>Sandi kuat dari Kartu Kredensial — ini kunci dashboard Anda</td></tr>
+  </tbody>
+</table>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Klik "Pasang Sekarang" — dan biarkan CMS bekerja</p>
+  <p>Dalam hitungan detik muncul kartu hijau <strong>Berhasil!</strong> berisi daftar apa yang baru saja
+  dilakukan installer: konfigurasi ditulis, tenant didaftarkan, tabel berprefiks <code>t1_</code> dibuat,
+  konten starter ditanam, dan pengunci <code>storage/install.lock</code> dipasang. Klik
+  <strong>→ Buka Panel Admin</strong>.</p>
+</div></div>
+
+<div class="warn"><span class="t-label">Awas · Biarkan Pengunci Itu</span>
+<p>Pesan berhasil meminta Anda membiarkan <code>storage/install.lock</code> tetap ada — ikuti saran itu.
+File sekecil inilah yang mencegah orang lain menjalankan installer ulang di atas situs Anda. Selama file itu
+ada, halaman <code>/install</code> hanya bisa dipakai untuk <em>menambah tenant baru</em> dengan kredensial
+admin yang sah (lihat bab Bonus).</p></div>
+
+<!-- ── TAHAP 7 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 7 · Pembangunan</span>
+  <h2 class="section-title">Masuk Admin &amp; Mengisi Konten</h2>
+
+</div>
+
+<p class="lead">Website Anda kini teknisnya sudah hidup — tinggal dihidupkan <em>sebagai bisnis</em>.
+Menuju <code>https://namadomain.com/admin</code>, masukkan username &amp; sandi admin dari Tahap 6, dan
+dashboard akan membuka. Lima menu kiri adalah seluruh dunia Anda: <strong>Dashboard, Halaman, Artikel,
+Media, Pengaturan</strong>. Setiap perubahan yang disimpan <strong>langsung tampil di website</strong> —
+cache otomatis dibersihkan oleh CMS, tanpa tombol "refresh" apa pun.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Cek "Kesehatan SEO" di Dashboard</p>
+  <p>Dashboard menyimpan panel <strong>Kesehatan SEO</strong> yang menyemburkan tanda "meta kosong" —
+  deskripsi situs, gambar berbagi, dan semacamnya yang belum diisi. Anggap itu daftar belanja resmi
+  Anda untuk langkah-langkah berikutnya.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Lengkapi Pengaturan (menu gear)</p>
+  <p>Halaman Pengaturan terbagi lima blok: <strong>Identitas</strong> (nama situs, tagline),
+  <strong>Kontak &amp; WhatsApp</strong> — <span class="gd">isi nomor WhatsApp bisnis di sini!</span> semua
+  tombol chat otomatis mengikuti — <strong>Alamat</strong> (menjadi kartu alamat Google/JSON-LD),
+  <strong>SEO Global</strong> (judul &amp; deskripsi untuk hasil pencarian), dan <strong>Tambahan</strong>.
+  Isi selengkap mungkin, lalu simpan.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Ganti konten starter dengan milik Anda</p>
+  <p>Buka <strong>Halaman</strong> → sunting beranda: ganti teks hero, daftar keunggulan, dan bagian
+  lainnya dengan bahasa bisnis Anda (dokumentasi class section tersedia di dalam form halaman).
+  Lanjut ke <strong>Media</strong> untuk mengunggah foto produk/lokasi (maks 8 MB per file, format aman:
+  JPG/PNG/WebP), lalu sisipkan ke konten. Konten starter sengaja dibuat lengkap supaya Anda cukup
+  "menimpa" — jauh lebih mudah daripada menulis dari kosong.</p>
+</div></div>
+
+<div class="step"><div class="step-num">4</div><div class="step-body">
+  <p class="s-title">Uji dari sisi pembeli</p>
+  <p>Buka <code>https://namadomain.com</code> di tab incognito (jangan lewat admin). Periksa: judul dan
+  foto sudah berganti? Tombol WhatsApp membuka chat ke nomor yang benar? Semua gambar muncul? Catat
+  yang masih asing — sebagian besar jawabannya ada di menu yang baru saja Anda kelola.</p>
+</div></div>
+
+<div class="tip"><span class="t-label">Tips</span>
+<p>Editor konten CMS ini menerima HTML sederhana, dan form halaman memuat dokumentasi lengkap
+class section yang bisa disalin-tempel. Praktik yang bagus: kerjakan per bagian dan simpan — karena
+setiap simpan langsung tampil, Anda bisa melihat hasilnya detik itu juga tanpa takut "merusak semua".</p></div>
+
+<!-- ── TAHAP 8 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 8 · Finishing</span>
+  <h2 class="section-title">HTTPS, Google &amp; Go-Live</h2>
+
+</div>
+
+<p class="lead">Dua hal membedakan "website latihan" dari "website bisnis": <strong>gembok hijau</strong>
+(HTTPS) dan <strong>kehadiran di Google</strong>. Keduanya gratis dan cepat — SSL diaktifkan sekali klik,
+sitemap CMS Anda sudah jadi otomatis, dan Search Console adalah formulir resmi untuk "memperkenalkan"
+website ke Google. Setelah bagian ini, website Anda resmi go-live.</p>
+
+<h3 class="sub">Aktifkan SSL (Gembok Hijau)</h3>
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Jalankan AutoSSL</p>
+  <p>Dari cPanel buka <strong>SSL/TLS Status</strong>. Centang domain Anda → klik
+  <strong>Run AutoSSL</strong>. Tunggu 5–30 menit; status berubah menjadi tanda gembok "AutoSSL is
+  installed". Sertifikat ini diperbarui otomatis selamanya — tidak ada biaya dan tidak ada perpanjangan
+  manual.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Paksa semua pengunjung ke HTTPS</p>
+  <p>Agar tidak ada yang tersasar ke alamat <code>http://</code> tanpa gembok, tambahkan tiga baris ini
+  di <strong>paling atas</strong> file <code>.htaccess</code> folder pintu Anda (klik kanan → Edit),
+  tepat setelah baris <code>Options -Indexes</code>:</p>
+</div></div>
+
+<div class="codeblock"><span class="c"># Paksa HTTPS — taruh di atas RewriteEngine On</span>
+RewriteEngine On
+<span class="hl">RewriteCond %{HTTPS} off</span>
+<span class="hl">RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]</span></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Verifikasi gemboknya</p>
+  <p>Buka website Anda; di address bar mesti ada ikon gembok, dan alamat dimulai
+  <code>https://</code>. Klik gemboknya → <em>Connection is secure</em>. Kalau gembok belum muncul,
+  tunggu 30 menit lalu hard-refresh (Ctrl+Shift+R) — sertifikat kadang butuh waktu tersebar.</p>
+</div></div>
+
+<h3 class="sub">Perkenalkan Website ke Google</h3>
+<div class="step"><div class="step-num">4</div><div class="step-body">
+  <p class="s-title">Daftarkan situs di Google Search Console</p>
+  <p>Buka <code>search.google.com/search-console</code> (login akun Google) → <strong>Add Property</strong> →
+  pilih tipe <strong>Domain</strong> → masukkan <code>namadomain.com</code>. Google memberi beberapa opsi
+  verifikasi; cara termudah bagi pemula adalah <strong>DNS record TXT</strong>: salin nilai TXT yang diberikan,
+  tempel di pengaturan DNS domain Anda (di area member penyedia hosting, menu DNS/Nameserver), simpan,
+  kembali ke Search Console, klik Verify.</p>
+</div></div>
+
+<div class="step"><div class="step-num">5</div><div class="step-body">
+  <p class="s-title">Kirim sitemap — sudah jadi otomatis</p>
+  <p>CMS Anda menyajikan <code>https://namadomain.com/sitemap.xml</code> dan <code>robots.txt</code>
+  tanpa setup apa pun. Di Search Console, menu <strong>Sitemaps</strong>, ketik
+  <code>sitemap.xml</code> → Submit. Selesai; Google akan mulai menjelajahi halaman Anda dalam beberapa
+  hari.</p>
+</div></div>
+
+<h3 class="sub">Checklist Go-Live</h3>
+<ul class="checklist">
+  <li><span class="box"></span>Website terbuka lewat <code>https://</code> dengan gembok hijau</li>
+  <li><span class="box"></span>Nama situs, logo, dan teks hero sudah bukan konten starter</li>
+  <li><span class="box"></span>Nomor WhatsApp di Pengaturan sudah benar; tombol chat membuka chat yang tepat</li>
+  <li><span class="box"></span>Foto produk/lokasi tampil (bukan gambar placeholder)</li>
+  <li><span class="box"></span>Meta judul &amp; deskripsi SEO Global sudah diisi khas bisnis Anda</li>
+  <li><span class="box"></span><code>/admin</code> hanya bisa dibuka Anda (sandi kuat, tidak dibagikan)</li>
+  <li><span class="box"></span>Form/kontak diuji dan pesan masuk seperti seharusnya</li>
+  <li><span class="box"></span>Website tampil baik dibuka dari HP</li>
+  <li><span class="box"></span>Sitemap terkirim di Search Console</li>
+  <li><span class="box"></span>Backup pertama sudah diunduh (Tahap 9)</li>
+</ul>
+
+<!-- ── TAHAP 9 ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Tahap 9 · Hilir</span>
+  <h2 class="section-title">Perawatan Rutin: Website yang Hidup Lama</h2>
+
+</div>
+
+<p class="lead">Website itu seperti toko: dibuka sekali, dirawat terus. Kabar baiknya, perawatan CMS ini
+<strong>ringan</strong> — tidak ada plugin untuk di-update, tidak ada kernel untuk di-patch. Tiga kebiasaan
+saja: <strong>backup berkala</strong>, <strong>konten yang hidup</strong>, dan <strong>kebersihan kunci</strong>.
+Semua bisa dikerjakan dari cPanel tanpa keahlian khusus.</p>
+
+<h3 class="sub">Ritme Backup yang Sehat</h3>
+<table class="data">
+  <thead><tr><th style="width:22%">Kapan</th><th>Apa yang Dilakukan</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Mingguan</strong></td><td>Full Backup cPanel (file + database) → unduh ZIP-nya ke komputer/Google Drive. Lima menit, tak lebih.</td></tr>
+    <tr><td><strong>Bulanan</strong></td><td>Salin arsip backup ke dua tempat berbeda (mis. laptop + cloud pribadi) — patokan 3-2-1: 3 salinan, 2 media, 1 di luar lokasi.</td></tr>
+    <tr><td><strong>Kuarteran</strong></td><td>Uji restore: coba buka satu backup lama di subdomain uji atau lokal, pastikan isinya utuh. Backup yang tak pernah diuji hanyalah harapan.</td></tr>
+    <tr><td><strong>Saat besar-besaran edit</strong></td><td>Backup manual dulu sebelum rombak beranda. Satu klik sekarang, satu jam menangis terhindar nanti.</td></tr>
+  </tbody>
+</table>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Cara backup di cPanel</p>
+  <p>Buka <strong>Backup</strong> (atau <strong>Backup Wizard</strong>) → <strong>Download a Full Account
+  Backup</strong> → pilih tujuan <em>Home Directory</em> → <strong>Generate Download</strong>. Beberapa menit
+  kemudian muncul tautan unduhan <code>backup-....tar.gz</code>. Unduh, simpan. Restore cukup dengan mengunggah
+  arsip yang sama melalui menu yang sama, atau minta bantuan support penyedia hosting.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Jaga konten tetap hidup</p>
+  <p>Google menyukai website yang bernapas: tambah artikel promo/katalog baru lewat menu <strong>Artikel</strong>
+  minimal sebulan sekali, perbarui foto stok, dan muat ulang testimoni pelanggan terbaru. Selain enak dibaca,
+  ini menaikkan peringkat pencarian Anda secara perlahan dan pasti.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Kebersihan kunci &amp; keamanan</p>
+  <p>Tiga aturan rumah yang sudah dilindungi CMS untuk Anda: sandi admin di-hash dan login dibatasi
+  (rate-limit anti tebakan), form semua dilindungi token CSRF, dan file unggahan difilter ketat.
+  Sisa tugas Anda hanya dua: <strong>jangan bagikan sandi admin ke siapa pun</strong> (termasuk pihak yang
+  mengaku "pihak hosting" — hosting tak pernah meminta sandi admin CMS Anda), dan pastikan komputer Anda
+  sendiri sehat.</p>
+</div></div>
+
+<div class="tip"><span class="t-label">Tips Jangka Panjang</span>
+<p>Pasang pengingat kalender tahunan dua titik: <strong>perpanjangan hosting/domain</strong> (seminggu
+sebelum jatuh tempo — domain yang kedaluwarsa membuat website hilang seketika) dan <strong>uji restore
+kuarteran</strong>. Website terbaik di dunia pun tak berguna kalau alamatnya kedaluwarsa diam-diam.</p></div>
+
+<!-- ── BONUS ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Bonus · Superpower</span>
+  <h2 class="section-title">Situs Kedua, Ketiga, … di Hosting yang Sama</h2>
+
+</div>
+
+<p class="lead">Ini fitur yang membuat CMS ini terasa "susah payah dibangun": <strong>multi-tenant</strong>.
+Satu mesin <code>core_cms</code> dapat melayani banyak domain sekaligus — situs toko, situs korporat, situs
+cabang — tanpa hosting baru dan tanpa biaya tambahan. Setiap situs punya konten, pengaturan, dan admin
+masing-masing, dipisahkan oleh <em>prefiks tabel</em> di database yang sama. Satu hosting entry-level bisa
+menghidupi puluhan situs kecil.</p>
+
+<div class="step"><div class="step-num">1</div><div class="step-body">
+  <p class="s-title">Tambahkan domain kedua + pasang kit domain yang sama</p>
+  <p>Buat domain addon baru dengan document root <code>public_html/domainkedua.com</code>, lalu ulangi
+  Tahap 5 untuk domain itu: salin dua file kit, isi <code>JRCMS_CORE</code> dan <code>__CORE_PATH__</code>
+  dengan path yang sama persis (<code>/home/USERNAME/core_cms</code>). Kit-nya tidak berubah — mesin tetap
+  satu.</p>
+</div></div>
+
+<div class="step"><div class="step-num">2</div><div class="step-body">
+  <p class="s-title">Buka installer — kini mode "Tambah Tenant"</p>
+  <p>Kunjungi <code>https://domainkedua.com/install</code>. Karena sistem sudah terkunci
+  (<code>install.lock</code>), installer otomatis beralih ke mode <strong>Tambah Tenant Baru</strong>:
+  isi <em>Nama tenant baru</em> + <em>Prefiks tabel baru</em> (mis. <code>t2_</code>) + username &amp; sandi
+  <em>admin yang sudah ada</em> (bukan yang baru) → <strong>Buat Tenant</strong>.</p>
+</div></div>
+
+<div class="step"><div class="step-num">3</div><div class="step-body">
+  <p class="s-title">Isi situs barunya dari admin domain kedua</p>
+  <p>Login ke <code>https://domainkedua.com/admin</code> dengan akun admin Anda. Situs baru tampil dengan
+  konten starter yang independen — ganti semua sesuai bisnisnya. Pemetaan domain biasanya sudah ditulis
+  otomatis oleh installer ke <code>config/tenants.php</code>; bila perlu dicek, bentuknya sederhana:</p>
+</div></div>
+
+<div class="codeblock"><span class="c"># core_cms/config/tenants.php — peta domain ke tenant</span>
+return [
+  <span class="hl">'domainpertama.com'  =&gt; ['prefix' =&gt; 't1_', 'name' =&gt; 'Juragan Pasir Galunggung', 'theme' =&gt; 'juragan'],</span>
+  'domainkedua.com'    =&gt; ['prefix' =&gt; 't2_', 'name' =&gt; 'Toko Kedua',              'theme' =&gt; 'juragan'],
+  'default'            =&gt; ['prefix' =&gt; 'main_','name' =&gt; 'Juragan Core',          'theme' =&gt; 'juragan'],
+];</div>
+
+<div class="note"><span class="t-label">Kenapa Ini Menghemat</span>
+<p>Model hosting umum: satu website = satu akun hosting = ratusan ribu per tahun. Model multi-tenant Anda:
+satu hosting = N website, dan satu kali pembaruan pada mesin (<code>core_cms</code>) membuat <strong>semua
+situs ikut terbarukan sekaligus</strong>. Inilah arsitektur yang oleh masterplan disebut
+"Satu Kode, Banyak Kerajaan".</p></div>
+
+<!-- ── TROUBLESHOOTING ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Panduan Mandiri</span>
+  <h2 class="section-title">Troubleshooting A–Z: Gejala → Obat</h2>
+
+</div>
+
+<p class="lead">Setiap website pernah rewel — yang membedakan pemula dan mahir bukan bebas masalah, melainkan
+punya peta penanganan. Berikut tujuh keluhan yang mencakup 95% kasus pemula, dengan pola konsisten:
+<em>lihat gejalanya, temukan penyebab terkuat, lakukan obatnya berurutan</em>. Kalau dua putaran obat gagal,
+waktunya mengetuk support penyedia hosting (mereka ramah dan ini tugasnya).</p>
+
+<div class="trouble">
+  <p class="tr-name">"Halaman putih" atau teks error panjang saat membuka domain</p>
+  <p class="tr-sym">Gejala: layar kosong / "This page isn't working" / teks error PHP.</p>
+  <p>Penyebab terkuat: path <code>JRCMS_CORE</code> atau <code>__CORE_PATH__</code> belum diganti sesuai
+  akun Anda. Buka kedua file kit domain → pastikan nilainya <code>/home/USERNAME/core_cms</code> persis
+  (bukan contoh template). Cek juga bahwa folder <code>core_cms</code> memang ada di lokasi itu —
+  nama foldernya kadang berubah jadi <code>core_cms (1)</code> bila diekstrak dua kali.</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Installer / website: "Gagal koneksi database"</p>
+  <p class="tr-sym">Gejala: pesan gagal saat "Pasang Sekarang", atau halaman menyebut MySQL/pdo_mysql.</p>
+  <p>Tiga jendela penyebab: <strong>(1)</strong> nama database/user <em>belum lengkap dengan prefiks</em>
+  (tulis <code>jrgn_cms</code>, bukan <code>cms</code>); <strong>(2)</strong> sandi salah tempel — tempel
+  ulang dari notepad; <strong>(3)</strong> user belum di-<em>Add User To Database</em> dengan
+  ALL PRIVILEGES (Tahap 4 langkah 4). Perbaiki di Kartu Kredensial, ulangi form installer.</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Domain "belum ketemu" — tidak bisa dibuka sama sekali</p>
+  <p class="tr-sym">Gejala: "This site can't be reached" / DNS_PROBE, sementara situs uji penyedia hosting jalan.</p>
+  <p>Ini <strong>DNS propagation</strong>: alamat baru sedang tersebar ke seluruh dunia — biasanya 15 menit–
+  24 jam. Cek progres di <code>dnschecker.org</code> (ketik domain Anda, lihat catatan A mulai hijau).
+  Sementara menunggu, seluruh persiapan Tahap 3–5 tetap bisa dilakukan; go-live menunggu gembok hijau saja.</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Semua halaman 404 kecuali beranda</p>
+  <p class="tr-sym">Gejala: beranda normal, klik menu apa pun → "Not Found".</p>
+  <p>Klasik: file <code>.htaccess</code> tidak terbaca — biasanya karena rename gagal
+  (namanya jadi <code>htaccess</code> tanpa titik) atau replace <code>__CORE_PATH__</code> belum semua.
+  Aktifkan <em>Show Hidden Files</em>, pastikan nama file persis <code>.htaccess</code> di folder pintu,
+  dan path-nya sudah diganti semua (Ctrl+H di editor).</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Website "aneh" — gaya hilang / foto tak muncul</p>
+  <p class="tr-sym">Gejala: teks tampil polos, ikon kotak, atau gambar tertentu rusak.</p>
+  <p>Pertama, hard-refresh (Ctrl+Shift+R) — cache browser pemirsa lama sering jadi biang. Kedua, cek file
+  memang terunggah di <strong>Media</strong> dan tautannya tak terpotong. Ketiga, bila gaya hilang total
+  di semua halaman, cek blok kompresi/header di <code>.htaccess</code> — kalau hosting Anda perilakunya
+  aneh, hapus sementara blok "TURBO" di atas file itu (lapisan cache PHP inti tetap bekerja tanpa itu).</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Lupa sandi admin / terkunci dari dashboard sendiri</p>
+  <p class="tr-sym">Gejala: login gagal meski yakin sandinya benar.</p>
+  <p>Jangan panik, dan jangan tebak berkali-kali (ada rate-limit). Opsi termudah: minta bantuan support
+  hosting untuk reset sandi user database lalu jalankan ulang installer mode tenant dengan kredensial admin
+  yang sah; atau ganti sandi lewat phpMyAdmin (kolom sandi tabel user memakai <code>password_hash</code> —
+  cukup minta support mengembalikan sandi sementara). Setelah masuk, langsung ganti sandi baru dari
+  Pengaturan.</p>
+</div>
+
+<div class="trouble">
+  <p class="tr-name">Error 500 setelah menyunting .htaccess</p>
+  <p class="tr-sym">Gejala: seluruh situs mati seketika setelah file aturan diedit.</p>
+  <p>Salah ketik di .htaccess mematikan semuanya — dan itu bisa dipulihkan dalam 1 menit: buka folder pintu,
+  rename <code>.htaccess</code> menjadi <code>.htaccess.bak</code> (situs hidup kembali), lalu perbaiki
+  filenya: bandingkan karakter per karakter dengan template asli di <code>docs/kit-domain</code>, pasang
+  kembali.</p>
+</div>
+
+<div class="tip"><span class="t-label">Kebiasaan Emas</span>
+<p>Sebelum eksperimen apa pun di file konfigurasi: <strong>backup dulu satu file</strong> (klik kanan →
+Download). Percobaan yang aman adalah percobaan yang bisa dibatalkan sembilan puluh detik.</p></div>
+
+<!-- ── KAMUS ─────────────────────────────── -->
+<div class="chapter-header">
+  <span class="stage-tag">Kamus Cepat</span>
+  <h2 class="section-title">Kamus Istilah — Tanpa Jargon Tersisa</h2>
+
+</div>
+
+<p class="lead">Dua belas istilah yang tadi menyebar di sepanjang panduan, kini dikumpulkan. Setelah Anda bisa
+menjelaskan dua belas kata ini ke orang lain, resmi: Anda bukan orang awam lagi.</p>
+
+<div class="glossary">
+  <div class="gl"><p class="gl-term">Domain</p><p>Alamat website (mis. juraganpasir.id) — disewa tahunan, dipindahkan bebas antar hosting.</p></div>
+  <div class="gl"><p class="gl-term">DNS</p><p>Buku telpon internet: menerjemahkan domain menjadi alamat server. Perubahan butuh waktu tersebar (propagation).</p></div>
+  <div class="gl"><p class="gl-term">Nameserver</p><p>Petugas yang menyimpan buku telpon DNS untuk domain Anda — diatur di area member penyedia domain.</p></div>
+  <div class="gl"><p class="gl-term">Hosting</p><p>Komputer selalu-menyala tempat file website tinggal; disewa per paket dan per tahun.</p></div>
+  <div class="gl"><p class="gl-term">cPanel</p><p>Panel kontrol berbasis web milik hosting — klik untuk mengelola file, database, domain, SSL, backup.</p></div>
+  <div class="gl"><p class="gl-term">public_html</p><p>Satu-satunya folder yang bisa dilihat orang dari browser; semua "pintu" website hidup di sini.</p></div>
+  <div class="gl"><p class="gl-term">MySQL</p><p>Sistem penyimpanan data terstruktur — gudang tempat seluruh konten CMS Anda bersemayam.</p></div>
+  <div class="gl"><p class="gl-term">PHP</p><p>Bahasa program yang menjalankan mesin CMS di server; CMS ini butuh versi 8.1 ke atas.</p></div>
+  <div class="gl"><p class="gl-term">.htaccess</p><p>File aturan folder: routing, keamanan, kompresi, paksaan HTTPS — dibaca Apache sebelum menyajikan halaman.</p></div>
+  <div class="gl"><p class="gl-term">SSL / HTTPS</p><p>Gembok yang menyandi jalur pengunjung↔website; diberikan gratis via AutoSSL dan wajib untuk go-live.</p></div>
+  <div class="gl"><p class="gl-term">Cache</p><p>Fotokopian halaman siap-tampilkan — membuat website secepat kilat; otomatis dibersihkan saat Anda menyimpan konten.</p></div>
+  <div class="gl"><p class="gl-term">Tenant / Prefiks tabel</p><p>Satu "penghuni" website dalam mesin multi-tenant; prefiks (t1_, t2_) memisahkan data tiap tenant di database yang sama.</p></div>
+</div>
+
+<div class="note" style="margin-top:16px;"><span class="t-label">Simpan Panduan Ini</span>
+<p>Dokumen ini berdiri sendiri: cukup simpan file PDF-nya di HP dan komputer. Saat menambah situs kedua,
+kesulitan tengah malam, atau ingin melatih rekan kerja membantu mengelola konten — buka kembali bab yang
+perlu saja. Setiap bab dirancang bisa dibaca berdiri sendiri tanpa harus membaca ulang dari awal.</p></div>
+
+</div><!-- /main-content -->
+
+<!-- ═══════════════ ENDING ═══════════════ -->
+<div class="ending" style="width:720px;height:1020px;box-sizing:border-box;break-before:page;position:relative;background-color:#123122;background-image:radial-gradient(circle at 80px 60px, rgba(212,174,54,0) 158px, rgba(212,174,54,.20) 160px, rgba(212,174,54,.20) 161px, rgba(212,174,54,0) 163px),radial-gradient(circle at 640px 960px, rgba(212,174,54,.15) 0%, rgba(212,174,54,.08) 120px, rgba(212,174,54,0) 220px),linear-gradient(200deg,#0F2417 0%,#16301F 50%,#1E4230 100%);display:flex;flex-direction:column;justify-content:center;padding:0 76px;">
+  <div style="position:absolute;inset:0;z-index:1;" aria-hidden="true">
+    <div style="position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#A8842B,#4D8A65,#A8842B);opacity:.55;"></div>
+  </div>
+
+  <div style="position:relative;z-index:3;">
+    <p style="margin:0;font-size:11px;font-weight:800;letter-spacing:.26em;text-transform:uppercase;color:#E4C568;">Halaman Terakhir</p>
+    <h2 style="font-family:'Playfair Display',serif;font-size:44px;font-weight:900;line-height:1.15;color:#F4F1E8;margin:20px 0 0 0;text-align:left;">Selamat —<br>Website Anda <span style="color:#E4C568;">Hidup.</span></h2>
+
+    <p style="font-size:15px;line-height:1.7;color:rgba(244,241,232,.8);margin:24px 0 0 0;max-width:430px;text-align:left;">
+      Enam puluh menit yang lalu Anda mungkin belum pernah membuka cPanel. Sekarang Anda punya
+      website bisnis yang <strong style="color:#F4F1E8;">aman, cepat, terindeks Google</strong>,
+      dan sepenuhnya bisa Anda kelola sendiri — plus satu mesin yang siap menghidupkan
+      situs kedua, ketiga, dan seterusnya tanpa biaya baru.
+    </p>
+
+    <div style="margin-top:30px;border-left:3px solid #A8842B;padding-left:18px;">
+      <p style="margin:0 0 10px 0;font-size:13px;color:rgba(244,241,232,.75);text-align:left;"><strong style="color:#E4C568;">Minggu ini:</strong> lengkapi satu halaman konten per hari; tambah foto asli bisnis Anda.</p>
+      <p style="margin:0 0 10px 0;font-size:13px;color:rgba(244,241,232,.75);text-align:left;"><strong style="color:#E4C568;">Bulan ini:</strong> backup pertama, artikel pembuka di menu Artikel, pantau Search Console mingguan.</p>
+      <p style="margin:0;font-size:13px;color:rgba(244,241,232,.75);text-align:left;"><strong style="color:#E4C568;">Kapan saja:</strong> tambah tenant baru untuk bisnis berikutnya — mesinnya sudah menunggu.</p>
+    </div>
+
+    <div style="margin-top:44px;"></div>
+    <p style="margin:0 0 0 0;font-size:12px;color:rgba(244,241,232,.6);text-align:left;">
+      JURAGAN CORE CMS · Panduan Deploy cPanel dari Hulu ke Hilir · Edisi 2026
+    </p>
+    <p style="margin:6px 0 0 0;font-size:12px;color:rgba(244,241,232,.6);text-align:left;">
+      Tema oleh <strong style="color:#E4C568;">PT Digital Bisnis Manajemen</strong> — digiman.id
+    </p>
+  </div>
+</div>
+
+</body>
+</html>
