@@ -1,0 +1,36 @@
+# KIT DOMAIN — .htaccess untuk folder addon domain
+# Ganti __CORE_PATH__ dengan path absolut core (mis. /home/USERNAME/core_cms).
+# Rule "Turbo" melayani beranda langsung dari file cache oleh Apache,
+# tanpa mengeksekusi PHP sedetik pun (Masterplan BAB 4.3, lapisan kecepatan).
+# Jika hosting Anda perilakunya aneh, hapus saja blok Turbo — lapisan
+# cache PHP di dalam inti CMS tetap bekerja.
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# ==== TURBO: beranda dari cache (opsional) ====
+RewriteCond %{REQUEST_METHOD} =GET
+RewriteCond %{HTTP_COOKIE} !(^|;\s*)JRCMSSESS=
+RewriteCond __CORE_PATH__/storage/cache/%{HTTP_HOST}/index.html -f
+RewriteRule ^$ __CORE_PATH__/storage/cache/%{HTTP_HOST}/index.html [L]
+
+# ==== Front controller ====
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+RewriteRule ^ __CORE_PATH__/index.php [L]
+</IfModule>
+
+# ==== Header keamanan ====
+<IfModule mod_headers.c>
+Header set X-Content-Type-Options "nosniff"
+Header set X-Frame-Options "SAMEORIGIN"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ==== Kompresi ====
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript application/json image/svg+xml
+</IfModule>

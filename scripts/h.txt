@@ -1,0 +1,12 @@
+HTTP/1.1 302 Found
+Host: 127.0.0.1:8099
+Date: Sun, 25 Oct 2026 17:45:24 GMT
+Connection: close
+X-Powered-By: PHP/8.4.8
+Set-Cookie: JRCMSSESS=3d7ee15e8fd88f600d1b4a077438c452; path=/; HttpOnly; SameSite=Lax
+Expires: Thu, 19 Nov 1981 08:52:00 GMT
+Cache-Control: no-store, no-cache, must-revalidate
+Pragma: no-cache
+Location: /admin/login
+Content-type: text/html; charset=UTF-8
+

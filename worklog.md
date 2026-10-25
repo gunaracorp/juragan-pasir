@@ -24,3 +24,24 @@ Stage Summary:
 - Kredensial: admin@juraganpasir.id / juragan2026 (ubah via DB jika perlu).
 - Key files: prisma/schema.prisma (14 model), src/lib/cms-*.ts (5 modul inti), src/components/admin/*, src/app/admin/* (13 halaman), src/app/api/** (11 endpoint), scripts/seed.ts.
 - Arsitektur berkembang bebas: tambah konten baru = entri di cms-resource-registry.ts + renderer di page.tsx; section baru = baris di tabel Section.
+
+---
+Task ID: 2
+Agent: Z.ai (Master Polymath — main agent)
+Task: Sesuai Masterplan "Arsitektur 100 Tahun 46 Situs" (PDF upload user): ubah arah migrasi Next.js → Full PHP sesuai vonis stack (pure PHP multi-tenant, tanpa Composer, tanpa build, shared hosting cPanel, MySQL, HTML page cache, nol rupiah), dan BANGUN CMS v1 siap deploy.
+
+Work Log:
+- Serap Masterplan 9 BAB (aset 46 situs, 82 slot hosting, Vercel Hobby ToS bomb, tier A/B/C, playbook SEO, matematika nol rupiah, roadmap 90 hari).
+- Rekonsiliasi jujur usulan lama vs masterplan: buang Composer/FastRoute (→ autoloader buatan), buang SQLite produksi (→ MySQL), buang build Tailwind (→ CSS jadi), buang CDN htmx (→ vanilla JS); TAMBAH fitur baru sesuai BAB 4: multi-tenant resolver + page cache HTML + installer web 2-mode.
+- Download static PHP 8.4.8 (dl.static-php.dev) karena sandbox tanpa PHP/sudo; verifikasi modul pdo_sqlite/pdo_mysql/gd/mbstring/fileinfo.
+- Bangun CORE CMS v1 (34 file PHP/CSS/JS): core (Bootstrap, Config, Tenant, Database, View, Auth+CSRF, Cache, Settings, Seo, Media, Installer, Router, Helpers), controllers (Front, Admin), 10 view front+admin (termasuk install.php mandiri), tema juragan (style.css animasi + main.js IntersectionObserver/counter/reduced-motion), admin.css/admin.js, config samples, kit-domain (index.php tipis + htaccess Turbo), README-ID.md (deploy cPanel 5 langkah), docs/ADJUSTMENT-NOTES.md.
+- Seed konten asli Juragan Pasir Galunggung dari scripts/seed.ts Next.js: 3 halaman (beranda+hero/stats/segmen/keunggulan/proses, tentang, kontak), 6 produk, 4 testimoni, 7 FAQ, settings lengkap (WA 6281316516524, alamat, geo, SEO).
+- Bug yang ditemukan & diperbaiki selama E2E: (1) Helpers.php tak pernah dimuat → require_once di Bootstrap; (2) $this di method statis Installer (self::); (3) cache peta tenant tak ter-reset di reload() → tabel dibuat prefiks salah; (4) data layout front dikirim ke argumen render yang salah → seo/schemas/nav kosong; (5) regex media menolak dash; (6) admin.css tak tersaji (rute aset kini fallback ke /assets inti); (7) header X-Cache MISS tidak diset; (8) duplikasi nama situs di meta title; (9) test harness: cookie jar CSRF + pembersihan port/cache antar-run.
+- Verifikasi: php -l semua file bersih; suite E2E 37/37 LULUS (scripts/test-core-cms.sh): install→seed→home SEO lengkap (title/canonical/OG/JSON-LD WebSite+LocalBusiness+FAQPage)→cache MISS/HIT→tentang→produk Article LD→404→sitemap→robots→admin guard→login→dashboard→edit→purge→frontend berubah→media upload+serve→tambah tenant t2_→logout.
+- Verifikasi visual agent-browser: screenshot home (hero, stats counter tertangkap animasi, produk grid, testimoni, CTA), login, dashboard admin (Kesehatan SEO mendeteksi meta kosong). PNG di download/screenshots/.
+- Paket distribusi dibersihkan ke state pristine (lock/config/db/cache dihapus) → download/core_cms-v1.zip (74 KB, 66 file).
+
+Stage Summary:
+- Deliverable: /home/z/my-project/download/core_cms-v1.zip — CMS multi-tenant pure PHP siap upload cPanel + README deploy 15 menit.
+- Kredensial uji: admin / juragan2026 (dibuat via installer saat deploy nyata).
+- Status vs Masterplan: CMS v1 (Hari 5-7 jadwal) TUNTAS lebih awal; langkah berikutnya user: deploy ke akun A (Hari 3-4), pilot juragan-pasir (Hari 8-10), static export Tier C (11-12), cutover DNS (13-14).
