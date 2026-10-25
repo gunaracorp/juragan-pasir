@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { LogoMark } from "@/components/juragan/logo";
+import { ThemeCredit } from "@/components/cms/theme-credit";
 import { CMS_NAME, CMS_VERSION } from "@/lib/cms-version";
 import { cn } from "@/lib/utils";
 import {
@@ -112,9 +113,12 @@ export function AdminShell({
       </nav>
 
       <div className="border-t border-white/10 p-4">
-        <p className="mb-3 text-center text-[10px] font-bold uppercase tracking-[0.18em] text-white/25">
-          {CMS_NAME} CMS v.{CMS_VERSION}
-        </p>
+        <div className="mb-3 flex flex-col items-center gap-2">
+          <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-white/25">
+            {CMS_NAME} CMS v.{CMS_VERSION}
+          </p>
+          <ThemeCredit variant="badge" />
+        </div>
         <div className="mb-3 flex items-center gap-3 px-1">
           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-500/20 text-xs font-extrabold text-gold-300">
             {(name || "A").slice(0, 2).toUpperCase()}

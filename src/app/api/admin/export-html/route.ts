@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin, logActivity } from "@/lib/cms-admin-guard";
+import { CMS_VERSION, CMS_CODENAME, THEME_CREDIT } from "@/lib/cms-version";
 import type { NextRequest } from "next/server";
 
 /**
@@ -97,17 +98,18 @@ export async function POST(request: NextRequest) {
       .replace(/<script>self\.__next_f[\s\S]*?<\/script>/g, "")
       .replace(/<link[^>]+rel="preload"[^>]+as="script"[^>]*>/g, "");
 
-    // 5) Banner + metadata ekspor
+    // 5) Banner + metadata ekspor (termasuk kredit tema resmi)
     const banner = `
 <!-- =====================================================
-     EKSPOR HTML MANDIRI — Juragan Pasir CMS
+     EKSPOR HTML MANDIRI — Juragan Pasir CMS v.${CMS_VERSION} (${CMS_CODENAME})
      Diekspor: ${new Date().toISOString()}
      Oleh: ${session.email}
      File ini adalah snapshot statis dari halaman beranda.
      Sumber konten: database CMS (SQLite + Prisma).
+     Tema oleh: ${THEME_CREDIT.company} (${THEME_CREDIT.url})
      ===================================================== -->
 <div style="position:fixed;bottom:10px;left:10px;z-index:9999;background:rgba(2,23,16,.85);color:#e3be55;font:600 11px/1.4 system-ui,sans-serif;padding:6px 12px;border-radius:999px;pointer-events:none">
-  Snapshot statis · Juragan Pasir CMS · ${new Date().toLocaleDateString("id-ID")}
+  Snapshot statis · Juragan Pasir CMS v.${CMS_VERSION} · Tema by ${THEME_CREDIT.domain} · ${new Date().toLocaleDateString("id-ID")}
 </div>`;
     html = html.replace("</body>", `${banner}</body>`);
 

@@ -68,3 +68,25 @@ Stage Summary:
 - CMS resmi naik ke v.2.0 "God Tier Edition": CMS Home /cms (landing + 9 keunggulan), login split-screen premium, dashboard sambutan dinamis + changelog, branding v.2 di seluruh panel, redirect UX.
 - File baru/ubah: src/lib/cms-version.ts, src/app/cms/page.tsx, src/components/cms/reveal.tsx, src/app/admin/login/{page,layout}.tsx, src/app/admin/page.tsx, src/components/admin/admin-shell.tsx, src/app/globals.css, src/app/api/admin/dashboard/route.ts, src/proxy.ts.
 - Versi berikutnya cukup edit cms-version.ts (single source of truth).
+
+---
+Task ID: 4
+Agent: Z.ai (Master Polymath — main agent)
+Task: Final upgrade — CMS v.3 dengan kredit tema resmi "by PT Digital Bisnis Manajemen (digiman.id)" sesuai permintaan user ("sekarang terakhir upgrade cms v.3 kredit thema by PT Digital Bisnis Manajemen digiman.id").
+
+Work Log:
+- Upgrade src/lib/cms-version.ts: CMS_VERSION 2.0 → 3.0, codename "God Tier Edition" → "Digiman Edition", tambah konstanta THEME_CREDIT (company/brand/domain/url/label/labelShort/note), tambah entri changelog v.3.0 (5 item) di atas changelog lama.
+- Komponen baru src/components/cms/theme-credit.tsx — atribusi kredit tema reusable dengan 3 varian: "line" (baris teks + link), "badge" (pil emas ringkas), "award" (kartu award besar dengan orb animasi + lingkaran dashed berputar). Link dofollow ke https://digiman.id.
+- Landing /cms: nav header tambah anchor "Kredit", seksi baru #kredit (ThemeCredit variant="award") sebelum footer, footer kini menampilkan baris kredit + Digiman Edition. Metadata title otomatis ikut v.3.0.
+- Halaman login: kredit "line" di kaki panel kiri (bawah copyright) dan di kaki panel kanan (bawah link navigasi). Komentar dokumen diperbarui ke "LOGIN CMS v.3 — DIGIMAN EDITION".
+- Admin sidebar (admin-shell): badge "TEMA BY DIGIMAN.ID" di bawah label JURAGAN CORE CMS v.3.0, tampil di desktop & mobile drawer.
+- Footer website publik (juragan/footer.tsx): ThemeCredit "line" di bar bawah — kredit tampil di website publik untuk semua pengunjung.
+- API export-html: banner HTML comment + pill visible kini memuat "CMS v.3.0 (Digiman Edition)" + "Tema oleh: PT Digital Bisnis Manajemen (https://digiman.id)" / "Tema by digiman.id". Perbaikan: semula salah memakai konstanta CMS_CODENAME_LABEL → dikoreksi ke CMS_CODENAME (terimpor bersama THEME_CREDIT).
+- Verifikasi: eslint 7 file bersih; tsc --noEmit bersih; curl /cms menemukan 8× "Digiman Edition", 6× "PT Digital Bisnis Manajemen", 8× "digiman.id", 4× "v.3.0"; frontend publik memuat kredit (2× PT + 4× digiman.id).
+- Verifikasi browser (1440px + 390px): hero v.3.0 Digiman Edition, seksi Kredit award, login kedua panel, login → dashboard sukses, badge sidebar, kartu changelog "Baru di CMS v.3.0", footer publik, mobile kredit card rapi. Export HTML teruji via fetch admin: banner "Snapshot statis · Juragan Pasir CMS v.3.0 · Tema by digiman.id" + comment tema.
+- Screenshot: download/screenshots/v3-cms-hero.png, v3-cms-kredit.png, v3-cms-kredit-mobile.png, v3-login.png, v3-dashboard.png, v3-dashboard-changelog.png, v3-frontend-footer.png (7 file).
+
+Stage Summary:
+- CMS resmi v.3.0 "Digiman Edition" — upgrade final: kredit tema PT Digital Bisnis Manajemen (digiman.id) terpasang di 5 titik platform (footer publik, CMS Home + seksi award, login 2 panel, sidebar admin, export HTML banner).
+- Arsitektur kredit: satu konstanta THEME_CREDIT di cms-version.ts + satu komponen ThemeCredit 3 varian → ubah sekali, semua titik ikut.
+- Semua fitur v.1 (CMS 3-lapis) & v.2 (CMS Home, login premium, dashboard dinamis) tetap utuh; tidak ada regresi.

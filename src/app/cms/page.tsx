@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { LogoMark } from "@/components/juragan/logo";
 import { Reveal } from "@/components/cms/reveal";
+import { ThemeCredit } from "@/components/cms/theme-credit";
 import {
   CMS_NAME,
   CMS_VERSION,
@@ -98,6 +99,7 @@ export default function CmsHomePage() {
             <a href="#keunggulan" className="transition-colors hover:text-gold-300">Keunggulan</a>
             <a href="#alur" className="transition-colors hover:text-gold-300">Cara Kerja</a>
             <a href="#teknologi" className="transition-colors hover:text-gold-300">Teknologi</a>
+            <a href="#kredit" className="transition-colors hover:text-gold-300">Kredit</a>
           </nav>
           <Link
             href="/admin/login"
@@ -317,6 +319,13 @@ export default function CmsHomePage() {
         </section>
       </main>
 
+      {/* ══ KREDIT TEMA ══ */}
+      <section id="kredit" className="relative mx-auto max-w-4xl scroll-mt-24 px-4 pb-10 pt-6 sm:px-6">
+        <Reveal>
+          <ThemeCredit variant="award" />
+        </Reveal>
+      </section>
+
       {/* ══ FOOTER ══ */}
       <footer className="relative border-t border-white/10 py-8">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 text-center sm:flex-row sm:px-6 sm:text-left">
@@ -324,9 +333,12 @@ export default function CmsHomePage() {
             <LogoMark className="h-6 w-6" />
             {CMS_NAME} CMS <span className="text-gold-400">v.{CMS_VERSION}</span>
           </p>
-          <p className="text-xs text-white/35">
-            {CMS_CODENAME} · Dibangun untuk Juragan Pasir Galunggung © {new Date().getFullYear()}
-          </p>
+          <div className="flex flex-col items-center gap-1.5 sm:items-end">
+            <p className="text-xs text-white/35">
+              {CMS_CODENAME} · Dibangun untuk Juragan Pasir Galunggung © {new Date().getFullYear()}
+            </p>
+            <ThemeCredit variant="line" />
+          </div>
         </div>
       </footer>
     </div>

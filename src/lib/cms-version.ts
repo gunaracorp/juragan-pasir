@@ -6,13 +6,42 @@
  */
 
 export const CMS_NAME = "JURAGAN CORE";
-export const CMS_VERSION = "2.0";
-export const CMS_CODENAME = "God Tier Edition";
+export const CMS_VERSION = "3.0";
+export const CMS_CODENAME = "Digiman Edition";
 export const CMS_RELEASE_LABEL = `v.${CMS_VERSION} · ${CMS_CODENAME}`;
 export const CMS_BUILD_YEAR = 2026;
 
+/**
+ * KREDIT TEMA — atribusi resmi desain tema CMS.
+ * Tema v.3 dirancang oleh PT Digital Bisnis Manajemen (digiman.id).
+ * Dipakai di: footer website publik, landing /cms, halaman login,
+ * sidebar admin, dan banner export HTML.
+ */
+export const THEME_CREDIT = {
+  company: "PT Digital Bisnis Manajemen",
+  brand: "Digiman",
+  domain: "digiman.id",
+  url: "https://digiman.id",
+  label: "Tema oleh PT Digital Bisnis Manajemen",
+  labelShort: "Tema by Digiman.id",
+  note: "Desain & tema CMS v.3 ini adalah karya PT Digital Bisnis Manajemen — mitra digital untuk bisnis yang tumbuh.",
+} as const;
+
+/** KREDIT TEMA (config di atas) — dipakai di: website publik, /cms, login, admin, export HTML. */
+
 /** Changelog resmi — tampil di dashboard & landing /cms */
 export const CMS_CHANGELOG: { version: string; date: string; items: string[] }[] = [
+  {
+    version: "3.0",
+    date: "Oktober 2026",
+    items: [
+      "Kredit tema resmi: Tema oleh PT Digital Bisnis Manajemen (digiman.id)",
+      "Seksi Kredit & Penghargaan baru di CMS Home — atribusi elegan bergaya award",
+      "Kredit terpasang di 5 titik: footer publik, CMS Home, login, sidebar admin, export HTML",
+      "Edisi berganti nama: God Tier → Digiman Edition, meresmikan kemitraan desain",
+      "Pondasi v.2 utuh: CMS Home 9 keunggulan, login split-screen, dashboard dinamis",
+    ],
+  },
   {
     version: "2.0",
     date: "Oktober 2026",

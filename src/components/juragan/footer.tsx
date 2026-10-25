@@ -1,5 +1,6 @@
 import { Clock, Mail, MapPin, Phone } from "lucide-react";
 import { Logo } from "./logo";
+import { ThemeCredit } from "@/components/cms/theme-credit";
 import type { CmsProduct, CmsSettings } from "@/lib/cms-types";
 
 /**
@@ -144,9 +145,12 @@ export function Footer({
           <p className="text-xs text-white/35">
             {settings.footer.copyright}
           </p>
-          <p className="text-xs text-white/35">
-            Pasir Galunggung — <span className="text-gold-400/80">Terbaik di Dunia</span> — melayani seluruh nusantara.
-          </p>
+          <div className="flex flex-col items-center gap-1.5 sm:items-end">
+            <p className="text-xs text-white/35">
+              Pasir Galunggung — <span className="text-gold-400/80">Terbaik di Dunia</span> — melayani seluruh nusantara.
+            </p>
+            <ThemeCredit variant="line" />
+          </div>
         </div>
       </div>
     </footer>

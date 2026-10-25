@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LogoMark } from "@/components/juragan/logo";
+import { ThemeCredit } from "@/components/cms/theme-credit";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -28,10 +29,11 @@ import {
 } from "lucide-react";
 
 /**
- * LOGIN CMS v.2 — FULL REDESIGN
+ * LOGIN CMS v.3 — DIGIMAN EDITION
  * Split-screen premium: panel kiri peraga brand (desktop), panel kanan form.
  * Animasi: fade-up bertahap, orb bergerak, kilau tombol, guncangan saat error.
  * Logika auth tetap sama: POST /api/admin/login (JWT httpOnly).
+ * Kredit tema: PT Digital Bisnis Manajemen — digiman.id
  */
 
 const PANEL_FEATURES = [
@@ -150,9 +152,12 @@ export default function AdminLoginPage() {
           </ul>
         </div>
 
-        <p className="anim-fade-in anim-delay-6 relative text-xs text-white/30">
-          © {new Date().getFullYear()} Juragan Pasir Galunggung — Dibangun dengan {CMS_NAME} CMS
-        </p>
+        <div className="anim-fade-in anim-delay-6 relative space-y-2.5">
+          <p className="text-xs text-white/30">
+            © {new Date().getFullYear()} Juragan Pasir Galunggung — Dibangun dengan {CMS_NAME} CMS
+          </p>
+          <ThemeCredit variant="line" className="justify-start" />
+        </div>
       </aside>
 
       {/* ══ PANEL KANAN — FORM ══ */}
@@ -299,6 +304,8 @@ export default function AdminLoginPage() {
               Kembali ke website
             </Link>
           </div>
+
+          <ThemeCredit variant="line" className="mt-6" />
         </div>
       </main>
     </div>
